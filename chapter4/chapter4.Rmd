@@ -1,0 +1,53 @@
+---
+title: ""
+author: ""
+date: ""
+output:
+  xaringan::moon_reader:
+    css: [default, zh-CN.css, Custumed_Style.css]
+    nature:
+      highlightLines: true
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+class: center, middle
+<span style="font-size: 50px;">**第四章**</span> <br>
+<span style="font-size: 50px;">__如何清理数据（一）__</span> <br>
+<span style="font-size: 40px;">R语言编程基础</span><br>
+<span style="font-size: 30px;">胡传鹏</span> <br>
+<span style="font-size: 20px;"> </span> <br>
+<span style="font-size: 30px;">`r Sys.Date()`</span> <br>
+<span style="font-size: 20px;"> Made with Rmarkdown</span> <br>
+---
+### 4.1 R对象的操控
+### 4.2 逻辑运算
+### 4.3 函数
+
+---
+# 4.1 R对象的操控
+## 对象
+<span style="font-size: 30px;"> partner × </span> <br>
+<span style="font-size: 30px;"> object √ </span> <br>
+- <span style="font-size: 30px;"> 在R中存储的数据称为对象，R语言数据处理实际上就是不断地创建和操控这些对象。 </span> <br>
+
+---
+# 4.1 R对象的操控
+## 创建对象
+在R中，我们可以使用赋值操作符“<-”给对象赋值。<br>
+比如：
+```{r}
+object <- 10
+object
+```
+我们给对象“object”赋值为10
+
+
+
+
+
+
+
+
+
+
+

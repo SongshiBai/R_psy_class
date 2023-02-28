@@ -1,0 +1,22 @@
+/* 标题之间的行间距 */
+.remark-slide-content h1,
+.remark-slide-content h2,
+.remark-slide-content h3,
+.remark-slide-content h4,
+.remark-slide-content h5,
+.remark-slide-content h6 {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+
+/* 标题的字号 */
+.remark-slide-content h1 {
+  font-size: 2em;
+}
+.remark-slide-content h2 {
+  font-size: 1.5em;
+}
+.remark-slide-content h3 {
+  font-size: 1em;
+}
