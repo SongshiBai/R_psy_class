@@ -257,6 +257,8 @@ matrix_02["R1", ]
 data：向量，数组元素。<br>
 dim：数组的维度，默认是一维数组。<br>
 dimnames：维度的名称，必须是个列表，默认情况下是不设置名称的。<br>
+<br>
+__创建一个数组↓__
 ---
 # 4.1 R对象的操控
 ```{r}
@@ -269,7 +271,7 @@ z
 ---
 # 4.1 R对象的操控
 ## 数组（Array）
-<font size=5>索引
+<font size=5>数组的索引：
 ```{r}
 z[1,,]
 z[,1,]
@@ -280,7 +282,41 @@ z[,,1]
 # 4.1 R对象的操控
 ## 数据框（Data frame）
 <font size=5>&emsp;&emsp;数据框（Data frame）可以理解成我们常说的"表格"。数据框每一列都有一个唯一的列名，长度都是相等的，同一列的数据类型需要一致，不同列的数据类型可以不一样
-![dataframe](https://hbctraining.github.io/Intro-to-R-flipped/img/dataframe.png)
+<div style="text-align:center">![dataframe](https://hbctraining.github.io/Intro-to-R-flipped/img/dataframe.png#pic_center)
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+<font size=5>&emsp;&emsp;创建一个数据框：<br>
+```{r}
+df <- data.frame(
+  姓名  =  c("张三", "李四"),
+  工号  =  c("001", "002"),
+  月薪  =  c(1000, 2000)
+)
+df
+```
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+<font size=5>&emsp;&emsp;创建一个数据框：<br>
+```{r}
+class(df$姓名)
+class(df$工号)
+class(df$月薪)
+```
+<font size=5>&emsp;&emsp;可以看到“姓名”“工号”两列的类型为字符串，“月薪”一列的类型为数值。
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+<font size=5>&emsp;&emsp;增加一列“部门”信息：
+```{r}
+df$部门 <- c("运营","技术")
+df
+```
+
+
 
 
 

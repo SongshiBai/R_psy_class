@@ -18,7 +18,7 @@ class: center, middle
 &lt;span style="font-size: 40px;"&gt;R语言编程基础&lt;/span&gt;&lt;br&gt;
 &lt;span style="font-size: 30px;"&gt;胡传鹏&lt;/span&gt; &lt;br&gt;
 &lt;span style="font-size: 20px;"&gt; &lt;/span&gt; &lt;br&gt;
-&lt;span style="font-size: 30px;"&gt;2023-03-01&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 30px;"&gt;2023-03-02&lt;/span&gt; &lt;br&gt;
 &lt;span style="font-size: 20px;"&gt; Made with Rmarkdown&lt;/span&gt; &lt;br&gt;
 ---
 ### 4.1 R对象的操控
@@ -448,6 +448,8 @@ matrix_02["R1", ]
 data：向量，数组元素。&lt;br&gt;
 dim：数组的维度，默认是一维数组。&lt;br&gt;
 dimnames：维度的名称，必须是个列表，默认情况下是不设置名称的。&lt;br&gt;
+&lt;br&gt;
+__创建一个数组↓__
 ---
 # 4.1 R对象的操控
 
@@ -487,7 +489,7 @@ z
 ---
 # 4.1 R对象的操控
 ## 数组（Array）
-&lt;font size=5&gt;索引
+&lt;font size=5&gt;数组的索引：
 
 ```r
 z[1,,]
@@ -524,7 +526,74 @@ z[,,1]
 # 4.1 R对象的操控
 ## 数据框（Data frame）
 &lt;font size=5&gt;&amp;emsp;&amp;emsp;数据框（Data frame）可以理解成我们常说的"表格"。数据框每一列都有一个唯一的列名，长度都是相等的，同一列的数据类型需要一致，不同列的数据类型可以不一样
-![dataframe](https://hbctraining.github.io/Intro-to-R-flipped/img/dataframe.png)
+&lt;div style="text-align:center"&gt;![dataframe](https://hbctraining.github.io/Intro-to-R-flipped/img/dataframe.png#pic_center)
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;创建一个数据框：&lt;br&gt;
+
+```r
+df &lt;- data.frame(
+  姓名  =  c("张三", "李四"),
+  工号  =  c("001", "002"),
+  月薪  =  c(1000, 2000)
+)
+df
+```
+
+```
+##   姓名 工号 月薪
+## 1 张三  001 1000
+## 2 李四  002 2000
+```
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;创建一个数据框：&lt;br&gt;
+
+```r
+class(df$姓名)
+```
+
+```
+## [1] "character"
+```
+
+```r
+class(df$工号)
+```
+
+```
+## [1] "character"
+```
+
+```r
+class(df$月薪)
+```
+
+```
+## [1] "numeric"
+```
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;可以看到“姓名”“工号”两列的类型为字符串，“月薪”一列的类型为数值。
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;增加一列“部门”信息：
+
+```r
+df$部门 &lt;- c("运营","技术")
+df
+```
+
+```
+##   姓名 工号 月薪 部门
+## 1 张三  001 1000 运营
+## 2 李四  002 2000 技术
+```
+
+
 
 
 
