@@ -7,8 +7,13 @@
 .remark-slide-content h6 {
   margin-top: 0.1em;
   margin-bottom: 0.1em;
+ font-family: "楷体", "KaiTi", "Microsoft YaHei", sans-serif;
 }
 
+/* 英文字体 */
+body {
+  font-family: "Times New Roman", Times, serif;
+}
 
 /* 标题的字号 */
 .remark-slide-content h1 {
@@ -20,3 +25,19 @@
 .remark-slide-content h3 {
   font-size: 1em;
 }
+
+/* 标题字体 */
+body {
+  font-family: "楷体", KaiTi, STKaiti, "SimKai", serif;
+  font-size: 16px;
+  color: #333;
+  font-weight: normal;
+}
+
+body :lang(en) {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  color: #666;
+  font-weight: bold;
+}
+
