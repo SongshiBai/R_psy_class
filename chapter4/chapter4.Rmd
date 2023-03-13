@@ -1,10 +1,11 @@
 ---
 title: ""
-author: ""
+author: "Pac_B"
 date: ""
 output:
   xaringan::moon_reader:
-    css: [default, Custumed_Style.css, zh-CN.css]
+    css: [default, css/Custumed_Style.css, css/zh-CN.css]
+    lib_dir: libs
     nature:
       highlightLines: true
       highlightStyle: github
@@ -18,27 +19,87 @@ class: center, middle
 <span style="font-size: 20px;"> </span> <br>
 <span style="font-size: 30px;">`r Sys.Date()`</span> <br>
 <span style="font-size: 20px;"> Made with Rmarkdown</span> <br>
----
-### 4.1 R对象的操控
-### 4.2 逻辑运算
-### 4.3 函数
-```{r include=FALSE}
-# 读取.csv类型文件
-penguin.data <- read.csv('./data/penguin/penguin_rawdata.csv',
-                         header = TRUE, sep=",",
-                         stringsAsFactors = FALSE)
-options(width=70)#调整输出长度
-```
----
-# 4.1 R对象的操控
-## 对象
-<span style="font-size: 30px;"> partner × </span> <br>
-<span style="font-size: 30px;"> object √ </span> <br>
-- <span style="font-size: 30px;"> 在R中存储的数据称为对象，R语言数据处理实际上就是不断地创建和操控这些对象。 </span> <br>
 
 ---
-# 4.1 R对象的操控
-## 创建对象
+#回顾
+##工作目录与路径
+##读取数据
+<br><br>
+#本节课内容
+##了解函数
+##- 数据筛选
+##-- 向量类型
+##-- 比较运算
+
+---
+#准备
+##下载压缩包，解压
+##打开文件夹，双击打开__R_psy_class.Rproj__
+
+
+---
+# 回顾
+## 创建 R Script
+<font size=5>
+&emsp;&emsp;我们可以创建一个R Script文件帮助我们更好地记录曾经写过什么，也方便我们对写的代码进行检查。
+</font><br>
+![rscript](./picture/chapter4/scrip.png) <br>
+
+
+---
+# 回顾
+## 创建 R Script
+<font size=5>
+&emsp;&emsp;并选择 File-Save as…进行保存。这里我们统一保存压缩包的目录里。data文件里有本课涉及到的两个数据。
+</font><br>
+![rscript](./picture/chapter4/mulu.png)
+
+---
+# 回顾
+## 读取数据
+<font size=5>
+&emsp;&emsp;同学们可以根据相对路径读取数据。
+</font><br>
+```{r}
+#问卷数据参考读取方法：
+penguin.data <- read.csv("./data/penguin/penguin_rawdata.csv",
+                         header = TRUE, sep=",",
+                         stringsAsFactors = FALSE)
+```
+
+---
+# 回顾
+## 读取数据
+<font size=5>
+&emsp;&emsp;同学们可以根据相对路径读取数据。
+</font><br>
+```{r}
+#实验数据参考读取方法，这里我们随便选择三个被试：
+match.data1 <- read.csv("./data/match/data_exp7_rep_match_7304.out", 
+                        header = TRUE, sep = "", 
+                        stringsAsFactors = FALSE)
+match.data2 <- read.csv("./data/match/data_exp7_rep_match_7305.out", 
+                        header = TRUE, sep = "", 
+                        stringsAsFactors = FALSE)
+match.data3 <- read.csv("./data/match/data_exp7_rep_match_7306.out", 
+                        header = TRUE, sep = "", 
+                        stringsAsFactors = FALSE)
+```
+
+---
+# 回顾
+## 读取数据
+<font size=5>
+&emsp;&emsp;这里我们有了三个被试的数据，可是他们分散在三个data中，我们并不好进行比较，这里我们可以使用rbind()函数对他们进行组合。
+</font><br>
+```{r}
+#组合三个数据：
+match.data.all <- rbind(match.data1, match.data2, match.data3)
+```
+
+---
+# 补充
+## R对象的赋值
 在R中，我们可以使用赋值操作符“<-”给对象赋值。<br>
 比如：
 ```{r}
@@ -54,27 +115,19 @@ object + 2
 ```{r}
 object
 ```
----
-# 4.1 R对象的操控
-## 创建对象
-<font size=5>如果想要改变“object”需要对其重新进行赋值：
-```{r}
-object <- object + 2
-```  
-<br>
-tips: 在RStudio中，有许多快捷键。比如赋值符号可同时按下： <br>
-<br>
-<center>Windows：“Alt” 和 “-” </center><br>
-<center>Mac：“option” 和 “-” </center><br>
----
-# 4.1 R对象的操控
-## 创建对象
--   <font size=5>可以在RStudio的Tools选项里找到快捷键帮助和修改：</font><br>
-<br><br>
-![tools][./picture/tools.png]
 
 ---
-# 4.1 R对象的操控
+# 补充
+## R对象的赋值
+&emsp;&emsp;因此，在组合三个数据时，我们需要一个新的R的对象来容纳组合成的新数据<br>
+```{r}
+#组合三个数据：
+match.data.all <- rbind(match.data1, match.data2, match.data3)
+```
+&emsp;&emsp;在这里，新的对象叫做match.data.all，三个被试的数据被组合在一起装了进去。
+
+---
+# 补充
 ## 创建对象
 &emsp;&emsp; <font size=5>  变量名可以由字母、数字、_和.组成。并且变量名的第一个字符不能为数字或者特殊符号，比如 +, -, *, /, ^, !, @, &。</font> <br>  
 <br>
@@ -88,30 +141,110 @@ tips：<br>
 &emsp;&emsp;- 命名对象最好有不错的可读性，比如“age”就要比“x”更易读。
 </font>
 
-
- <!--注：这里调整了一下去年讲的结构--> 
-
 ---
-# 4.1 R对象的操控
-## 对象的类型——数据结构
-![data structure](https://devopedia.org/images/article/46/9213.1526125966.png)
-<br>
-<p align="right"><font size=2>from http://venus.ifca.unican.es/Rintro/dataStruct.html</font></p>
----
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=6>原子向量（atomic vector）： </font> 
+# 函数
+## 什么是函数
 <font size=5>
+&emsp;&emsp;我们在这里使用的rbind()就是R base中的一个基本函数。
+<br>
+&emsp;&emsp;在R中，函数是一种用于执行特定任务或计算的代码块。函数接受输入参数，执行特定的操作，并返回结果。
+</font>
+<br><br>
+<font size=6>
+- 已有函数<br>
+&emsp;&emsp;- R base; <br>
+&emsp;&emsp;- R packages; <br>
+&emsp;&emsp;- functions from other sources<br>
+- 自定义函数
+</font>
+
+---
+# 函数
+## 什么是函数
+<font size=5>
+&emsp;&emsp;如果我们不知道一个函数是什么，有什么用处。在R中，我们可以在Console中使用“?函数名”来打开帮助文档。
+</font><br>
+![qiuzhu](./picture/chapter4/qiuzhu.png)
+![qiuzhu2](./picture/chapter4/qiuzhu2.png){:height="20px" width="80px"}
+
+---
+# 函数
+## 如何调用已有函数
+<font size=5>
+&emsp;&emsp;直接调用:functions()
+</font>
+```{r}
+#直接调用：
+library("here")#加载here包，install的R包需要library后使用
+here()
+```
+<font size=5>
+&emsp;&emsp;注意，当你使用不同的包的时候，为了避免出现函数名重复导致调用错误，可以使用：R包::functions()
+</font>
+```{r}
+#给出R包的调用：
+here::here()#这里第一个here是R包，第二个here是调用这个包里here函数
+```
+
+---
+# 函数
+## 常用函数
+## unique()
+<font size=5>
+&emsp;&emsp;如果我们拿到了match.data.all，想要知道Label这一列有多少种独特的情况，我们可以使用unique()函数。
+</font>
+```{r}
+#使用$符号定位某一列
+head(match.data.all$Label,10)
+#使用unique查看这一列有多少种独特的情况
+unique(match.data.all$Label)
+```
+---
+# 函数
+## 常用函数
+## r filter()
+<font size=5>
+&emsp;&emsp;函数可以帮助我们完成很多操作，比如筛选数据。这里我们介绍filter()函数。
+</font>
+library
+```{r}
+#筛选出match.data.all的Match列中所有mismatch的数据
+mismatch <- dplyr::filter(match.data.all, match.data.all$Match == "mismatch")
+#查看是否成功
+unique(mismatch$Match)
+```
+
+---
+# 运算
+## 比较运算
+<font size=5>
+&emsp;&emsp;我们先看函数里的内容。在这里我们使用了match.data.all$Match == "mismatch"来判断Match列中的每一个对象是否“==”mismatch，这里的“==”是R的比较运算符。
+</font>
+
+---
+# 运算
+## 比较运算
+<font size=5>
+&emsp;&emsp;比较运算符，旨在将两个两个向量的相应元素进行比较，返回比较结果为真TRUE、假FALSE。
+</font>
+![bijiao](./picture/chapter4/bijiao.png)
+
+---
+# 向量的类型
+<font size=5>
+&emsp;&emsp;我们在进行比较运算时，比较的两个向量需要类型相同。
+</font>
+## 向量（Vector）<br>
+<font size=6>
 - 逻辑型（logical）<br>
 - 整型（integer）<br>
 - 双精度型（double）<br>
 - 字符型（character）<br>
 - 复数型（complex）<br> 
 - 原始型（raw）<br>
+
 ---
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=6>原子向量（atomic vector）： </font> 
+# 向量的类型
 <font size=5>
 - 逻辑型（logical）<br>
 ```{r}
@@ -125,10 +258,9 @@ print(c(a,b))
 a <- 3L
 a
 ```
+
 ---
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=6>原子向量（atomic vector）： </font> 
+# 向量的类型
 <font size=5>
 - 双精度型（double）<br>
 ```{r}
@@ -140,10 +272,9 @@ a
 a <- "R4Psy"
 a
 ```
+
 ---
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=6>原子向量（atomic vector）： </font> 
+# 向量的类型
 <font size=5>
 - 复数型（complex）<br> 
 ```{r}
@@ -155,379 +286,81 @@ a
 a <- charToRaw('hello')
 a
 ```
----
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=5>因子型向量（factor）:有顺序或者没有顺序的分类变量。</font>
-<font size=5>factor(x,levels=,labels=levels,ordered=,…)</font>
-```{r}
-factor_01 <- factor(c("male","female","female","male"))
-factor_01
-mode(factor_01)
-as.numeric(factor_01)
-levels(factor_01)
-```
 
 ---
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=5>&emsp;&emsp;在R中，我们可以使用c()来__合并__原子向量和向量（我们可以把c看作combine）。
-```{r}
-a <- c(1,2,3)
-b <- c(4:6)
-c <- c(a,b)
-c
-```
-```{r}
-a <- c("Hello")
-b <- c("World","!")
-c <- c(a,b)
-c
-```
-
----
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=5>&emsp;&emsp;当类型不同的向量进行合并时，都会变为字符型。
-```{r}
-x <- c(1,2,3)
-y <- c(4:6)
-z <- c("7")
-c1 <- c(x,y)
-c2 <- c(x,y,z)
-c1
-c2
-```
----
-# 4.1 R对象的操控
-## 向量（Vector）
-<font size=5>&emsp;&emsp;除此以外，当向量中的值的类型不同时，也存在其他的转换关系：
-- character > numeric > logical
-```{r}
-c(1, "foo", TRUE)
-c(7, TRUE, FALSE)
-```
-- double > integer
-```{r}
-c(1L, 2, pi)
-```
-
----
-# 4.1 R对象的操控
-## 矩阵（Matrix）
-&emsp;&emsp;仅包含同质数据的二维数据结构，可理解为许多同类型、等长度向量的组合。可以使用 matrix() 函数创建。
-```{r}
-matrix_01 <- matrix(1:6,nrow = 2, ncol = 3)
-matrix_01
-```
-```{r}
-cells <- c(1:6)
-row_names <- c("R1", "R2", "R3")
-col_names <- c("C1", "C2")
-matrix_02 <- matrix(cells, nrow = 3, byrow = TRUE, dimnames = list(row_names, col_names))
-matrix_02
-```
-
----
-# 4.1 R对象的操控
-## 矩阵（Matrix）
-<font size=5>索引：matrix[row_index, column_index]
-```{r}
-matrix_02
-matrix_02[1,1]
-matrix_02[1, ]
-matrix_02[ ,1]
-```
-
----
-# 4.1 R对象的操控
-## 矩阵（Matrix）
-<font size=5>索引：matrix[row_index, column_index]
-```{r}
-matrix_02
-matrix_02["R1","C1"]
-matrix_02[ ,"C1"]
-matrix_02["R1", ]
-```
-
----
-# 4.1 R对象的操控
-## 数组（Array）
-<font size=5>&emsp;&emsp;数组与矩阵类似，但是维度可以大于2。使用array()函数，该函数使用向量作为输入参数，可以使用 dim 设置数组维度。
-![data structure](https://devopedia.org/images/article/46/9213.1526125966.png)
----
-# 4.1 R对象的操控
-## 数组（Array）
-<font size=5>array(data = NA，dim = length(data), dimnames = NULL)<br>
-<br>
-data：向量，数组元素。<br>
-dim：数组的维度，默认是一维数组。<br>
-dimnames：维度的名称，必须是个列表，默认情况下是不设置名称的。<br>
-<br>
-__创建一个数组↓__
----
-# 4.1 R对象的操控
-```{r}
-dim1 <- c("A1", "A2")
-dim2 <- c("B1", "B2", "B3")
-dim3 <- c("C1", "C2", "C3", "C4")
-z <- array(1:24, c(2, 3, 4), dimnames=list(dim1, dim2, dim3))
-z
-```
----
-# 4.1 R对象的操控
-## 数组（Array）
-<font size=5>数组的索引：
-```{r}
-z[1,,]
-z[,1,]
-z[,,1]
-```
-
----
-# 4.1 R对象的操控
-## 数据框（Data frame）
-<font size=5>&emsp;&emsp;数据框（Data frame）可以理解成我们常说的"表格"。数据框每一列都有一个唯一的列名，长度都是相等的，同一列的数据类型需要一致，不同列的数据类型可以不一样
-<div style="text-align:center">![dataframe](https://hbctraining.github.io/Intro-to-R-flipped/img/dataframe.png#pic_center)
-
----
-# 4.1 R对象的操控
-## 数据框（Data frame）
-<font size=5>&emsp;&emsp;创建一个数据框：<br>
-```{r}
-df <-  data.frame(
-  姓名  =  c("张三", "李四", "王五"),
-  工号  =  c("001", "002", "003"),
-  月薪  =  c(1000, 2000, 3000))
-df
-```
-
----
-# 4.1 R对象的操控
-## 数据框（Data frame）
-<font size=5>&emsp;&emsp;创建一个数据框：<br>
-```{r}
-class(df$姓名)
-class(df$工号)
-class(df$月薪)
-```
-<font size=5>&emsp;&emsp;可以看到“姓名”“工号”两列的类型为字符串，“月薪”一列的类型为数值。
-
----
-# 4.1 R对象的操控
-## 数据框（Data frame）
-<font size=5>&emsp;&emsp;增加一列“部门”信息：
-```{r}
-df$部门 <- c("运营", "技术", "编辑")
-df
-```
-<!--<font size=5>&emsp;&emsp;增加一行信息：可以使用rbind函数，我们会在之后的函数中讲解。-->
-
----
-# 4.1 R对象的操控
-## 数据框（Data frame）
-<font size=5>&emsp;&emsp;数据框的索引:
-```{r}
-df$部门 #使用“对象名$列名”来提取某一列
-df[1,] #使用行列提取
-df[df$月薪 > 1000, ]#使用逻辑向量
-```
-<!--引出逻辑运算-->
-
----
-# 4.2 运算
-## Outline
+# 向量的类型
 <font size=5>
-### Numeric vector operations（数值型向量运算）<br>
-### &emsp;&emsp;-with same length（等长）
-### &emsp;&emsp;-with different length（不等长）
-<br>
-### Scalar operations（标量和标量运算）
-<br>
-### Numeric vector & scalar operations（数值型向量和标量运算）
-<br>
-### Logic operations（逻辑运算）
----
-# 4.2 运算
-## Numeric vector operations
-<font size=5>
-&emsp;&emsp;数值型向量（Numeric vector）：将若干个数值存储在一起可以用序号访问。
-<br>
-&emsp;&emsp;当两个数值型向量进行运算时，可能出现等长和不等长两种情况。</font>
----
-# 4.2 运算
-## Numeric vector operations with same length
-<font size=5>
-&emsp;&emsp;当两个向量等长时，运算为序号对应的元素两两运算。</font>
-```{r}
-x1 <- c(1,10)
-x2 <- c(4,2)
-x1+x2
-x1-x2
-x1*x2
-x1/x2
-```
-
----
-# 4.2 运算
-## Numeric vector operations with same length
-<font size=5>
-&emsp;&emsp;在我们的数据中比如：</font>
-
-```{r}
-length(penguin.data$ALEX1)#查看某一列的长度
-length(penguin.data$ALEX2)
-penguin.data$ALEX1+penguin.data$ALEX2
-```
-
----
-# 4.2 运算
-## Numeric vector operations with different length
-<font size=5>
-&emsp;&emsp;当两个向量不等长时，如果其长度为倍数关系，则每次从头重复利用短的一个；如果长度没有倍数关系，则会运算到长的最后一位为止。</font>
-```{r}
-x1 <- c(1, 2, 3, 4)
-x2 <- c(2, 4)
-x1+x2
-x1-x2
-x1*x2
-x1/x2
-```
-
----
-# 4.2 运算
-## Numeric vector operations with different length
-<font size=5>
-&emsp;&emsp;当两个向量不等长时，如果其长度为倍数关系，则每次从头重复利用短的一个；如果长度没有倍数关系，则会运算到长的最后一位为止。</font>
-```{r}
-x1 <- c( 2, 3, 4)
-x2 <- c(2, 4)
-x1+x2
-
-```
-<font size=5>__注意warning信息__
----
-
-# 4.2 运算
-## Numeric vector operations with different length
-<font size=5>
-&emsp;&emsp;当两个向量不等长时，如果其长度为倍数关系，则每次从头重复利用短的一个；如果长度没有倍数关系，则会运算到长的最后一位为止。</font>
-```{r}
-x1 <- penguin.data$ALEX1
-x2 <- penguin.data$ALEX2
-x1 <- na.omit(x1)#去除x1的缺失值后，x1的长度减少，与x2不再相等
-length(x1)
-length(x2)
-head(x1+x2,20)
-```
-<font size=5>__注意warning信息__
----
-# 4.2 运算
-## Logic operations
-<font size=5>
-&emsp;&emsp;逻辑型数据是R的基本数据类型之一，只有两个值TRUE和FALSE, 缺失时为NA。
-</font>
-<br>
-<font size=5>
-&emsp;&emsp;比如当我们将向量进行比较时，产生的结果就是逻辑型数据。
+&emsp;&emsp;回到match.data.all$Match == "mismatch"这里，我们可以通过class()函数查看某一向量的类型。
 </font>
 ```{r}
-x1 <- penguin.data$ALEX1
-head(x1, 10)
-head(x1 > 3, 10)#比较ALEX1里的数据是否大于3。大于则返回TRUE，小于或者等于则返回FALSE
-```
-```{r}
-x2 <- penguin.data$cigs
-head(x2 > 1, 10)#NA的比较返回NA
-```
-
----
-# 4.2 运算
-## Logic operations
-<font size=5>
-&emsp;&emsp;这里有一个应用的例子：我们可以使用is.NA()判断向量的每个元素是否为NA。
-</font>
-```{r}
-x2 <- penguin.data$cigs
-head(is.na(x2),10)
-```
----
-# 4.2 运算
-## 比较运算
-<font size=5>
-&emsp;&emsp;比较运算符，旨在将两个两个向量的相应元素进行比较，返回比较结果为真TRUE、假FALSE。
-</font>
-![bijiao](./picture/bijiao.png)
-
----
-# 4.2 运算
-## 比较运算
-```{r}
-x1 <- penguin.data$attachhome
-x2 <- penguin.data$attachphone
-head(x1)
-head(x2)
-head(x1 >= x2, 20)
-head(x1 == x2, 20)
-```
-
----
-# 4.2 运算
-## 比较运算
-<font size=5>
-&emsp;&emsp;在比较运算符中，%in%是比较特殊的，在清洗数据时我们经常会使用到它。x%in%y的运算是把向量y看成集合，依次比较x中的元素是否在集合y中。运算返回的结果是一个逻辑型向量。
-</font>
-```{r}
-#比方说我想知道是否有1973年或者1974年出生的被试。
-c(1973,1974) %in% penguin.data$age
+class(match.data.all$Match)
 ```
 <font size=5>
-&emsp;&emsp;根据这个结果我知道“age”列中存在1973和1974，说明有被试是1973或者1974年出生的，这在我们之后根据条件筛选被试中可以用到。<br>
-当然，我们也可以以此来判断某一列是否存在NA：
+&emsp;&emsp;所以，这其实是字符串的比较运算，通过Match列中每一个字符串是否和字符串“mismatch”相等来进行判断。
+</font>
+
+---
+# 函数
+## 常用函数
+## filter()
+<font size=5>
+&emsp;&emsp;以上我们理解了函数内的比较，接下来我们看看filter()函数是如何运作的。
 </font>
 ```{r}
-c(NA) %in% na.omit(penguin.data$ALEX1)
-c(NA) %in% penguin.data$cigs
+head(match.data.all$Match == "mismatch")
 ```
----
-# 4.2 运算
-## 逻辑运算
 <font size=5>
-&emsp;&emsp;为了表达“且(and)”,“或(or)”之类的复合比较，需要使用逻辑运算把两个比较连接起来。
+&emsp;&emsp;从结果我们能看出来，进行比较判断后返回的是TRUE和FALSE，也就是我们在类型中说的逻辑型。<br>
+&emsp;&emsp;filter()函数做的，就是将返回为TRUE的数据保留下来，丢弃那些FALSE的数据，并返回一个新的数据框。
 </font>
-![luoji](./picture/luoji.png)
 
 ---
+# 函数
+## 常用函数
+## filter()
+<font size=5>
+&emsp;&emsp;除了字符串以外，我们也可以利用比较判断进行数值比较。
+</font>
+```{r warning=FALSE}
+class(match.data.all$ACC)#发现类型是character而不是numeric，我们需要先转换。
+#通过as.numeric()将其他类型转化为数值型向量
+match.data.all$ACC <- as.numeric(match.data.all$ACC)
+class(match.data.all$ACC)
+```
 
+---
+# 函数
+## 常用函数
+## filter()
+<font size=5>
+&emsp;&emsp;我们想把所有ACC大于等于0的被试提出来。
+</font>
+```{r}
+#筛选出match.data.all的ACC列中所有大于等于0的数据
+mismatch <- dplyr::filter(match.data.all, match.data.all$ACC >=0)
+#查看是否成功
+unique(mismatch$ACC)
+```
 
+---
+# 练习
+## 对match数据
+<font size=5>
+&emsp;&emsp;1.读取data_exp7_rep_match_7302.out和data_exp7_rep_match_7303.out文件，使用rbind()整合<br>
+&emsp;&emsp;2.利用filter()提取出Sex为male的被试数据<br>
+&emsp;&emsp;3.利用filter()提取出Age大于25的被试数据（注意数据类型）
+</font>
+<br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
+# 练习
+## 对penguins数据
+<font size=5>
+&emsp;&emsp;1.读取数据<br>
+&emsp;&emsp;2.利用filter()提取出Site为Oxford的被试数据<br>
+&emsp;&emsp;3.利用filter()提取出1988年及之后出生的被试的数据（注意数据类型）
+</font>
+<br>
 
 
 
