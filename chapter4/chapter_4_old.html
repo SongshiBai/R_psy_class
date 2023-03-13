@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>chapter4.knit</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Pac_B" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/Custumed_Style.css" type="text/css" />
+    <link rel="stylesheet" href="css/zh-CN.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+&lt;span style="font-size: 50px;"&gt;**第四章**&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 50px;"&gt;__如何清理数据（一）__&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 40px;"&gt;R语言编程基础&lt;/span&gt;&lt;br&gt;
+&lt;span style="font-size: 30px;"&gt;胡传鹏&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 20px;"&gt; &lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 30px;"&gt;2023-03-08&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 20px;"&gt; Made with Rmarkdown&lt;/span&gt; &lt;br&gt;
+---
+# 4.1 R对象的操控
+# 4.2 逻辑运算
+# 4.3 函数
+
+---
+# 4.1 R对象的操控
+## 对象
+&lt;font size=6&gt; partner × &lt;/font&gt; &lt;br&gt;
+&lt;font size=6&gt; object  √ &lt;/font&gt; &lt;br&gt;
+- &lt;span style="font-size: 30px;"&gt; 在R中存储的数据称为对象，R语言数据处理实际上就是不断地创建和操控这些对象。 &lt;/span&gt; &lt;br&gt;
+
+---
+# 4.1 R对象的操控
+## 创建对象
+在R中，我们可以使用赋值操作符“&lt;-”给对象赋值。&lt;br&gt;
+比如：
+
+```r
+object &lt;- 10
+object
+```
+
+```
+## [1] 10
+```
+我们给对象“object”赋值为10。&lt;br&gt;
+赋值后可以对“object”进行操作，比如：&lt;br&gt;
+
+```r
+object + 2
+```
+
+```
+## [1] 12
+```
+但注意此时的“object”本身并未发生改变。
+
+```r
+object
+```
+
+```
+## [1] 10
+```
+
+---
+# 4.1 R对象的操控
+## 创建对象
+&lt;font size=5&gt;如果想要改变“object”需要对其重新进行赋值：
+
+```r
+object &lt;- object + 2
+```
+&lt;br&gt;
+tips: 在RStudio中，有许多快捷键。比如赋值符号可同时按下： &lt;br&gt;
+&lt;br&gt;
+&lt;center&gt;Windows：“Alt” 和 “-” &lt;/center&gt;&lt;br&gt;
+&lt;center&gt;Mac：“option” 和 “-” &lt;/center&gt;&lt;br&gt;
+
+---
+# 4.1 R对象的操控
+## 创建对象
+-   &lt;font size=5&gt;可以在RStudio的Tools选项里找到快捷键帮助和修改：&lt;/font&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+![tools][./picture/chapter4/tools.png]
+
+---
+# 4.1 R对象的操控
+## 创建对象
+&amp;emsp;&amp;emsp; &lt;font size=5&gt;  变量名可以由字母、数字、_和.组成。并且变量名的第一个字符不能为数字或者特殊符号，比如 +, -, *, /, ^, !, @, &amp;。&lt;/font&gt; &lt;br&gt;  
+&lt;br&gt;
+&lt;font size="5"&gt;
+tips：&lt;br&gt;
+&amp;emsp;&amp;emsp;- 对象命名区分大小写，“X” 和 “x” 表示的是不同的对象。&lt;br&gt;
+&lt;br&gt;
+&amp;emsp;&amp;emsp;- 可以使用中文，但不推荐，可能出现这样的乱码：&lt;br&gt;
+&amp;emsp;&amp;emsp;鍙︿竴涓▼搴忔鍦ㄤ娇鐢ㄦ鏂囦欢锛岃繘绋嬫棤娉曡闂��。&lt;br&gt;
+&lt;br&gt;
+&amp;emsp;&amp;emsp;- 命名对象最好有不错的可读性，比如“age”就要比“x”更易读。
+&lt;/font&gt;
+
+
+ &lt;!--注：这里调整了一下去年讲的结构--&gt; 
+
+---
+# 4.1 R对象的操控
+## 对象的类型——数据结构
+![data structure](https://devopedia.org/images/article/46/9213.1526125966.png)
+&lt;br&gt;
+&lt;p align="right"&gt;&lt;font size=2&gt;from http://venus.ifca.unican.es/Rintro/dataStruct.html&lt;/font&gt;&lt;/p&gt;
+
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=6&gt;原子向量（atomic vector）： &lt;/font&gt; 
+&lt;font size=5&gt;
+- 逻辑型（logical）&lt;br&gt;
+- 整型（integer）&lt;br&gt;
+- 双精度型（double）&lt;br&gt;
+- 字符型（character）&lt;br&gt;
+- 复数型（complex）&lt;br&gt; 
+- 原始型（raw）&lt;br&gt;
+
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=6&gt;原子向量（atomic vector）： &lt;/font&gt; 
+&lt;font size=5&gt;
+- 逻辑型（logical）&lt;br&gt;
+
+```r
+#注意需要全部大写
+a &lt;- TRUE 
+b &lt;- FALSE
+print(c(a,b))
+```
+
+```
+## [1]  TRUE FALSE
+```
+- 整型（integer）&lt;br&gt;
+
+```r
+a &lt;- 3L
+a
+```
+
+```
+## [1] 3
+```
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=6&gt;原子向量（atomic vector）： &lt;/font&gt; 
+&lt;font size=5&gt;
+- 双精度型（double）&lt;br&gt;
+
+```r
+a &lt;- 3.14
+a
+```
+
+```
+## [1] 3.14
+```
+- 字符型（character）&lt;br&gt;
+
+```r
+a &lt;- "R4Psy"
+a
+```
+
+```
+## [1] "R4Psy"
+```
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=6&gt;原子向量（atomic vector）： &lt;/font&gt; 
+&lt;font size=5&gt;
+- 复数型（complex）&lt;br&gt; 
+
+```r
+a &lt;- 3+4i
+a
+```
+
+```
+## [1] 3+4i
+```
+- 原始型（raw）&lt;br&gt;
+
+```r
+a &lt;- charToRaw('hello')
+a
+```
+
+```
+## [1] 68 65 6c 6c 6f
+```
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=5&gt;因子型向量（factor）:有顺序或者没有顺序的分类变量。&lt;/font&gt;
+&lt;font size=5&gt;factor(x,levels=,labels=levels,ordered=,…)&lt;/font&gt;
+
+```r
+factor_01 &lt;- factor(c("male","female","female","male"))
+factor_01
+```
+
+```
+## [1] male   female female male  
+## Levels: female male
+```
+
+```r
+mode(factor_01)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+as.numeric(factor_01)
+```
+
+```
+## [1] 2 1 1 2
+```
+
+```r
+levels(factor_01)
+```
+
+```
+## [1] "female" "male"
+```
+
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;在R中，我们可以使用c()来__合并__原子向量和向量（我们可以把c看作combine）。
+
+```r
+a &lt;- c(1,2,3)
+b &lt;- c(4:6)
+c &lt;- c(a,b)
+c
+```
+
+```
+## [1] 1 2 3 4 5 6
+```
+
+```r
+a &lt;- c("Hello")
+b &lt;- c("World","!")
+c &lt;- c(a,b)
+c
+```
+
+```
+## [1] "Hello" "World" "!"
+```
+
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;当类型不同的向量进行合并时，都会变为字符型。
+
+```r
+x &lt;- c(1,2,3)
+y &lt;- c(4:6)
+z &lt;- c("7")
+c1 &lt;- c(x,y)
+c2 &lt;- c(x,y,z)
+c1
+```
+
+```
+## [1] 1 2 3 4 5 6
+```
+
+```r
+c2
+```
+
+```
+## [1] "1" "2" "3" "4" "5" "6" "7"
+```
+
+---
+# 4.1 R对象的操控
+## 向量（Vector）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;除此以外，当向量中的值的类型不同时，也存在其他的转换关系：
+- character &gt; numeric &gt; logical
+
+```r
+c(1, "foo", TRUE)
+```
+
+```
+## [1] "1"    "foo"  "TRUE"
+```
+
+```r
+c(7, TRUE, FALSE)
+```
+
+```
+## [1] 7 1 0
+```
+- double &gt; integer
+
+```r
+c(1L, 2, pi)
+```
+
+```
+## [1] 1.000000 2.000000 3.141593
+```
+
+---
+# 4.1 R对象的操控
+## 矩阵（Matrix）
+&amp;emsp;&amp;emsp;仅包含同质数据的二维数据结构，可理解为许多同类型、等长度向量的组合。可以使用 matrix() 函数创建。
+
+```r
+matrix_01 &lt;- matrix(1:6,nrow = 2, ncol = 3)
+matrix_01
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
+```
+
+```r
+cells &lt;- c(1:6)
+row_names &lt;- c("R1", "R2", "R3")
+col_names &lt;- c("C1", "C2")
+matrix_02 &lt;- matrix(cells, nrow = 3, byrow = TRUE, dimnames = list(row_names, col_names))
+matrix_02
+```
+
+```
+##    C1 C2
+## R1  1  2
+## R2  3  4
+## R3  5  6
+```
+
+---
+# 4.1 R对象的操控
+## 矩阵（Matrix）
+&lt;font size=5&gt;索引：matrix[row_index, column_index]
+
+```r
+matrix_02
+```
+
+```
+##    C1 C2
+## R1  1  2
+## R2  3  4
+## R3  5  6
+```
+
+```r
+matrix_02[1,1]
+```
+
+```
+## [1] 1
+```
+
+```r
+matrix_02[1, ]
+```
+
+```
+## C1 C2 
+##  1  2
+```
+
+```r
+matrix_02[ ,1]
+```
+
+```
+## R1 R2 R3 
+##  1  3  5
+```
+
+---
+# 4.1 R对象的操控
+## 矩阵（Matrix）
+&lt;font size=5&gt;索引：matrix[row_index, column_index]
+
+```r
+matrix_02
+```
+
+```
+##    C1 C2
+## R1  1  2
+## R2  3  4
+## R3  5  6
+```
+
+```r
+matrix_02["R1","C1"]
+```
+
+```
+## [1] 1
+```
+
+```r
+matrix_02[ ,"C1"]
+```
+
+```
+## R1 R2 R3 
+##  1  3  5
+```
+
+```r
+matrix_02["R1", ]
+```
+
+```
+## C1 C2 
+##  1  2
+```
+
+---
+# 4.1 R对象的操控
+## 数组（Array）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;数组与矩阵类似，但是维度可以大于2。使用array()函数，该函数使用向量作为输入参数，可以使用 dim 设置数组维度。
+![data structure](https://devopedia.org/images/article/46/9213.1526125966.png)
+---
+# 4.1 R对象的操控
+## 数组（Array）
+&lt;font size=5&gt;array(data = NA，dim = length(data), dimnames = NULL)&lt;br&gt;
+&lt;br&gt;
+data：向量，数组元素。&lt;br&gt;
+dim：数组的维度，默认是一维数组。&lt;br&gt;
+dimnames：维度的名称，必须是个列表，默认情况下是不设置名称的。&lt;br&gt;
+&lt;br&gt;
+__创建一个数组↓__
+
+---
+# 4.1 R对象的操控
+
+```r
+dim1 &lt;- c("A1", "A2")
+dim2 &lt;- c("B1", "B2", "B3")
+dim3 &lt;- c("C1", "C2", "C3", "C4")
+z &lt;- array(1:24, c(2, 3, 4), dimnames=list(dim1, dim2, dim3))
+z
+```
+
+```
+## , , C1
+## 
+##    B1 B2 B3
+## A1  1  3  5
+## A2  2  4  6
+## 
+## , , C2
+## 
+##    B1 B2 B3
+## A1  7  9 11
+## A2  8 10 12
+## 
+## , , C3
+## 
+##    B1 B2 B3
+## A1 13 15 17
+## A2 14 16 18
+## 
+## , , C4
+## 
+##    B1 B2 B3
+## A1 19 21 23
+## A2 20 22 24
+```
+
+---
+# 4.1 R对象的操控
+## 数组（Array）
+&lt;font size=5&gt;数组的索引：
+
+```r
+z[1,,]
+```
+
+```
+##    C1 C2 C3 C4
+## B1  1  7 13 19
+## B2  3  9 15 21
+## B3  5 11 17 23
+```
+
+```r
+z[,1,]
+```
+
+```
+##    C1 C2 C3 C4
+## A1  1  7 13 19
+## A2  2  8 14 20
+```
+
+```r
+z[,,1]
+```
+
+```
+##    B1 B2 B3
+## A1  1  3  5
+## A2  2  4  6
+```
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;数据框（Data frame）可以理解成我们常说的"表格"。数据框每一列都有一个唯一的列名，长度都是相等的，同一列的数据类型需要一致，不同列的数据类型可以不一样
+&lt;div style="text-align:center"&gt;![dataframe](https://hbctraining.github.io/Intro-to-R-flipped/img/dataframe.png#pic_center)
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;创建一个数据框：&lt;br&gt;
+
+```r
+df &lt;-  data.frame(
+  姓名  =  c("张三", "李四", "王五"),
+  工号  =  c("001", "002", "003"),
+  月薪  =  c(1000, 2000, 3000))
+df
+```
+
+```
+##   姓名 工号 月薪
+## 1 张三  001 1000
+## 2 李四  002 2000
+## 3 王五  003 3000
+```
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;创建一个数据框：&lt;br&gt;
+
+```r
+class(df$姓名)
+```
+
+```
+## [1] "character"
+```
+
+```r
+class(df$工号)
+```
+
+```
+## [1] "character"
+```
+
+```r
+class(df$月薪)
+```
+
+```
+## [1] "numeric"
+```
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;可以看到“姓名”“工号”两列的类型为字符串，“月薪”一列的类型为数值。
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;增加一列“部门”信息：
+
+```r
+df$部门 &lt;- c("运营", "技术", "编辑")
+df
+```
+
+```
+##   姓名 工号 月薪 部门
+## 1 张三  001 1000 运营
+## 2 李四  002 2000 技术
+## 3 王五  003 3000 编辑
+```
+&lt;!--&lt;font size=5&gt;&amp;emsp;&amp;emsp;增加一行信息：可以使用rbind函数，我们会在之后的函数中讲解。--&gt;
+
+---
+# 4.1 R对象的操控
+## 数据框（Data frame）
+&lt;font size=5&gt;&amp;emsp;&amp;emsp;数据框的索引:
+
+```r
+df$部门 #使用“对象名$列名”来提取某一列
+```
+
+```
+## [1] "运营" "技术" "编辑"
+```
+
+```r
+df[1,] #使用行列提取
+```
+
+```
+##   姓名 工号 月薪 部门
+## 1 张三  001 1000 运营
+```
+
+```r
+df[df$月薪 &gt; 1000, ]#使用逻辑向量
+```
+
+```
+##   姓名 工号 月薪 部门
+## 2 李四  002 2000 技术
+## 3 王五  003 3000 编辑
+```
+&lt;!--引出逻辑运算--&gt;
+
+---
+# 4.2 运算
+## Outline
+&lt;font size=5&gt;
+### Numeric vector operations（数值型向量运算）&lt;br&gt;
+### &amp;emsp;&amp;emsp;-with same length（等长）
+### &amp;emsp;&amp;emsp;-with different length（不等长）
+&lt;br&gt;
+### Scalar operations（标量和标量运算）
+&lt;br&gt;
+### Numeric vector &amp; scalar operations（数值型向量和标量运算）
+&lt;br&gt;
+### Logic operations（逻辑运算）
+
+---
+# 4.2 运算
+## Numeric vector operations
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;数值型向量（Numeric vector）：将若干个数值存储在一起可以用序号访问。
+&lt;br&gt;
+&amp;emsp;&amp;emsp;当两个数值型向量进行运算时，可能出现等长和不等长两种情况。&lt;/font&gt;
+
+---
+# 4.2 运算
+## Numeric vector operations with same length
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;当两个向量等长时，运算为序号对应的元素两两运算。&lt;/font&gt;
+
+```r
+x1 &lt;- c(1,10)
+x2 &lt;- c(4,2)
+x1+x2
+```
+
+```
+## [1]  5 12
+```
+
+```r
+x1-x2
+```
+
+```
+## [1] -3  8
+```
+
+```r
+x1*x2
+```
+
+```
+## [1]  4 20
+```
+
+```r
+x1/x2
+```
+
+```
+## [1] 0.25 5.00
+```
+
+---
+# 4.2 运算
+## Numeric vector operations with same length
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;在我们的数据中比如：&lt;/font&gt;
+
+
+```r
+length(penguin.data$ALEX1)#查看某一列的长度
+```
+
+```
+## [1] 1523
+```
+
+```r
+length(penguin.data$ALEX2)
+```
+
+```
+## [1] 1523
+```
+
+```r
+penguin.data$ALEX1+penguin.data$ALEX2
+```
+
+```
+##    [1]  2  4  5  5  3  5  2  6  5  6  8  4  6  7  5  6  5  5  2  6  5
+##   [22]  6  6  7  5  6  4  7  5  5  4  8  5  7  2  4  8  4  7  6  7  5
+##   [43]  4  7  6  6  5  3  6  4  8 10  5  4  4  3  4 10  6  6  8  7  4
+##   [64]  4  2  4  6  5  7  2  8  5  3 10  6  8  9  9  4  9  4  7  4  4
+##   [85]  5  4  6  4  9  5  4  8  9  2  4  3  4  6  2  6  3  3  4  7  5
+##  [106]  4  6  4  6  3  5  6  8  2  4  5  5  6  5  2  4  6  6  4  6  5
+##  [127]  8  7  4  7  5  7  5  8  4  4  5  2  7  4  3  9  8  5  6  5  4
+##  [148]  3  8 10  4  4  5  5  6  8  5 10  8  6  8  5  4  2  7  4 10  2
+##  [169]  7  4  4  4  4  3  4  6 NA  4 NA  4  7  6  5  8 10  4  4  7  4
+##  [190]  5  6  4  5  4  4 NA  4  4  4  3  2 NA  4  4  8  2  4  4  3  8
+##  [211]  4  4  5 NA  6  4  6  7  7  2  6  6  4  8  2  2  6  6  4  7  6
+##  [232]  3  4  7  4  8  3  2  3  4  4  9  3  8  5  4  5  3  4  3  4  3
+##  [253]  3 NA  4  4  6  2  4  4  3  3  5  7  6  4  6  3  4  7  3  4  6
+##  [274]  4  6  5  7  3  6  8  7  8  6  4  3  4  5  3  4  4  4  3  3  5
+##  [295]  3  3  3  7  4  5  8  6  8  6  4  2  5  3  5  5  4  4  4  4  8
+##  [316]  3  4  4  5  7  3  6  4  9  5  8  3  4  5  3  3  4  4  6  6  6
+##  [337]  4  6  4  6  4  5  3  4  7  5  3  6  4  3  4  7  3 10  6  3  6
+##  [358]  5  2 NA  7  3  3  3  3  2  2  6  4  8  8  6  4  8  6  4  6  4
+##  [379]  4  4 10  4  6  4  4  4  8  8  3  4  4  2  4 10  5  8  7  7  3
+##  [400]  4  6  6  4  4  7  2  2  7  5  4  6  4  4  5  4 10  4  4  5  5
+##  [421]  4  4  6  4  4  6  2  3  6  4  5  5  2  3  5  4  9  4  2  6  8
+##  [442]  6  2  5  6  2  4  8  4  6  4  5  7  6  4  6  7  5  8  2  4  5
+##  [463]  8  3  7  5  4  4  7  7  5  5  8  6  6  4  4  6  5  8  4  5  4
+##  [484]  7  5  5  5  4  7  4  7  4  9  5  4  9  6  6  4  4  9  6  6 10
+##  [505]  7  6  4  6  6  5  5  6  5  4  6  4  4  5  5  4  4  4  2  4  8
+##  [526]  6  7 10  7  4  9  5  5  5  4  7  4  4  4  6  2  4  4  7  2  7
+##  [547]  3  3  7  9  2  5  4  5  4  6  5  6  6  6  3  6  6  5  5  3  6
+##  [568]  4  2  4  6  5  5  3  4  5  4  5  5  6  7  6  8  8  5  8  5  4
+##  [589]  6  6  6  4  8  6  5  4  5  2  4  7  7  7  5  5  2  6  4  6  2
+##  [610]  9  6  6  5  4  5  5  3  8  8  6  9  4  8  6  8  2  3  4  2  4
+##  [631]  4  4  3  2  3  4  5  2  5  4  5  7  6  5  5  6  8  8  8  8  3
+##  [652]  5  5  9  4  2  4  4  8  6  6  7  9  4  3  4  4  6  3  4  5  5
+##  [673]  6  3  5  9  4  9  2  4  5  4  4  3  4  6  5  5  7  4  3  3  8
+##  [694]  9  5  5  7  4 10  6  5  5  2  4  3  6  4  4  6  3  4  5  9  5
+##  [715]  3  2  4  6  4  8  3  5  9  6  5  4  4  4  4  3  3  5  5  5  4
+##  [736]  6  2  5  3  4  4  3  4  7  3  4  8  4  5  6  3  5  3  8  3  7
+##  [757]  2  7 NA NA NA NA  6  2  3  6  2  4  4  4  5  4  3  4  7  7  7
+##  [778]  2  7 NA NA NA  7  4  4  6  4  4  5  7  2  6  4  2  7  6  6  4
+##  [799]  2  8  4  2  6  2  2  5  6  3  6  5  4  2  6  8  6  9  5  7  6
+##  [820]  6  4  6  5  4  6  9  4  4  2  6  6  8  3  5  2  8  4  4  8  8
+##  [841]  6  5  7  5  6  5  2  6  6  8  3  4  8  4  3  5  4  2  6  6  8
+##  [862]  4  8  7  7  5  2 10  4  6  4 10  5  5  6  4  5  4  4  5  7  3
+##  [883]  5  8  5  7  4  8  7 10  8  7  7  2  3  7  5  9  5  3  4  2  4
+##  [904]  4  6  9  4  6  6  9  4  2  3  4  4  5  8  4  9  7  8  7  5  4
+##  [925]  4  6  5  8  4  8  8  5 10  7  3  7  4  2  4  8  6  8  8  9  9
+##  [946]  4 10  4  4  5  6  7  5  4  7  7  7  4  8  5  4  4  5  4  7  6
+##  [967]  4  8  4  4  8  6  7  6  6  9  4  6  5  2 10  4  8  7  4  4  6
+##  [988]  4  7  4  3  4  6  6  4  6  6  7  6  4
+##  [ reached getOption("max.print") -- omitted 523 entries ]
+```
+
+---
+# 4.2 运算
+## Numeric vector operations with different length
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;当两个向量不等长时，如果其长度为倍数关系，则每次从头重复利用短的一个；如果长度没有倍数关系，则会运算到长的最后一位为止。&lt;/font&gt;
+
+```r
+x1 &lt;- c(1, 2, 3, 4)
+x2 &lt;- c(2, 4)
+x1+x2
+```
+
+```
+## [1] 3 6 5 8
+```
+
+```r
+x1-x2
+```
+
+```
+## [1] -1 -2  1  0
+```
+
+```r
+x1*x2
+```
+
+```
+## [1]  2  8  6 16
+```
+
+```r
+x1/x2
+```
+
+```
+## [1] 0.5 0.5 1.5 1.0
+```
+
+---
+# 4.2 运算
+## Numeric vector operations with different length
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;当两个向量不等长时，如果其长度为倍数关系，则每次从头重复利用短的一个；如果长度没有倍数关系，则会运算到长的最后一位为止。&lt;/font&gt;
+
+```r
+x1 &lt;- c( 2, 3, 4)
+x2 &lt;- c(2, 4)
+x1+x2
+```
+
+```
+## Warning in x1 + x2: longer object length is not a multiple of shorter
+## object length
+```
+
+```
+## [1] 4 7 6
+```
+&lt;font size=5&gt;__注意warning信息__
+
+---
+
+# 4.2 运算
+## Numeric vector operations with different length
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;当两个向量不等长时，如果其长度为倍数关系，则每次从头重复利用短的一个；如果长度没有倍数关系，则会运算到长的最后一位为止。&lt;/font&gt;
+
+```r
+x1 &lt;- penguin.data$ALEX1
+x2 &lt;- penguin.data$ALEX2
+x1 &lt;- na.omit(x1)#去除x1的缺失值后，x1的长度减少，与x2不再相等
+length(x1)
+```
+
+```
+## [1] 1508
+```
+
+```r
+length(x2)
+```
+
+```
+## [1] 1523
+```
+
+```r
+head(x1+x2,20)
+```
+
+```
+## Warning in x1 + x2: longer object length is not a multiple of shorter
+## object length
+```
+
+```
+##  [1] 2 4 5 5 3 5 2 6 5 6 8 4 6 7 5 6 5 5 2 6
+```
+&lt;font size=5&gt;__注意warning信息__
+
+---
+# 4.2 运算
+## Logic operations
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;逻辑型数据是R的基本数据类型之一，只有两个值TRUE和FALSE, 缺失时为NA。
+&lt;/font&gt;
+&lt;br&gt;
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;比如当我们将向量进行比较时，产生的结果就是逻辑型数据。
+&lt;/font&gt;
+
+```r
+x1 &lt;- penguin.data$ALEX1
+head(x1, 10)
+```
+
+```
+##  [1] 1 2 4 2 2 2 1 3 2 3
+```
+
+```r
+head(x1 &gt; 3, 10)#比较ALEX1里的数据是否大于3。大于则返回TRUE，小于或者等于则返回FALSE
+```
+
+```
+##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
+```r
+x2 &lt;- penguin.data$cigs
+head(x2 &gt; 1, 10)#NA的比较返回NA
+```
+
+```
+##  [1]  TRUE    NA    NA    NA    NA    NA    NA  TRUE    NA FALSE
+```
+
+---
+# 4.2 运算
+## Logic operations
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;这里有一个应用的例子：我们可以使用is.NA()判断向量的每个元素是否为NA。
+&lt;/font&gt;
+
+```r
+x2 &lt;- penguin.data$cigs
+head(is.na(x2),10)
+```
+
+```
+##  [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
+```
+
+---
+# 4.2 运算
+## 比较运算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;比较运算符，旨在将两个两个向量的相应元素进行比较，返回比较结果为真TRUE、假FALSE。
+&lt;/font&gt;
+![bijiao](./picture/chapter4/bijiao.png)
+
+---
+# 4.2 运算
+## 比较运算
+
+```r
+x1 &lt;- penguin.data$attachhome
+x2 &lt;- penguin.data$attachphone
+head(x1)
+```
+
+```
+## [1] 3.111111 4.888889 1.333333 3.888889 4.666667 3.333333
+```
+
+```r
+head(x2)
+```
+
+```
+## [1] 3.444444 2.000000 2.000000 3.000000 1.777778 2.444444
+```
+
+```r
+head(x1 &gt;= x2, 20)
+```
+
+```
+##  [1] FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+## [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+```
+
+```r
+head(x1 == x2, 20)
+```
+
+```
+##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
+---
+# 4.2 运算
+## 比较运算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;在比较运算符中，%in%是比较特殊的，在清洗数据时我们经常会使用到它。x%in%y的运算是把向量y看成集合，依次比较x中的元素是否在集合y中。运算返回的结果是一个逻辑型向量。
+&lt;/font&gt;
+
+```r
+#比方说我想知道是否有1973年或者1974年出生的被试。
+c(1973,1974) %in% penguin.data$age
+```
+
+```
+## [1] TRUE TRUE
+```
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;根据这个结果我知道“age”列中存在1973和1974，说明有被试是1973或者1974年出生的，这在我们之后根据条件筛选被试中可以用到。&lt;br&gt;
+当然，我们也可以以此来判断某一列是否存在NA：
+&lt;/font&gt;
+
+```r
+c(NA) %in% na.omit(penguin.data$ALEX1)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+c(NA) %in% penguin.data$cigs
+```
+
+```
+## [1] TRUE
+```
+---
+# 4.2 运算
+## 逻辑运算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;为了表达“且(and)”,“或(or)”之类的复合比较，需要使用逻辑运算把两个比较连接起来。
+&lt;/font&gt;
+![luoji](./picture/chapter4/luoji.png)
+
+---
+# 4.2 运算
+## 逻辑运算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;"!"表示逻辑非运算符，对于向量的每个元素，会给出相反的逻辑值。
+&lt;/font&gt;
+
+```r
+a &lt;- c(TRUE,FALSE)
+!a
+```
+
+```
+## [1] FALSE  TRUE
+```
+
+```r
+a &lt;- c(1975)
+a %in% penguin.data$age
+```
+
+```
+## [1] TRUE
+```
+
+```r
+!a %in% penguin.data$age
+```
+
+```
+## [1] FALSE
+```
+
+---
+# 4.2 运算
+## 逻辑运算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;"&amp;"表示逻辑和运算符，它将两个向量的对应元素进行组合，如果两个元素都为TRUE，则输出TRUE，否则输出False。
+&lt;/font&gt;
+
+```r
+a &lt;- c(TRUE, TRUE, FALSE, FALSE)
+b &lt;- c(TRUE, FALSE, TRUE, FALSE)
+a &amp; b
+```
+
+```
+## [1]  TRUE FALSE FALSE FALSE
+```
+
+```r
+a &lt;- c(1975)
+b &lt;- c(2001)
+a &amp; b %in% penguin.data$age
+```
+
+```
+## [1] FALSE
+```
+
+```r
+a &lt;- c(1975)
+b &lt;- c(1976)
+a &amp; b %in% penguin.data$age
+```
+
+```
+## [1] TRUE
+```
+
+---
+# 4.2 运算
+## 逻辑运算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;"|"表示逻辑或运算符，它将两个向量的对应元素进行组合，有TRUE则输出TRUE。
+&lt;/font&gt;
+
+```r
+a &lt;- c(TRUE, FALSE, FALSE)
+b &lt;- c(FALSE, TRUE, FALSE)
+a | b
+```
+
+```
+## [1]  TRUE  TRUE FALSE
+```
+
+```r
+a &lt;- c(1975)
+b &lt;- c(2001)
+a | b %in% penguin.data$age
+```
+
+```
+## [1] TRUE
+```
+
+---
+# 4.2 运算
+## 逻辑运算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;"&amp;&amp;"和"||"只考虑向量的第一个元素，原理和单个的相同。
+&lt;/font&gt;
+
+```r
+a &lt;- c(TRUE, FALSE, FALSE)
+b &lt;- c(FALSE, TRUE, FALSE)
+a &amp;&amp; b
+```
+
+```
+## Warning in a &amp;&amp; b: 'length(x) = 3 &gt; 1' in coercion to 'logical(1)'
+
+## Warning in a &amp;&amp; b: 'length(x) = 3 &gt; 1' in coercion to 'logical(1)'
+```
+
+```
+## [1] FALSE
+```
+
+```r
+a &lt;- c(TRUE, FALSE, FALSE)
+b &lt;- c(FALSE, TRUE, FALSE)
+a || b
+```
+
+```
+## Warning in a || b: 'length(x) = 3 &gt; 1' in coercion to 'logical(1)'
+```
+
+```
+## [1] TRUE
+```
+
+---
+# 4.3 函数
+## 什么是函数
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;在R中，函数是一种用于执行特定任务或计算的代码块。函数接受输入参数，执行特定的操作，并返回结果。
+&lt;/font&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;font size=6&gt;
+- 已有函数&lt;br&gt;
+&amp;emsp;&amp;emsp;- R base; &lt;br&gt;
+&amp;emsp;&amp;emsp;- R packages; &lt;br&gt;
+&amp;emsp;&amp;emsp;- functions from other sources&lt;br&gt;
+- 自定义函数
+&lt;/font&gt;
+
+---
+# 4.3 函数
+## 如何调用已有函数
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;1.直接调用:functions()
+&lt;/font&gt;
+
+```r
+#对第一位被试的ALEX求平均值
+a &lt;- penguin.data[1,2:17]#将第一位被试的ALEX得分提取出来成为新的dataframe
+rowMeans(a)#对新的dataframe中的列求平均值
+```
+
+```
+##      1 
+## 2.0625
+```
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;注意，当你使用不同的包的时候，为了避免出现函数名重复导致调用错误，可以使用：R包::functions()
+&lt;/font&gt;
+
+```r
+library("here")#加载here包，install的R包需要library后使用
+here::here()#这里第一个here是R包，第二个here是调用这个包里here函数
+```
+
+```
+## [1] "D:/R assistant/PPT/chapter456/R_psy_class/chapter4"
+```
+
+---
+# 4.3 函数
+## 自定义函数
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;有时，我们要经常重复某一步骤，那么我们可以通过自定义函数将这些步骤打包，并调用这些自定义的函数。注意自定义函数使用前需要在当前环境自定义好。
+&lt;/font&gt;
+
+```r
+#定义的形式如下
+my_std &lt;- function(x) {
+   (x - mean(x)) / sd(x)
+ }
+```
+
+```r
+a &lt;- c(1,2,3,4,5)
+my_std(a)
+```
+
+```
+## [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+```
+
+---
+# 4.3 函数
+## 当你不知道咋用一个函数时
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;面对一个新的函数，我们可能并不知道它的功能和如何设置参数，这是我们可以直接在Console中求助。
+&lt;/font&gt;
+&lt;br&gt;
+![qiuzhu](./picture/chapter4/qiuzhu.png)
+![qiuzhu2](./picture/chapter4/qiuzhu2.png){:height="20px" width="80px"}
+---
+class: center, middle
+&lt;span style="font-size: 60px;"&gt;Any questions?&lt;/span&gt; &lt;br&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
