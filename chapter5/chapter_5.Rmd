@@ -6,7 +6,7 @@ institute: ""
 date: ""
 output:
   xaringan::moon_reader:
-    css: [default, Font_Style.css]
+    css: [default, css/Font_Style.css]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -21,6 +21,80 @@ class: center, middle
 <br>
 <span style="font-size: 30px;">胡传鹏</span> <br>
 <span style="font-size: 30px;">`r Sys.Date()`</span> <br>
+
+---
+#回顾
+##了解函数
+##向量类型
+##比较运算
+##数据筛选
+<br>
+#本节课内容
+##函数拓展（批量读取数据）
+##dplyr包的函数应用（filter, select, mutate等）
+##tidyr包的函数应用（separate, drop_na等）
+
+---
+# 批量读取文件
+<font size=5>
+&emsp;&emsp;在第二节课中，我们使用了`read.csv()`读取了一个数据文件，但是一些行为实验中，一个被试的全部数据存在一个文件中，一个一个读取效率就很低了。这时，我们可以批量读取这些文件。<br>
+这里，我们介绍如何使用`lapply()`函数进行读取。
+</font>
+```{r}
+#首先使用list.files()获取文件列表
+file_list <- list.files(path = "./data/match", 
+                        pattern = "data_exp7_rep_match_.*\\.out")
+```
+
+---
+# 批量读取文件
+```{r}
+#使用list.files()获取文件列表
+file_list <- list.files(path = "./data/match", 
+                        pattern = "data_exp7_rep_match_.*\\.out")
+file_list#查看list
+```
+
+---
+# 批量读取文件
+```{r}
+#使用list.files()获取文件列表
+file_list <- list.files(path = "./data/match", #制定所读文件夹路径
+                  pattern = "data_exp7_rep_match_.*\\.out",#使用通配符
+                  full.names = TRUE)
+#使用lapply批量读取文件
+data_list <- lapply(file_list, #指定读取file_list里的文件名
+                    read.csv, #应用read.csv函数
+                    header = TRUE, #使用第一行作为列名
+                    sep = "",#读取文件的分隔符
+                    stringsAsFactors = FALSE)
+```
+
+---
+# 补充
+## 什么是通配符
+<font size=5>
+&emsp;&emsp;通配符是一种特殊字符，它可以在匹配文件名或其他文本字符串时代替其他字符。<br>
+<br>
+&emsp;&emsp;R中常使用的通配符包括"*""?"和"[]"。<br>
+&emsp;&emsp;*：代表任意数量的字符，例如*.csv将匹配所有以.csv结尾的文件。<br>
+&emsp;&emsp;?：代表单个字符，例如file?.txt将匹配file1.txt，file2.txt等文件，但不会匹配file10.txt。<br>
+&emsp;&emsp;[]：用于匹配指定的一组字符。例如，file[123].txt将匹配file1.txt，file2.txt和file3.txt。
+</font>
+
+---
+#for loop
+<font size=5>
+&emsp;&emsp;对于我们之前使用lapply的例子，它本质上是将`read.csv()`应用在file_list里的每一个文件上，并得到一个新的列表，其中的一个元素是读取一个文件的结果。<br>
+&emsp;&emsp;我们可以使用for loop循环来看看读取过程中究竟发生了什么。
+</font>
+```{r}
+datalist <- list()#创建一个新的列表来存储数据
+forloop <- for (i in seq_along(file_list)) {#遍历file_list中的每个文件名
+  data <- read.csv(file.path("./", file_list[i]),sep = "")#读取数据
+  datalist[[i]] <- data #将读取的数据存储到列表中
+}
+```
 
 ---
 class: center, middle
@@ -47,7 +121,7 @@ getwd()
 ## <h2 lang="en">Raw Data: Penguin </h2>
 ```{r Read Penguin RawData}
 # 读取原始数据
-df.pg.raw <-  read.csv('../DATA/penguin_rawdata.csv',
+df.pg.raw <-  read.csv('./data/penguin/penguin_rawdata.csv',
                        header = T, sep=",", stringsAsFactors = FALSE)
 # 这里查看表格使用的是DT::datatable，为了PPT里好看
 # 你可以直接点R Studio右边的环境变量来看，或者用str()或者head()
@@ -62,7 +136,7 @@ DT::datatable(head(df.pg.raw, 10),
 ## <h2 lang="en">Raw Data: Match Task </h2>
 ```{r Read Match Task RawData}
 # 读取原始数据
-df.mt.raw <-  read.csv('../DATA/MS_rep_matchingTask_raw.csv',
+df.mt.raw <-  read.csv('./data/match/MS_rep_matchingTask_raw.csv',
                        header = T, sep=",", stringsAsFactors = FALSE) 
 ```
 ```{r Read Match Task RawData DT, echo=FALSE}
