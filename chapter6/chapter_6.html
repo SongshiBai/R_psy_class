@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>chapter_6.knit</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Pac_B" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/Custumed_Style.css" type="text/css" />
+    <link rel="stylesheet" href="css/zh-CN.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+&lt;span style="font-size: 50px;"&gt;**第六章**&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 50px;"&gt;__如何探索数据: __&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 40px;"&gt;描述性统计与数据可视化基础&lt;/span&gt;&lt;br&gt;
+&lt;span style="font-size: 30px;"&gt;胡传鹏&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 20px;"&gt; &lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 30px;"&gt;2023-03-21&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 20px;"&gt; Made with Rmarkdown&lt;/span&gt; &lt;br&gt;
+
+---
+#回顾
+##工作目录与路径
+##读取数据
+&lt;br&gt;&lt;br&gt;
+#本节课内容
+##了解函数
+##- 数据筛选
+##-- 向量类型
+##-- 比较运算
+
+---
+# 描述性统计
+## 了解你的数据
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;我们可以借助`str()`、`summary()`等函数来帮助我们简单了解自己的数据信息。
+&lt;/font&gt;&lt;br&gt;
+
+
+```r
+#加载所需要的R包
+library("tidyverse")
+#读取数据
+penguin.data &lt;- read.csv("./data/penguin/penguin_rawdata.csv",
+                         header = TRUE, sep=",",
+                         stringsAsFactors = FALSE)
+str(penguin.data, #指定数据
+    list.len = 10 #显示前10个变量信息
+    )
+```
+
+```
+## 'data.frame':	1523 obs. of  247 variables:
+##  $ age            : int  1975 1995 1995 1988 1991 1995 1996 1973 1996 1996 ...
+##  $ ALEX1          : int  1 2 4 2 2 2 1 3 2 3 ...
+##  $ ALEX2          : int  1 2 1 3 1 3 1 3 3 3 ...
+##  $ ALEX3          : int  1 2 1 4 1 1 1 2 1 1 ...
+##  $ ALEX4          : int  2 2 2 5 5 3 1 3 3 2 ...
+##  $ ALEX5          : int  2 2 4 3 2 2 4 4 2 4 ...
+##  $ ALEX6          : int  1 2 1 4 2 1 1 4 2 1 ...
+##  $ ALEX7          : int  2 2 4 2 3 1 2 4 2 2 ...
+##  $ ALEX8          : int  2 2 1 4 4 2 1 4 2 4 ...
+##  $ ALEX9          : int  4 4 1 4 1 1 4 4 2 4 ...
+##   [list output truncated]
+```
+
+---
+# 描述性统计
+## 了解你的数据
+
+```r
+summary(penguin.data,
+        max.print = 10)
+```
+
+```
+##       age           ALEX1          ALEX2           ALEX3           ALEX4      
+##  Min.   :1922   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1991   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
+##  Median :1994   Median :2.00   Median :3.000   Median :2.000   Median :2.000  
+##  Mean   :1991   Mean   :2.51   Mean   :2.756   Mean   :2.027   Mean   :2.654  
+##      ALEX5           ALEX6           ALEX7           ALEX8      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :2.000   Median :3.000   Median :2.000  
+##  Mean   :2.466   Mean   :2.468   Mean   :2.893   Mean   :2.554  
+##      ALEX9           ALEX10          ALEX11          ALEX12     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :2.000   Median :2.000   Median :2.000  
+##  Mean   :2.529   Mean   :2.405   Mean   :2.286   Mean   :2.196  
+##      ALEX13         ALEX14         ALEX15         ALEX16         anxiety     
+##  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:2.00   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.556  
+##  Median :2.00   Median :2.00   Median :3.00   Median :2.000   Median :3.444  
+##  Mean   :2.39   Mean   :2.05   Mean   :2.84   Mean   :2.154   Mean   :3.429  
+##    artgluctot       attachhome     attachphone     AvgHumidity    
+##  Min.   : 0.000   Min.   :1.000   Min.   :1.000   Min.   :  0.00  
+##  1st Qu.: 0.000   1st Qu.:3.556   1st Qu.:2.333   1st Qu.: 64.00  
+##  Median : 0.000   Median :4.000   Median :2.889   Median : 71.00  
+##  Mean   : 1.091   Mean   :3.992   Mean   :2.855   Mean   : 71.15  
+##    avoidance          cigs             DIDF          eatdrink    
+##  Min.   :1.000   Min.   : 0.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.333   1st Qu.: 0.000   1st Qu.:2.000   1st Qu.:1.000  
+##  Median :3.056   Median : 1.000   Median :2.455   Median :1.000  
+##  Mean   :3.116   Mean   : 4.506   Mean   :2.504   Mean   :1.025  
+##       ECR1            ECR2            ECR3           ECR4           ECR5      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.00   1st Qu.:3.000  
+##  Median :4.000   Median :3.000   Median :3.00   Median :4.00   Median :4.000  
+##  Mean   :3.847   Mean   :3.266   Mean   :3.09   Mean   :3.75   Mean   :4.242  
+##       ECR6            ECR7            ECR8            ECR9      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :4.000   Median :3.000   Median :4.000   Median :4.000  
+##  Mean   :3.941   Mean   :3.235   Mean   :3.706   Mean   :3.629  
+##      ECR10          ECR11           ECR12           ECR13      
+##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.00   Median :4.000   Median :3.000   Median :3.000  
+##  Mean   :2.82   Mean   :3.842   Mean   :3.026   Mean   :3.191  
+##      ECR14           ECR15           ECR16          ECR17      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :4.00   Median :4.000  
+##  Mean   :2.848   Mean   :3.238   Mean   :3.81   Mean   :3.918  
+##      ECR18           ECR19           ECR20           ECR21      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :2.000   Median :4.000  
+##  Mean   :2.382   Mean   :3.254   Mean   :2.709   Mean   :4.048  
+##      ECR22           ECR23           ECR24           ECR25      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :2.000   Median :2.000  
+##  Mean   :2.798   Mean   :3.077   Mean   :2.868   Mean   :2.954  
+##      ECR26           ECR27           ECR28           ECR29      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :2.000   Median :2.000  
+##  Mean   :2.973   Mean   :3.152   Mean   :2.717   Mean   :2.655  
+##      ECR30           ECR31           ECR32           ECR33      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :2.000   Median :3.000   Median :4.000  
+##  Mean   :3.251   Mean   :2.684   Mean   :2.974   Mean   :3.961  
+##      ECR34           ECR35           ECR36         endtime         
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Length:1523       
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   Class :character  
+##  Median :4.000   Median :2.000   Median :3.000   Mode  :character  
+##  Mean   :4.002   Mean   :2.608   Mean   :3.169                     
+##       EOT           exercise        gluctot            health    
+##  Min.   :1.000   Min.   :1.000   Min.   :  0.000   Min.   :1.00  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:  0.000   1st Qu.:3.00  
+##  Median :2.400   Median :2.000   Median :  1.850   Median :3.00  
+##  Mean   :2.326   Mean   :1.986   Mean   :  4.593   Mean   :3.29  
+##      HOME1           HOME2           HOME3           HOME4     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00  
+##  1st Qu.:4.000   1st Qu.:4.000   1st Qu.:4.000   1st Qu.:4.00  
+##  Median :4.000   Median :4.000   Median :4.000   Median :4.00  
+##  Mean   :4.296   Mean   :4.097   Mean   :4.153   Mean   :4.29  
+##      HOME5           HOME6          HOME7         HOME8           HOME9      
+##  Min.   :1.000   Min.   :1.00   Min.   :1.0   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:3.00   1st Qu.:2.0   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :4.000   Median :4.00   Median :4.0   Median :4.000   Median :4.000  
+##  Mean   :4.149   Mean   :3.85   Mean   :3.4   Mean   :3.877   Mean   :3.812  
+##      KAMF1           KAMF2           KAMF3           KAMF4      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:4.000   1st Qu.:2.000  
+##  Median :4.000   Median :5.000   Median :4.000   Median :2.000  
+##  Mean   :3.787   Mean   :4.584   Mean   :4.451   Mean   :2.886  
+##      KAMF5           KAMF6           KAMF7        networksize   
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   : 0.00  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:15.00  
+##  Median :3.000   Median :3.000   Median :3.000   Median :21.00  
+##  Mean   :3.316   Mean   :3.257   Mean   :3.306   Mean   :22.67  
+##    nostalgia        onlineid       onlineid1       onlineid2    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.600   1st Qu.:2.273   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :4.500   Median :2.818   Median :4.000   Median :4.000  
+##  Mean   :4.434   Mean   :2.760   Mean   :3.545   Mean   :3.197  
+##    onlineid3      onlineid4       onlineid5       onlineid6    
+##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:1.000  
+##  Median :4.00   Median :4.000   Median :3.000   Median :2.000  
+##  Mean   :3.27   Mean   :3.269   Mean   :2.861   Mean   :1.959  
+##    onlineid7       onlineid8       onlineid9       onlineid10   
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:1.000  
+##  Median :2.000   Median :2.000   Median :2.000   Median :2.000  
+##  Mean   :2.255   Mean   :2.246   Mean   :2.357   Mean   :2.277  
+##   onlineide11        phone1          phone2          phone3     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :4.000   Median :2.000  
+##  Mean   :3.127   Mean   :2.862   Mean   :3.286   Mean   :2.377  
+##      phone4          phone5          phone6          phone7     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
+##  Median :4.000   Median :3.000   Median :2.000   Median :3.000  
+##  Mean   :3.316   Mean   :2.723   Mean   :2.337   Mean   :2.796  
+##      phone8          phone9         romantic       scontrol1    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
+##  Median :2.000   Median :4.000   Median :1.000   Median :3.000  
+##  Mean   :2.656   Mean   :3.342   Mean   :1.443   Mean   :3.027  
+##    scontrol2       scontrol3       scontrol4       scontrol5    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000  
+##  Median :3.000   Median :4.000   Median :3.000   Median :4.000  
+##  Mean   :3.209   Mean   :3.551   Mean   :3.175   Mean   :3.405  
+##    scontrol6       scontrol7       scontrol8       scontrol9    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :3.000   Median :3.000  
+##  Mean   :2.426   Mean   :2.816   Mean   :2.742   Mean   :3.076  
+##    scontrol10      scontrol11      scontrol12      scontrol13   
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :4.000   Median :3.000   Median :4.000   Median :3.000  
+##  Mean   :3.598   Mean   :3.158   Mean   :3.478   Mean   :3.119  
+##   selfcontrol         sex            smoke           SNI1      
+##  Min.   :1.077   Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:2.692   1st Qu.:1.000   1st Qu.:2.00   1st Qu.:2.000  
+##  Median :3.154   Median :2.000   Median :2.00   Median :2.000  
+##  Mean   :3.137   Mean   :1.704   Mean   :1.84   Mean   :1.899  
+##       SNI2            SNI3            SNI4           SNI5      
+##  Min.   :1.000   Min.   :0.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:0.000   1st Qu.:4.00   1st Qu.:2.000  
+##  Median :1.000   Median :0.000   Median :4.00   Median :4.000  
+##  Mean   :1.175   Mean   :1.265   Mean   :3.78   Mean   :3.288  
+##       SNI6            SNI7            SNI8            SNI9      
+##  Min.   :1.000   Min.   :0.000   Min.   :1.000   Min.   :0.000  
+##  1st Qu.:4.000   1st Qu.:1.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :5.000   Median :1.000   Median :4.000   Median :3.000  
+##  Mean   :4.399   Mean   :1.425   Mean   :4.443   Mean   :2.853  
+##      SNI10           SNI11           SNI12           SNI13      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:3.000   1st Qu.:1.000   1st Qu.:1.000  
+##  Median :5.000   Median :4.000   Median :1.000   Median :1.000  
+##  Mean   :5.315   Mean   :4.419   Mean   :1.262   Mean   :2.128  
+##      SNI14          SNI15           SNI16           SNI17          SNI18      
+##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:4.000   1st Qu.:1.000   1st Qu.:1.00   1st Qu.:2.000  
+##  Median :2.00   Median :8.000   Median :1.000   Median :1.00   Median :4.000  
+##  Mean   :1.88   Mean   :6.213   Mean   :1.912   Mean   :2.06   Mean   :4.557  
+##      SNI19           SNI20           SNI21           SNI22      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000  
+##  Median :1.000   Median :1.000   Median :2.500   Median :1.000  
+##  Mean   :1.988   Mean   :1.267   Mean   :3.249   Mean   :1.351  
+##     SNI23              SNI24              SNI25              SNI26          
+##  Length:1523        Length:1523        Length:1523        Length:1523       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##     SNI27               SNI28             SNI29            SNI30        
+##  Length:1523        Min.   :  0.000   Min.   : 0.000   Min.   :  0.000  
+##  Class :character   1st Qu.:  3.000   1st Qu.: 2.000   1st Qu.:  0.000  
+##  Mode  :character   Median :  5.000   Median : 4.000   Median :  3.000  
+##                     Mean   :  6.883   Mean   : 4.898   Mean   :  4.535  
+##      SNI31            SNI32             SNS1            SNS2      
+##  Min.   : 0.000   Min.   : 0.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median : 0.000   Median : 0.000   Median :5.000   Median :5.000  
+##  Mean   : 2.616   Mean   : 1.966   Mean   :4.489   Mean   :4.303  
+##       SNS3            SNS4            SNS5            SNS6      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :4.000   Median :4.000   Median :5.000   Median :4.000  
+##  Mean   :4.354   Mean   :4.331   Mean   :4.492   Mean   :4.189  
+##       SNS7       socialdiversity  socialembedded     STRAQ_1     
+##  Min.   :1.000   Min.   : 0.000   Min.   :0.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.: 6.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :4.000   Median : 7.000   Median :2.000   Median :2.000  
+##  Mean   :4.265   Mean   : 7.414   Mean   :2.201   Mean   :2.458  
+##     STRAQ_2         STRAQ_3         STRAQ_4         STRAQ_6     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:4.000   1st Qu.:2.000  
+##  Median :3.000   Median :4.000   Median :4.000   Median :3.000  
+##  Mean   :3.207   Mean   :3.281   Mean   :4.014   Mean   :2.966  
+##     STRAQ_7        STRAQ_8        STRAQ_9         STRAQ_10        STRAQ_11    
+##  Min.   :1.00   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :3.00   Median :3.00   Median :3.000   Median :4.000   Median :3.000  
+##  Mean   :2.85   Mean   :2.94   Mean   :3.209   Mean   :3.841   Mean   :2.996  
+##     STRAQ_12        STRAQ_19        STRAQ_20        STRAQ_21    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :2.000   Median :3.000   Median :4.000   Median :4.000  
+##  Mean   :2.086   Mean   :2.805   Mean   :3.409   Mean   :3.641  
+##     STRAQ_22        STRAQ_23        STRAQ_24        STRAQ_25    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :4.000   Median :4.000   Median :4.000   Median :3.000  
+##  Mean   :3.538   Mean   :3.717   Mean   :3.727   Mean   :3.298  
+##     STRAQ_26        STRAQ_27        STRAQ_28        STRAQ_29    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :4.000   Median :3.000   Median :3.000   Median :4.000  
+##  Mean   :3.668   Mean   :3.221   Mean   :3.235   Mean   :3.601  
+##     STRAQ_30        STRAQ_31       STRAQ_32        STRAQ_33       STRAQ_5     
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.000  
+##  Median :3.000   Median :2.00   Median :2.000   Median :2.00   Median :2.000  
+##  Mean   :3.234   Mean   :2.16   Mean   :2.495   Mean   :2.34   Mean   :2.555  
+##     STRAQ_13        STRAQ_14        STRAQ_15        STRAQ_16    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :3.000   Median :4.000   Median :4.000   Median :3.000  
+##  Mean   :2.927   Mean   :3.486   Mean   :3.367   Mean   :2.821  
+##     STRAQ_17        STRAQ_18        STRAQ_34        STRAQ_35    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :4.000   Median :2.000   Median :3.000  
+##  Mean   :3.089   Mean   :3.276   Mean   :2.438   Mean   :3.034  
+##     STRAQ_36        STRAQ_37        STRAQ_38        STRAQ_39    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :4.000   Median :3.000   Median :3.000   Median :2.000  
+##  Mean   :3.668   Mean   :3.163   Mean   :2.802   Mean   :2.321  
+##     STRAQ_40        STRAQ_41        STRAQ_42        STRAQ_43    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :4.000   Median :3.000  
+##  Mean   :3.123   Mean   :3.125   Mean   :3.528   Mean   :3.176  
+##     STRAQ_44        STRAQ_45        STRAQ_46        STRAQ_47    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :3.000   Median :2.000   Median :4.000   Median :4.000  
+##  Mean   :2.726   Mean   :2.415   Mean   :3.561   Mean   :3.653  
+##     STRAQ_48        STRAQ_49        STRAQ_50        STRAQ_51   
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.00  
+##  Median :4.000   Median :3.000   Median :4.000   Median :3.00  
+##  Mean   :3.258   Mean   :3.201   Mean   :3.435   Mean   :2.73  
+##     STRAQ_52        STRAQ_53        STRAQ_54        STRAQ_55    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :4.000   Median :3.000   Median :3.000   Median :3.000  
+##  Mean   :3.446   Mean   :3.289   Mean   :3.228   Mean   :3.078  
+##     STRAQ_56        STRAQ_57         stress         stress1     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.077   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.385   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :2.769   Median :3.000  
+##  Mean   :2.538   Mean   :2.995   Mean   :2.773   Mean   :2.875  
+##     stress2         stress3         stress4        stress5     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.00   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :3.00   Median :3.000  
+##  Mean   :3.109   Mean   :3.412   Mean   :2.62   Mean   :2.632  
+##     stress6         stress7         stress8         stress9     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :3.000   Median :3.000  
+##  Mean   :2.507   Mean   :2.734   Mean   :2.982   Mean   :2.712  
+##     stress10        stress11        stress12        stress13    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:4.000   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :4.000   Median :2.000  
+##  Mean   :2.794   Mean   :3.085   Mean   :3.995   Mean   :2.581  
+##     stress14     Temperature_t1  Temperature_t2    thermotype   
+##  Min.   :1.000   Min.   :33.20   Min.   :33.90   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:36.00   1st Qu.:36.28   1st Qu.:2.000  
+##  Median :3.000   Median :36.40   Median :36.50   Median :2.000  
+##  Mean   :2.839   Mean   :36.28   Mean   :36.50   Mean   :1.896  
+##     avgtemp         filter_.    mintemp           language       langfamily   
+##  Min.   :35.00   Min.   :1   Min.   :-22.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:36.12   1st Qu.:1   1st Qu.:  2.000   1st Qu.:3.000   1st Qu.:1.000  
+##  Median :36.45   Median :1   Median :  7.000   Median :5.000   Median :1.000  
+##  Mean   :36.39   Mean   :1   Mean   :  8.258   Mean   :4.879   Mean   :1.347  
+##     Zanxiety           Zavoidance           Site          
+##  Min.   :-2.511130   Min.   :-2.72740   Length:1523       
+##  1st Qu.:-0.737483   1st Qu.:-0.77501   Class :character  
+##  Median : 0.005267   Median :-0.05149   Mode  :character  
+##  Mean   : 0.004293   Mean   :-0.01145                     
+##  [ reached getOption("max.print") -- omitted 3 rows ]
+```
+
+---
+# 描述性统计
+## 了解你的数据
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;使用 dim() 函数可以查看数据框的维度，即行数和列数。
+&lt;/font&gt;&lt;br&gt;
+
+```r
+dim(penguin.data)
+```
+
+```
+## [1] 1523  247
+```
+
+---
+# 描述性统计
+## 计算
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;如果我想知道被试的平均年龄怎么办？
+&lt;/font&gt;&lt;br&gt;
+
+```r
+mean(penguin.data$age)
+```
+
+```
+## [1] NA
+```
+
+```r
+any(is.na(penguin.data$age))
+```
+
+```
+## [1] TRUE
+```
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

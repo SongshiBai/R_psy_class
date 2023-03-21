@@ -1,0 +1,87 @@
+---
+title: ""
+author: "Pac_B"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: [default, css/Custumed_Style.css, css/zh-CN.css]
+    lib_dir: libs
+    nature:
+      highlightLines: true
+      highlightStyle: github
+      countIncrementalSlides: false
+
+---
+class: center, middle
+<span style="font-size: 50px;">**第六章**</span> <br>
+<span style="font-size: 50px;">__如何探索数据: __</span> <br>
+<span style="font-size: 40px;">描述性统计与数据可视化基础</span><br>
+<span style="font-size: 30px;">胡传鹏</span> <br>
+<span style="font-size: 20px;"> </span> <br>
+<span style="font-size: 30px;">`r Sys.Date()`</span> <br>
+<span style="font-size: 20px;"> Made with Rmarkdown</span> <br>
+
+---
+#回顾
+##工作目录与路径
+##读取数据
+<br><br>
+#本节课内容
+##了解函数
+##- 数据筛选
+##-- 向量类型
+##-- 比较运算
+
+---
+# 描述性统计
+## 了解你的数据
+<font size=5>
+&emsp;&emsp;我们可以借助`str()`、`summary()`等函数来帮助我们简单了解自己的数据信息。
+</font><br>
+
+```{r}
+#加载所需要的R包
+library("tidyverse")
+#读取数据
+penguin.data <- read.csv("./data/penguin/penguin_rawdata.csv",
+                         header = TRUE, sep=",",
+                         stringsAsFactors = FALSE)
+str(penguin.data, #指定数据
+    list.len = 10 #显示前10个变量信息
+    )
+```
+
+---
+# 描述性统计
+## 了解你的数据
+```{r}
+summary(penguin.data,
+        max.print = 10)
+```
+
+---
+# 描述性统计
+## 了解你的数据
+<font size=5>
+&emsp;&emsp;使用 dim() 函数可以查看数据框的维度，即行数和列数。
+</font><br>
+```{r}
+dim(penguin.data)
+```
+
+---
+# 描述性统计
+## 计算
+<font size=5>
+&emsp;&emsp;如果我想知道被试的平均年龄怎么办？
+</font><br>
+```{r}
+
+mean(penguin.data$age)
+any(is.na(penguin.data$age))
+```
+
+
+
+
+
