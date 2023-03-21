@@ -35,7 +35,7 @@ class: center, middle
 ##tidyr包的函数应用（separate, drop_na等）
 
 ---
-# 批量读取文件
+# <h2 lang="zh-CN">批量读取文件</h2>
 <font size=5>
 &emsp;&emsp;在第二节课中，我们使用了`read.csv()`读取了一个数据文件，但是一些行为实验中，一个被试的全部数据存在一个文件中，一个一个读取效率就很低了。这时，我们可以批量读取这些文件。<br>
 这里，我们介绍如何使用`lapply()`函数进行读取。
@@ -47,7 +47,7 @@ file_list <- list.files(path = "./data/match",
 ```
 
 ---
-# 批量读取文件
+# <h2 lang="zh-CN">批量读取文件</h2>
 ```{r}
 #使用list.files()获取文件列表
 file_list <- list.files(path = "./data/match", 
@@ -56,7 +56,7 @@ file_list#查看list
 ```
 
 ---
-# 批量读取文件
+# <h2 lang="zh-CN">批量读取文件</h2>
 ```{r}
 #使用list.files()获取文件列表
 file_list <- list.files(path = "./data/match", #制定所读文件夹路径
@@ -71,8 +71,8 @@ data_list <- lapply(file_list, #指定读取file_list里的文件名
 ```
 
 ---
-# 补充
-## 什么是通配符
+# <h1 lang="zh-CN">补充</h1>
+## <h2 lang="zh-CN">什么是通配符</h2>
 <font size=5>
 &emsp;&emsp;通配符是一种特殊字符，它可以在匹配文件名或其他文本字符串时代替其他字符。<br>
 <br>
