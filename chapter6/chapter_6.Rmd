@@ -38,7 +38,6 @@ class: center, middle
 <font size=5>
 &emsp;&emsp;我们可以借助`str()`、`summary()`等函数来帮助我们简单了解自己的数据信息。
 </font><br>
-
 ```{r}
 #加载所需要的R包
 library("tidyverse")
@@ -80,7 +79,127 @@ dim(penguin.data)
 DT::datatable(psych::describe(penguin.data))
 #需要注意的是，describe()函数不会帮你处理缺失值
 ```
+
 ---
+# 可视化
+## ggplot2包
+<font size=5>
+&emsp;&emsp;我们介绍一个最常用的包：ggplot2。<br>
+&emsp;&emsp;所谓gg源于“grammar of graphics”，即图形语法。<br>
+&emsp;&emsp;ggplot2绘图的核心在于使用图层去描述和构建图形。<br>
+&emsp;&emsp;我们在这里给出一个示例，探究体温和健康的关系，并简单了解一下ggplot2的语法。
+</font>
+<!-->
+<div style="text-align:center;">
+  <img src="https://bookdown.org/wangminjie/R4DS/images/making_a_ggplot.jpeg" alt="layer" style="width:50%; height:auto;" />
+</div>
+</!-->
+
+---
+# 可视化
+## 柱状图
+<font size=5>
+&emsp;&emsp;比方说，我们想要看看被试对自己健康的评价情况，可以使用直方图进行可视化。
+</font>
+```{r warning=FALSE, fig.width=6, fig.height=4}
+ggplot2::ggplot(data = penguin.data,#指定数据
+                aes(x=penguin.data$health))+#确定映射到x轴的变量
+  geom_bar()+#绘制直方图
+  theme_minimal()#设定绘图风格
+```
+---
+# 可视化
+## 直方图
+<font size=5>
+&emsp;&emsp;对于连续变量，我们可以使用直方图进行可视化。比如说，我们想看看被试的体温分布如何。
+</font>
+```{r fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+ggplot2::ggplot(data = penguin.data,#指定数据
+                aes(x=penguin.data$Temperature_t1))+#确定映射到x轴的变量
+  geom_histogram()+#绘制直方图
+  stat_bin(bins = 40)+#设定连续变量分组数量
+  theme_minimal()#设定绘图风格
+```
+---
+# 可视化
+## 密度图
+<font size=5>
+&emsp;&emsp;同样的我们可以使用密度图来描述体温的分布情况。
+</font>
+```{r fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+ggplot2::ggplot(data = penguin.data,#指定数据
+                aes(x=penguin.data$Temperature_t1))+#确定映射到x轴的变量
+  geom_density()+#绘制密度曲线
+  theme_minimal()#设定绘图风格
+```
+---
+# 可视化
+## 图层叠加
+<font size=5>
+&emsp;&emsp;有时，我们会希望在呈现直方图的同时呈现密度曲线，这时ggplot2可以很方便地让我们把图层进行叠加。
+</font>
+```{r fig.height=3.5, fig.width=6, message=FALSE, warning=FALSE}
+ggplot2::ggplot(data = penguin.data,#指定数据
+                aes(x = penguin.data$Temperature_t1,
+                    y = stat(density),
+                    alpha=0.8))+#确定映射到x轴的变量，y轴对应的是密度曲线
+  geom_histogram()+#绘制直方图
+  geom_density()+#绘制密度曲线
+  theme_minimal()+#设定绘图风格
+  guides(alpha=FALSE)#隐藏透明度alpha设置带来的图例
+```
+
+---
+# 可视化
+## 箱线图
+<font size=5>
+&emsp;&emsp;如果我们想知道被试不同的健康情况，是否体温的分布不同，我们可以使用箱线图。
+</font>
+```{r fig.height=3.5, fig.width=6, message=FALSE, warning=FALSE}
+ggplot2::ggplot(data = penguin.data,#指定数据
+                aes(x = penguin.data$health,
+                    y = penguin.data$Temperature_t1
+                    ))+#确定映射到xy轴的变量
+  geom_boxplot()+#绘制箱线图
+  theme_minimal()#设定绘图风格
+```
+
+---
+# 可视化
+## 箱线图
+<font size=5>
+&emsp;&emsp;为什么没有像我们想象的那样分不同的health评分绘图，因为health的类型需要转换。
+</font>
+```{r fig.height=3.5, fig.width=6, message=FALSE, warning=FALSE}
+ggplot2::ggplot(data = penguin.data,#指定数据
+                aes(x = as.factor(penguin.data$health),
+                    y = penguin.data$Temperature_t1
+                    ))+#确定映射到xy轴的变量
+  geom_boxplot()+#绘制箱线图
+  theme_minimal()#设定绘图风格
+```
+
+---
+# 可视化
+## 散点图
+<font size=5>
+&emsp;&emsp;我们可以用散点图来简单看看健康和体温的关系。
+</font>
+```{r fig.height=3.5, fig.width=6, message=FALSE, warning=FALSE}
+ggplot2::ggplot(data = penguin.data,#指定数据
+                aes(x = penguin.data$health,
+                    y = penguin.data$Temperature_t1
+                    ))+#确定映射到xy轴的变量
+  geom_point()+#绘制散点图
+  theme_minimal()#设定绘图风格
+```
+
+
+
+
+
+
+
 
 
 
