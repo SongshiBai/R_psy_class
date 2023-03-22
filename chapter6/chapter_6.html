@@ -6,6 +6,15 @@
     <meta name="author" content="Pac_B" />
     <script src="libs/header-attrs-2.20/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+    <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding-0.27/datatables.js"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
     <link rel="stylesheet" href="css/Custumed_Style.css" type="text/css" />
     <link rel="stylesheet" href="css/zh-CN.css" type="text/css" />
   </head>
@@ -18,7 +27,7 @@ class: center, middle
 &lt;span style="font-size: 40px;"&gt;描述性统计与数据可视化基础&lt;/span&gt;&lt;br&gt;
 &lt;span style="font-size: 30px;"&gt;胡传鹏&lt;/span&gt; &lt;br&gt;
 &lt;span style="font-size: 20px;"&gt; &lt;/span&gt; &lt;br&gt;
-&lt;span style="font-size: 30px;"&gt;2023-03-21&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 30px;"&gt;2023-03-22&lt;/span&gt; &lt;br&gt;
 &lt;span style="font-size: 20px;"&gt; Made with Rmarkdown&lt;/span&gt; &lt;br&gt;
 
 ---
@@ -82,176 +91,146 @@ summary(penguin.data,
 ##  1st Qu.:1991   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
 ##  Median :1994   Median :2.00   Median :3.000   Median :2.000   Median :2.000  
 ##  Mean   :1991   Mean   :2.51   Mean   :2.756   Mean   :2.027   Mean   :2.654  
-##      ALEX5           ALEX6           ALEX7           ALEX8      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :2.000   Median :2.000   Median :3.000   Median :2.000  
-##  Mean   :2.466   Mean   :2.468   Mean   :2.893   Mean   :2.554  
-##      ALEX9           ALEX10          ALEX11          ALEX12     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :2.000   Median :2.000   Median :2.000   Median :2.000  
-##  Mean   :2.529   Mean   :2.405   Mean   :2.286   Mean   :2.196  
-##      ALEX13         ALEX14         ALEX15         ALEX16         anxiety     
-##  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.00   1st Qu.:2.00   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.556  
-##  Median :2.00   Median :2.00   Median :3.00   Median :2.000   Median :3.444  
-##  Mean   :2.39   Mean   :2.05   Mean   :2.84   Mean   :2.154   Mean   :3.429  
-##    artgluctot       attachhome     attachphone     AvgHumidity    
-##  Min.   : 0.000   Min.   :1.000   Min.   :1.000   Min.   :  0.00  
-##  1st Qu.: 0.000   1st Qu.:3.556   1st Qu.:2.333   1st Qu.: 64.00  
-##  Median : 0.000   Median :4.000   Median :2.889   Median : 71.00  
-##  Mean   : 1.091   Mean   :3.992   Mean   :2.855   Mean   : 71.15  
-##    avoidance          cigs             DIDF          eatdrink    
-##  Min.   :1.000   Min.   : 0.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.333   1st Qu.: 0.000   1st Qu.:2.000   1st Qu.:1.000  
-##  Median :3.056   Median : 1.000   Median :2.455   Median :1.000  
-##  Mean   :3.116   Mean   : 4.506   Mean   :2.504   Mean   :1.025  
-##       ECR1            ECR2            ECR3           ECR4           ECR5      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.00   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.00   1st Qu.:3.000  
-##  Median :4.000   Median :3.000   Median :3.00   Median :4.00   Median :4.000  
-##  Mean   :3.847   Mean   :3.266   Mean   :3.09   Mean   :3.75   Mean   :4.242  
-##       ECR6            ECR7            ECR8            ECR9      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :4.000   Median :3.000   Median :4.000   Median :4.000  
-##  Mean   :3.941   Mean   :3.235   Mean   :3.706   Mean   :3.629  
-##      ECR10          ECR11           ECR12           ECR13      
-##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :2.00   Median :4.000   Median :3.000   Median :3.000  
-##  Mean   :2.82   Mean   :3.842   Mean   :3.026   Mean   :3.191  
-##      ECR14           ECR15           ECR16          ECR17      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.000  
-##  Median :2.000   Median :3.000   Median :4.00   Median :4.000  
-##  Mean   :2.848   Mean   :3.238   Mean   :3.81   Mean   :3.918  
-##      ECR18           ECR19           ECR20           ECR21      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :2.000   Median :3.000   Median :2.000   Median :4.000  
-##  Mean   :2.382   Mean   :3.254   Mean   :2.709   Mean   :4.048  
-##      ECR22           ECR23           ECR24           ECR25      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :2.000   Median :3.000   Median :2.000   Median :2.000  
-##  Mean   :2.798   Mean   :3.077   Mean   :2.868   Mean   :2.954  
-##      ECR26           ECR27           ECR28           ECR29      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :3.000   Median :3.000   Median :2.000   Median :2.000  
-##  Mean   :2.973   Mean   :3.152   Mean   :2.717   Mean   :2.655  
-##      ECR30           ECR31           ECR32           ECR33      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :3.000   Median :2.000   Median :3.000   Median :4.000  
-##  Mean   :3.251   Mean   :2.684   Mean   :2.974   Mean   :3.961  
-##      ECR34           ECR35           ECR36         endtime         
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Length:1523       
-##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   Class :character  
-##  Median :4.000   Median :2.000   Median :3.000   Mode  :character  
-##  Mean   :4.002   Mean   :2.608   Mean   :3.169                     
-##       EOT           exercise        gluctot            health    
-##  Min.   :1.000   Min.   :1.000   Min.   :  0.000   Min.   :1.00  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:  0.000   1st Qu.:3.00  
-##  Median :2.400   Median :2.000   Median :  1.850   Median :3.00  
-##  Mean   :2.326   Mean   :1.986   Mean   :  4.593   Mean   :3.29  
-##      HOME1           HOME2           HOME3           HOME4     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00  
-##  1st Qu.:4.000   1st Qu.:4.000   1st Qu.:4.000   1st Qu.:4.00  
-##  Median :4.000   Median :4.000   Median :4.000   Median :4.00  
-##  Mean   :4.296   Mean   :4.097   Mean   :4.153   Mean   :4.29  
-##      HOME5           HOME6          HOME7         HOME8           HOME9      
-##  Min.   :1.000   Min.   :1.00   Min.   :1.0   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:4.000   1st Qu.:3.00   1st Qu.:2.0   1st Qu.:3.000   1st Qu.:3.000  
-##  Median :4.000   Median :4.00   Median :4.0   Median :4.000   Median :4.000  
-##  Mean   :4.149   Mean   :3.85   Mean   :3.4   Mean   :3.877   Mean   :3.812  
-##      KAMF1           KAMF2           KAMF3           KAMF4      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:4.000   1st Qu.:2.000  
-##  Median :4.000   Median :5.000   Median :4.000   Median :2.000  
-##  Mean   :3.787   Mean   :4.584   Mean   :4.451   Mean   :2.886  
-##      KAMF5           KAMF6           KAMF7        networksize   
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   : 0.00  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:15.00  
-##  Median :3.000   Median :3.000   Median :3.000   Median :21.00  
-##  Mean   :3.316   Mean   :3.257   Mean   :3.306   Mean   :22.67  
-##    nostalgia        onlineid       onlineid1       onlineid2    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.600   1st Qu.:2.273   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :4.500   Median :2.818   Median :4.000   Median :4.000  
-##  Mean   :4.434   Mean   :2.760   Mean   :3.545   Mean   :3.197  
-##    onlineid3      onlineid4       onlineid5       onlineid6    
-##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:1.000  
-##  Median :4.00   Median :4.000   Median :3.000   Median :2.000  
-##  Mean   :3.27   Mean   :3.269   Mean   :2.861   Mean   :1.959  
-##    onlineid7       onlineid8       onlineid9       onlineid10   
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:1.000   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:1.000  
-##  Median :2.000   Median :2.000   Median :2.000   Median :2.000  
-##  Mean   :2.255   Mean   :2.246   Mean   :2.357   Mean   :2.277  
-##   onlineide11        phone1          phone2          phone3     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :3.000   Median :3.000   Median :4.000   Median :2.000  
-##  Mean   :3.127   Mean   :2.862   Mean   :3.286   Mean   :2.377  
-##      phone4          phone5          phone6          phone7     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
-##  Median :4.000   Median :3.000   Median :2.000   Median :3.000  
-##  Mean   :3.316   Mean   :2.723   Mean   :2.337   Mean   :2.796  
-##      phone8          phone9         romantic       scontrol1    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
-##  Median :2.000   Median :4.000   Median :1.000   Median :3.000  
-##  Mean   :2.656   Mean   :3.342   Mean   :1.443   Mean   :3.027  
-##    scontrol2       scontrol3       scontrol4       scontrol5    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000  
-##  Median :3.000   Median :4.000   Median :3.000   Median :4.000  
-##  Mean   :3.209   Mean   :3.551   Mean   :3.175   Mean   :3.405  
-##    scontrol6       scontrol7       scontrol8       scontrol9    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :2.000   Median :3.000   Median :3.000   Median :3.000  
-##  Mean   :2.426   Mean   :2.816   Mean   :2.742   Mean   :3.076  
-##    scontrol10      scontrol11      scontrol12      scontrol13   
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :4.000   Median :3.000   Median :4.000   Median :3.000  
-##  Mean   :3.598   Mean   :3.158   Mean   :3.478   Mean   :3.119  
-##   selfcontrol         sex            smoke           SNI1      
-##  Min.   :1.077   Min.   :1.000   Min.   :1.00   Min.   :1.000  
-##  1st Qu.:2.692   1st Qu.:1.000   1st Qu.:2.00   1st Qu.:2.000  
-##  Median :3.154   Median :2.000   Median :2.00   Median :2.000  
-##  Mean   :3.137   Mean   :1.704   Mean   :1.84   Mean   :1.899  
-##       SNI2            SNI3            SNI4           SNI5      
-##  Min.   :1.000   Min.   :0.000   Min.   :1.00   Min.   :1.000  
-##  1st Qu.:1.000   1st Qu.:0.000   1st Qu.:4.00   1st Qu.:2.000  
-##  Median :1.000   Median :0.000   Median :4.00   Median :4.000  
-##  Mean   :1.175   Mean   :1.265   Mean   :3.78   Mean   :3.288  
-##       SNI6            SNI7            SNI8            SNI9      
-##  Min.   :1.000   Min.   :0.000   Min.   :1.000   Min.   :0.000  
-##  1st Qu.:4.000   1st Qu.:1.000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :5.000   Median :1.000   Median :4.000   Median :3.000  
-##  Mean   :4.399   Mean   :1.425   Mean   :4.443   Mean   :2.853  
-##      SNI10           SNI11           SNI12           SNI13      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:4.000   1st Qu.:3.000   1st Qu.:1.000   1st Qu.:1.000  
-##  Median :5.000   Median :4.000   Median :1.000   Median :1.000  
-##  Mean   :5.315   Mean   :4.419   Mean   :1.262   Mean   :2.128  
-##      SNI14          SNI15           SNI16           SNI17          SNI18      
-##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
-##  1st Qu.:2.00   1st Qu.:4.000   1st Qu.:1.000   1st Qu.:1.00   1st Qu.:2.000  
-##  Median :2.00   Median :8.000   Median :1.000   Median :1.00   Median :4.000  
-##  Mean   :1.88   Mean   :6.213   Mean   :1.912   Mean   :2.06   Mean   :4.557  
-##      SNI19           SNI20           SNI21           SNI22      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000  
-##  Median :1.000   Median :1.000   Median :2.500   Median :1.000  
-##  Mean   :1.988   Mean   :1.267   Mean   :3.249   Mean   :1.351  
+##      ALEX5           ALEX6           ALEX7           ALEX8           ALEX9      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :2.000   Median :3.000   Median :2.000   Median :2.000  
+##  Mean   :2.466   Mean   :2.468   Mean   :2.893   Mean   :2.554   Mean   :2.529  
+##      ALEX10          ALEX11          ALEX12          ALEX13         ALEX14    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.00  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.00  
+##  Median :2.000   Median :2.000   Median :2.000   Median :2.00   Median :2.00  
+##  Mean   :2.405   Mean   :2.286   Mean   :2.196   Mean   :2.39   Mean   :2.05  
+##      ALEX15         ALEX16         anxiety        artgluctot       attachhome   
+##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   : 0.000   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.556   1st Qu.: 0.000   1st Qu.:3.556  
+##  Median :3.00   Median :2.000   Median :3.444   Median : 0.000   Median :4.000  
+##  Mean   :2.84   Mean   :2.154   Mean   :3.429   Mean   : 1.091   Mean   :3.992  
+##   attachphone     AvgHumidity       avoidance          cigs             DIDF      
+##  Min.   :1.000   Min.   :  0.00   Min.   :1.000   Min.   : 0.000   Min.   :1.000  
+##  1st Qu.:2.333   1st Qu.: 64.00   1st Qu.:2.333   1st Qu.: 0.000   1st Qu.:2.000  
+##  Median :2.889   Median : 71.00   Median :3.056   Median : 1.000   Median :2.455  
+##  Mean   :2.855   Mean   : 71.15   Mean   :3.116   Mean   : 4.506   Mean   :2.504  
+##     eatdrink          ECR1            ECR2            ECR3           ECR4     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.00  
+##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.00  
+##  Median :1.000   Median :4.000   Median :3.000   Median :3.00   Median :4.00  
+##  Mean   :1.025   Mean   :3.847   Mean   :3.266   Mean   :3.09   Mean   :3.75  
+##       ECR5            ECR6            ECR7            ECR8            ECR9      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :4.000   Median :4.000   Median :3.000   Median :4.000   Median :4.000  
+##  Mean   :4.242   Mean   :3.941   Mean   :3.235   Mean   :3.706   Mean   :3.629  
+##      ECR10          ECR11           ECR12           ECR13           ECR14      
+##  Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.00   Median :4.000   Median :3.000   Median :3.000   Median :2.000  
+##  Mean   :2.82   Mean   :3.842   Mean   :3.026   Mean   :3.191   Mean   :2.848  
+##      ECR15           ECR16          ECR17           ECR18           ECR19      
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
+##  Median :3.000   Median :4.00   Median :4.000   Median :2.000   Median :3.000  
+##  Mean   :3.238   Mean   :3.81   Mean   :3.918   Mean   :2.382   Mean   :3.254  
+##      ECR20           ECR21           ECR22           ECR23           ECR24      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :4.000   Median :2.000   Median :3.000   Median :2.000  
+##  Mean   :2.709   Mean   :4.048   Mean   :2.798   Mean   :3.077   Mean   :2.868  
+##      ECR25           ECR26           ECR27           ECR28           ECR29      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :3.000   Median :2.000   Median :2.000  
+##  Mean   :2.954   Mean   :2.973   Mean   :3.152   Mean   :2.717   Mean   :2.655  
+##      ECR30           ECR31           ECR32           ECR33           ECR34      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000  
+##  Median :3.000   Median :2.000   Median :3.000   Median :4.000   Median :4.000  
+##  Mean   :3.251   Mean   :2.684   Mean   :2.974   Mean   :3.961   Mean   :4.002  
+##      ECR35           ECR36         endtime               EOT           exercise    
+##  Min.   :1.000   Min.   :1.000   Length:1523        Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   Class :character   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Mode  :character   Median :2.400   Median :2.000  
+##  Mean   :2.608   Mean   :3.169                      Mean   :2.326   Mean   :1.986  
+##     gluctot            health         HOME1           HOME2           HOME3      
+##  Min.   :  0.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:  0.000   1st Qu.:3.00   1st Qu.:4.000   1st Qu.:4.000   1st Qu.:4.000  
+##  Median :  1.850   Median :3.00   Median :4.000   Median :4.000   Median :4.000  
+##  Mean   :  4.593   Mean   :3.29   Mean   :4.296   Mean   :4.097   Mean   :4.153  
+##      HOME4          HOME5           HOME6          HOME7         HOME8      
+##  Min.   :1.00   Min.   :1.000   Min.   :1.00   Min.   :1.0   Min.   :1.000  
+##  1st Qu.:4.00   1st Qu.:4.000   1st Qu.:3.00   1st Qu.:2.0   1st Qu.:3.000  
+##  Median :4.00   Median :4.000   Median :4.00   Median :4.0   Median :4.000  
+##  Mean   :4.29   Mean   :4.149   Mean   :3.85   Mean   :3.4   Mean   :3.877  
+##      HOME9           KAMF1           KAMF2           KAMF3           KAMF4      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:4.000   1st Qu.:2.000  
+##  Median :4.000   Median :4.000   Median :5.000   Median :4.000   Median :2.000  
+##  Mean   :3.812   Mean   :3.787   Mean   :4.584   Mean   :4.451   Mean   :2.886  
+##      KAMF5           KAMF6           KAMF7        networksize      nostalgia    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   : 0.00   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:15.00   1st Qu.:3.600  
+##  Median :3.000   Median :3.000   Median :3.000   Median :21.00   Median :4.500  
+##  Mean   :3.316   Mean   :3.257   Mean   :3.306   Mean   :22.67   Mean   :4.434  
+##     onlineid       onlineid1       onlineid2       onlineid3      onlineid4    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:2.273   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.000  
+##  Median :2.818   Median :4.000   Median :4.000   Median :4.00   Median :4.000  
+##  Mean   :2.760   Mean   :3.545   Mean   :3.197   Mean   :3.27   Mean   :3.269  
+##    onlineid5       onlineid6       onlineid7       onlineid8       onlineid9    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:2.000  
+##  Median :3.000   Median :2.000   Median :2.000   Median :2.000   Median :2.000  
+##  Mean   :2.861   Mean   :1.959   Mean   :2.255   Mean   :2.246   Mean   :2.357  
+##    onlineid10     onlineide11        phone1          phone2          phone3     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :3.000   Median :3.000   Median :4.000   Median :2.000  
+##  Mean   :2.277   Mean   :3.127   Mean   :2.862   Mean   :3.286   Mean   :2.377  
+##      phone4          phone5          phone6          phone7          phone8     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :4.000   Median :3.000   Median :2.000   Median :3.000   Median :2.000  
+##  Mean   :3.316   Mean   :2.723   Mean   :2.337   Mean   :2.796   Mean   :2.656  
+##      phone9         romantic       scontrol1       scontrol2       scontrol3    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000  
+##  Median :4.000   Median :1.000   Median :3.000   Median :3.000   Median :4.000  
+##  Mean   :3.342   Mean   :1.443   Mean   :3.027   Mean   :3.209   Mean   :3.551  
+##    scontrol4       scontrol5       scontrol6       scontrol7       scontrol8    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :4.000   Median :2.000   Median :3.000   Median :3.000  
+##  Mean   :3.175   Mean   :3.405   Mean   :2.426   Mean   :2.816   Mean   :2.742  
+##    scontrol9       scontrol10      scontrol11      scontrol12      scontrol13   
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :3.000   Median :4.000   Median :3.000   Median :4.000   Median :3.000  
+##  Mean   :3.076   Mean   :3.598   Mean   :3.158   Mean   :3.478   Mean   :3.119  
+##   selfcontrol         sex            smoke           SNI1            SNI2      
+##  Min.   :1.077   Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.692   1st Qu.:1.000   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:1.000  
+##  Median :3.154   Median :2.000   Median :2.00   Median :2.000   Median :1.000  
+##  Mean   :3.137   Mean   :1.704   Mean   :1.84   Mean   :1.899   Mean   :1.175  
+##       SNI3            SNI4           SNI5            SNI6            SNI7      
+##  Min.   :0.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :0.000  
+##  1st Qu.:0.000   1st Qu.:4.00   1st Qu.:2.000   1st Qu.:4.000   1st Qu.:1.000  
+##  Median :0.000   Median :4.00   Median :4.000   Median :5.000   Median :1.000  
+##  Mean   :1.265   Mean   :3.78   Mean   :3.288   Mean   :4.399   Mean   :1.425  
+##       SNI8            SNI9           SNI10           SNI11           SNI12      
+##  Min.   :1.000   Min.   :0.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:4.000   1st Qu.:3.000   1st Qu.:1.000  
+##  Median :4.000   Median :3.000   Median :5.000   Median :4.000   Median :1.000  
+##  Mean   :4.443   Mean   :2.853   Mean   :5.315   Mean   :4.419   Mean   :1.262  
+##      SNI13           SNI14          SNI15           SNI16           SNI17     
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.00  
+##  1st Qu.:1.000   1st Qu.:2.00   1st Qu.:4.000   1st Qu.:1.000   1st Qu.:1.00  
+##  Median :1.000   Median :2.00   Median :8.000   Median :1.000   Median :1.00  
+##  Mean   :2.128   Mean   :1.88   Mean   :6.213   Mean   :1.912   Mean   :2.06  
+##      SNI18           SNI19           SNI20           SNI21           SNI22      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000  
+##  Median :4.000   Median :1.000   Median :1.000   Median :2.500   Median :1.000  
+##  Mean   :4.557   Mean   :1.988   Mean   :1.267   Mean   :3.249   Mean   :1.351  
 ##     SNI23              SNI24              SNI25              SNI26          
 ##  Length:1523        Length:1523        Length:1523        Length:1523       
 ##  Class :character   Class :character   Class :character   Class :character  
@@ -262,121 +241,101 @@ summary(penguin.data,
 ##  Class :character   1st Qu.:  3.000   1st Qu.: 2.000   1st Qu.:  0.000  
 ##  Mode  :character   Median :  5.000   Median : 4.000   Median :  3.000  
 ##                     Mean   :  6.883   Mean   : 4.898   Mean   :  4.535  
-##      SNI31            SNI32             SNS1            SNS2      
-##  Min.   : 0.000   Min.   : 0.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.:3.000   1st Qu.:3.000  
-##  Median : 0.000   Median : 0.000   Median :5.000   Median :5.000  
-##  Mean   : 2.616   Mean   : 1.966   Mean   :4.489   Mean   :4.303  
-##       SNS3            SNS4            SNS5            SNS6      
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000  
-##  Median :4.000   Median :4.000   Median :5.000   Median :4.000  
-##  Mean   :4.354   Mean   :4.331   Mean   :4.492   Mean   :4.189  
-##       SNS7       socialdiversity  socialembedded     STRAQ_1     
-##  Min.   :1.000   Min.   : 0.000   Min.   :0.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.: 6.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :4.000   Median : 7.000   Median :2.000   Median :2.000  
-##  Mean   :4.265   Mean   : 7.414   Mean   :2.201   Mean   :2.458  
-##     STRAQ_2         STRAQ_3         STRAQ_4         STRAQ_6     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:4.000   1st Qu.:2.000  
-##  Median :3.000   Median :4.000   Median :4.000   Median :3.000  
-##  Mean   :3.207   Mean   :3.281   Mean   :4.014   Mean   :2.966  
-##     STRAQ_7        STRAQ_8        STRAQ_9         STRAQ_10        STRAQ_11    
-##  Min.   :1.00   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.00   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :3.00   Median :3.00   Median :3.000   Median :4.000   Median :3.000  
-##  Mean   :2.85   Mean   :2.94   Mean   :3.209   Mean   :3.841   Mean   :2.996  
-##     STRAQ_12        STRAQ_19        STRAQ_20        STRAQ_21    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000  
-##  Median :2.000   Median :3.000   Median :4.000   Median :4.000  
-##  Mean   :2.086   Mean   :2.805   Mean   :3.409   Mean   :3.641  
-##     STRAQ_22        STRAQ_23        STRAQ_24        STRAQ_25    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :4.000   Median :4.000   Median :4.000   Median :3.000  
-##  Mean   :3.538   Mean   :3.717   Mean   :3.727   Mean   :3.298  
-##     STRAQ_26        STRAQ_27        STRAQ_28        STRAQ_29    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000  
-##  Median :4.000   Median :3.000   Median :3.000   Median :4.000  
-##  Mean   :3.668   Mean   :3.221   Mean   :3.235   Mean   :3.601  
-##     STRAQ_30        STRAQ_31       STRAQ_32        STRAQ_33       STRAQ_5     
-##  Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.00   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.000  
-##  Median :3.000   Median :2.00   Median :2.000   Median :2.00   Median :2.000  
-##  Mean   :3.234   Mean   :2.16   Mean   :2.495   Mean   :2.34   Mean   :2.555  
-##     STRAQ_13        STRAQ_14        STRAQ_15        STRAQ_16    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :3.000   Median :4.000   Median :4.000   Median :3.000  
-##  Mean   :2.927   Mean   :3.486   Mean   :3.367   Mean   :2.821  
-##     STRAQ_17        STRAQ_18        STRAQ_34        STRAQ_35    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :3.000   Median :4.000   Median :2.000   Median :3.000  
-##  Mean   :3.089   Mean   :3.276   Mean   :2.438   Mean   :3.034  
-##     STRAQ_36        STRAQ_37        STRAQ_38        STRAQ_39    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :4.000   Median :3.000   Median :3.000   Median :2.000  
-##  Mean   :3.668   Mean   :3.163   Mean   :2.802   Mean   :2.321  
-##     STRAQ_40        STRAQ_41        STRAQ_42        STRAQ_43    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :3.000   Median :3.000   Median :4.000   Median :3.000  
-##  Mean   :3.123   Mean   :3.125   Mean   :3.528   Mean   :3.176  
-##     STRAQ_44        STRAQ_45        STRAQ_46        STRAQ_47    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000  
-##  Median :3.000   Median :2.000   Median :4.000   Median :4.000  
-##  Mean   :2.726   Mean   :2.415   Mean   :3.561   Mean   :3.653  
-##     STRAQ_48        STRAQ_49        STRAQ_50        STRAQ_51   
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.00  
-##  Median :4.000   Median :3.000   Median :4.000   Median :3.00  
-##  Mean   :3.258   Mean   :3.201   Mean   :3.435   Mean   :2.73  
-##     STRAQ_52        STRAQ_53        STRAQ_54        STRAQ_55    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :4.000   Median :3.000   Median :3.000   Median :3.000  
-##  Mean   :3.446   Mean   :3.289   Mean   :3.228   Mean   :3.078  
-##     STRAQ_56        STRAQ_57         stress         stress1     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.077   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.385   1st Qu.:2.000  
-##  Median :2.000   Median :3.000   Median :2.769   Median :3.000  
-##  Mean   :2.538   Mean   :2.995   Mean   :2.773   Mean   :2.875  
-##     stress2         stress3         stress4        stress5     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
-##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.00   1st Qu.:2.000  
-##  Median :3.000   Median :3.000   Median :3.00   Median :3.000  
-##  Mean   :3.109   Mean   :3.412   Mean   :2.62   Mean   :2.632  
-##     stress6         stress7         stress8         stress9     
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
-##  Median :2.000   Median :3.000   Median :3.000   Median :3.000  
-##  Mean   :2.507   Mean   :2.734   Mean   :2.982   Mean   :2.712  
-##     stress10        stress11        stress12        stress13    
-##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:4.000   1st Qu.:2.000  
-##  Median :3.000   Median :3.000   Median :4.000   Median :2.000  
-##  Mean   :2.794   Mean   :3.085   Mean   :3.995   Mean   :2.581  
-##     stress14     Temperature_t1  Temperature_t2    thermotype   
-##  Min.   :1.000   Min.   :33.20   Min.   :33.90   Min.   :1.000  
-##  1st Qu.:2.000   1st Qu.:36.00   1st Qu.:36.28   1st Qu.:2.000  
-##  Median :3.000   Median :36.40   Median :36.50   Median :2.000  
-##  Mean   :2.839   Mean   :36.28   Mean   :36.50   Mean   :1.896  
-##     avgtemp         filter_.    mintemp           language       langfamily   
-##  Min.   :35.00   Min.   :1   Min.   :-22.000   Min.   :1.000   Min.   :1.000  
-##  1st Qu.:36.12   1st Qu.:1   1st Qu.:  2.000   1st Qu.:3.000   1st Qu.:1.000  
-##  Median :36.45   Median :1   Median :  7.000   Median :5.000   Median :1.000  
-##  Mean   :36.39   Mean   :1   Mean   :  8.258   Mean   :4.879   Mean   :1.347  
-##     Zanxiety           Zavoidance           Site          
-##  Min.   :-2.511130   Min.   :-2.72740   Length:1523       
-##  1st Qu.:-0.737483   1st Qu.:-0.77501   Class :character  
-##  Median : 0.005267   Median :-0.05149   Mode  :character  
-##  Mean   : 0.004293   Mean   :-0.01145                     
+##      SNI31            SNI32             SNS1            SNS2            SNS3      
+##  Min.   : 0.000   Min.   : 0.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median : 0.000   Median : 0.000   Median :5.000   Median :5.000   Median :4.000  
+##  Mean   : 2.616   Mean   : 1.966   Mean   :4.489   Mean   :4.303   Mean   :4.354  
+##       SNS4            SNS5            SNS6            SNS7       socialdiversity 
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   : 0.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.: 6.000  
+##  Median :4.000   Median :5.000   Median :4.000   Median :4.000   Median : 7.000  
+##  Mean   :4.331   Mean   :4.492   Mean   :4.189   Mean   :4.265   Mean   : 7.414  
+##  socialembedded     STRAQ_1         STRAQ_2         STRAQ_3         STRAQ_4     
+##  Min.   :0.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:4.000  
+##  Median :2.000   Median :2.000   Median :3.000   Median :4.000   Median :4.000  
+##  Mean   :2.201   Mean   :2.458   Mean   :3.207   Mean   :3.281   Mean   :4.014  
+##     STRAQ_6         STRAQ_7        STRAQ_8        STRAQ_9         STRAQ_10    
+##  Min.   :1.000   Min.   :1.00   Min.   :1.00   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:3.000  
+##  Median :3.000   Median :3.00   Median :3.00   Median :3.000   Median :4.000  
+##  Mean   :2.966   Mean   :2.85   Mean   :2.94   Mean   :3.209   Mean   :3.841  
+##     STRAQ_11        STRAQ_12        STRAQ_19        STRAQ_20        STRAQ_21    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :3.000   Median :2.000   Median :3.000   Median :4.000   Median :4.000  
+##  Mean   :2.996   Mean   :2.086   Mean   :2.805   Mean   :3.409   Mean   :3.641  
+##     STRAQ_22        STRAQ_23        STRAQ_24        STRAQ_25        STRAQ_26    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000  
+##  Median :4.000   Median :4.000   Median :4.000   Median :3.000   Median :4.000  
+##  Mean   :3.538   Mean   :3.717   Mean   :3.727   Mean   :3.298   Mean   :3.668  
+##     STRAQ_27        STRAQ_28        STRAQ_29        STRAQ_30        STRAQ_31   
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00  
+##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.00  
+##  Median :3.000   Median :3.000   Median :4.000   Median :3.000   Median :2.00  
+##  Mean   :3.221   Mean   :3.235   Mean   :3.601   Mean   :3.234   Mean   :2.16  
+##     STRAQ_32        STRAQ_33       STRAQ_5         STRAQ_13        STRAQ_14    
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000  
+##  Median :2.000   Median :2.00   Median :2.000   Median :3.000   Median :4.000  
+##  Mean   :2.495   Mean   :2.34   Mean   :2.555   Mean   :2.927   Mean   :3.486  
+##     STRAQ_15        STRAQ_16        STRAQ_17        STRAQ_18        STRAQ_34    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :4.000   Median :3.000   Median :3.000   Median :4.000   Median :2.000  
+##  Mean   :3.367   Mean   :2.821   Mean   :3.089   Mean   :3.276   Mean   :2.438  
+##     STRAQ_35        STRAQ_36        STRAQ_37        STRAQ_38        STRAQ_39    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :4.000   Median :3.000   Median :3.000   Median :2.000  
+##  Mean   :3.034   Mean   :3.668   Mean   :3.163   Mean   :2.802   Mean   :2.321  
+##     STRAQ_40        STRAQ_41        STRAQ_42        STRAQ_43        STRAQ_44    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :4.000   Median :3.000   Median :3.000  
+##  Mean   :3.123   Mean   :3.125   Mean   :3.528   Mean   :3.176   Mean   :2.726  
+##     STRAQ_45        STRAQ_46        STRAQ_47        STRAQ_48        STRAQ_49    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :2.000   Median :4.000   Median :4.000   Median :4.000   Median :3.000  
+##  Mean   :2.415   Mean   :3.561   Mean   :3.653   Mean   :3.258   Mean   :3.201  
+##     STRAQ_50        STRAQ_51       STRAQ_52        STRAQ_53        STRAQ_54    
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:2.00   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:3.000  
+##  Median :4.000   Median :3.00   Median :4.000   Median :3.000   Median :3.000  
+##  Mean   :3.435   Mean   :2.73   Mean   :3.446   Mean   :3.289   Mean   :3.228  
+##     STRAQ_55        STRAQ_56        STRAQ_57         stress         stress1     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.077   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.385   1st Qu.:2.000  
+##  Median :3.000   Median :2.000   Median :3.000   Median :2.769   Median :3.000  
+##  Mean   :3.078   Mean   :2.538   Mean   :2.995   Mean   :2.773   Mean   :2.875  
+##     stress2         stress3         stress4        stress5         stress6     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:2.00   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :3.00   Median :3.000   Median :2.000  
+##  Mean   :3.109   Mean   :3.412   Mean   :2.62   Mean   :2.632   Mean   :2.507  
+##     stress7         stress8         stress9         stress10        stress11    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000  
+##  Median :3.000   Median :3.000   Median :3.000   Median :3.000   Median :3.000  
+##  Mean   :2.734   Mean   :2.982   Mean   :2.712   Mean   :2.794   Mean   :3.085  
+##     stress12        stress13        stress14     Temperature_t1  Temperature_t2 
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :33.20   Min.   :33.90  
+##  1st Qu.:4.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:36.00   1st Qu.:36.28  
+##  Median :4.000   Median :2.000   Median :3.000   Median :36.40   Median :36.50  
+##  Mean   :3.995   Mean   :2.581   Mean   :2.839   Mean   :36.28   Mean   :36.50  
+##    thermotype       avgtemp         filter_.    mintemp           language    
+##  Min.   :1.000   Min.   :35.00   Min.   :1   Min.   :-22.000   Min.   :1.000  
+##  1st Qu.:2.000   1st Qu.:36.12   1st Qu.:1   1st Qu.:  2.000   1st Qu.:3.000  
+##  Median :2.000   Median :36.45   Median :1   Median :  7.000   Median :5.000  
+##  Mean   :1.896   Mean   :36.39   Mean   :1   Mean   :  8.258   Mean   :4.879  
+##    langfamily       Zanxiety           Zavoidance           Site          
+##  Min.   :1.000   Min.   :-2.511130   Min.   :-2.72740   Length:1523       
+##  1st Qu.:1.000   1st Qu.:-0.737483   1st Qu.:-0.77501   Class :character  
+##  Median :1.000   Median : 0.005267   Median :-0.05149   Mode  :character  
+##  Mean   :1.347   Mean   : 0.004293   Mean   :-0.01145                     
 ##  [ reached getOption("max.print") -- omitted 3 rows ]
 ```
 
@@ -399,24 +358,21 @@ dim(penguin.data)
 # 描述性统计
 ## 计算
 &lt;font size=5&gt;
-&amp;emsp;&amp;emsp;如果我想知道被试的平均年龄怎么办？
+&amp;emsp;&amp;emsp;如果我想知道被试的平均年龄、中位数和标准差等统计量应该怎么办？
 &lt;/font&gt;&lt;br&gt;
 
 ```r
-mean(penguin.data$age)
+#使用psych包中的describe()函数
+DT::datatable(psych::describe(penguin.data))
 ```
 
-```
-## [1] NA
-```
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3e15c62d297cfe85074d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3e15c62d297cfe85074d">{"x":{"filter":"none","vertical":false,"data":[["age","ALEX1","ALEX2","ALEX3","ALEX4","ALEX5","ALEX6","ALEX7","ALEX8","ALEX9","ALEX10","ALEX11","ALEX12","ALEX13","ALEX14","ALEX15","ALEX16","anxiety","artgluctot","attachhome","attachphone","AvgHumidity","avoidance","cigs","DIDF","eatdrink","ECR1","ECR2","ECR3","ECR4","ECR5","ECR6","ECR7","ECR8","ECR9","ECR10","ECR11","ECR12","ECR13","ECR14","ECR15","ECR16","ECR17","ECR18","ECR19","ECR20","ECR21","ECR22","ECR23","ECR24","ECR25","ECR26","ECR27","ECR28","ECR29","ECR30","ECR31","ECR32","ECR33","ECR34","ECR35","ECR36","endtime*","EOT","exercise","gluctot","health","HOME1","HOME2","HOME3","HOME4","HOME5","HOME6","HOME7","HOME8","HOME9","KAMF1","KAMF2","KAMF3","KAMF4","KAMF5","KAMF6","KAMF7","networksize","nostalgia","onlineid","onlineid1","onlineid2","onlineid3","onlineid4","onlineid5","onlineid6","onlineid7","onlineid8","onlineid9","onlineid10","onlineide11","phone1","phone2","phone3","phone4","phone5","phone6","phone7","phone8","phone9","romantic","scontrol1","scontrol2","scontrol3","scontrol4","scontrol5","scontrol6","scontrol7","scontrol8","scontrol9","scontrol10","scontrol11","scontrol12","scontrol13","selfcontrol","sex","smoke","SNI1","SNI2","SNI3","SNI4","SNI5","SNI6","SNI7","SNI8","SNI9","SNI10","SNI11","SNI12","SNI13","SNI14","SNI15","SNI16","SNI17","SNI18","SNI19","SNI20","SNI21","SNI22","SNI23*","SNI24*","SNI25*","SNI26*","SNI27*","SNI28","SNI29","SNI30","SNI31","SNI32","SNS1","SNS2","SNS3","SNS4","SNS5","SNS6","SNS7","socialdiversity","socialembedded","STRAQ_1","STRAQ_2","STRAQ_3","STRAQ_4","STRAQ_6","STRAQ_7","STRAQ_8","STRAQ_9","STRAQ_10","STRAQ_11","STRAQ_12","STRAQ_19","STRAQ_20","STRAQ_21","STRAQ_22","STRAQ_23","STRAQ_24","STRAQ_25","STRAQ_26","STRAQ_27","STRAQ_28","STRAQ_29","STRAQ_30","STRAQ_31","STRAQ_32","STRAQ_33","STRAQ_5","STRAQ_13","STRAQ_14","STRAQ_15","STRAQ_16","STRAQ_17","STRAQ_18","STRAQ_34","STRAQ_35","STRAQ_36","STRAQ_37","STRAQ_38","STRAQ_39","STRAQ_40","STRAQ_41","STRAQ_42","STRAQ_43","STRAQ_44","STRAQ_45","STRAQ_46","STRAQ_47","STRAQ_48","STRAQ_49","STRAQ_50","STRAQ_51","STRAQ_52","STRAQ_53","STRAQ_54","STRAQ_55","STRAQ_56","STRAQ_57","stress","stress1","stress2","stress3","stress4","stress5","stress6","stress7","stress8","stress9","stress10","stress11","stress12","stress13","stress14","Temperature_t1","Temperature_t2","thermotype","avgtemp","filter_.","mintemp","language","langfamily","Zanxiety","Zavoidance","Site*"],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247],[1484,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1507,1413,1509,1508,1500,1507,388,1508,1492,1507,1507,1507,1507,1507,1507,1507,1507,1464,1507,1453,1507,1507,1507,1507,1507,1507,1507,1507,1448,1507,1441,1507,1507,1507,1465,1445,1451,1443,1465,1450,1507,1503,1497,1448,1452,1523,1508,1492,1398,1508,1509,1509,1509,1509,1509,1509,1509,1509,1509,1511,1511,1511,1511,1511,1511,1511,1468,1513,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1508,1491,1507,1507,1507,1507,1507,1507,1507,1507,1507,1507,1507,1507,1507,1507,1491,1493,1512,1512,317,1512,1487,1511,771,1512,1370,1512,1512,1511,561,1511,1351,1511,754,754,1511,1511,426,1511,1493,1473,1456,1449,1446,498,245,142,99,87,1512,1513,1513,1513,1513,1513,1513,1519,1519,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1510,1509,1509,1509,1509,1509,1509,1509,1509,1509,1509,1509,1509,1509,1509,1509,1523,1493,1492,1523,1523,1489,1523,1523,1507,1507,1523],[1990.95552560647,2.50994694960212,2.75596816976127,2.02718832891247,2.65384615384615,2.46618037135279,2.46750663129973,2.89323607427056,2.55437665782493,2.52851458885942,2.4051724137931,2.28580901856764,2.19562334217507,2.38992042440318,2.05039787798408,2.84018567639257,2.15384615384615,3.42935527451414,1.09129511677282,3.99153228775495,2.85499557913351,71.1453333333333,3.11572254153981,4.50644329896907,2.50434048709911,1.0254691689008,3.84671532846715,3.26609157266092,3.09024552090246,3.75049767750498,4.24220305242203,3.94094226940942,3.23490378234904,3.70603848706038,3.62909836065574,2.82017252820173,3.84170681348933,3.02587923025879,3.19110816191108,2.84804246848042,3.23822163238222,3.80955540809555,3.91771731917717,2.38221632382216,3.25414731254147,2.70925414364641,4.04777704047777,2.79805690492713,3.07697412076974,2.8679495686795,2.95421366954214,2.97337883959044,3.15155709342561,2.71674707098553,2.65488565488565,3.25051194539249,2.68413793103448,2.97412076974121,3.96074517631404,4.00200400801603,2.60842541436464,3.16873278236915,644.945502298096,2.32599469496021,1.98592493297587,4.59318311874106,3.29045092838196,4.29555997349238,4.09741550695825,4.15308151093439,4.28959575878065,4.14910536779324,3.85023194168323,3.39960238568588,3.87740225314778,3.81179589131875,3.78689609530113,4.5837193911317,4.45135671740569,2.88616810059563,3.31634679020516,3.25744540039709,3.30641958967571,22.6702997275204,4.43410442828817,2.76024837231734,3.54509283819629,3.19694960212202,3.26989389920424,3.26856763925729,2.86140583554377,1.95888594164456,2.2553050397878,2.24602122015915,2.35676392572944,2.27718832891247,3.12665782493369,2.86206896551724,3.28580901856764,2.37665782493369,3.31631299734748,2.72281167108753,2.3368700265252,2.79641909814324,2.65649867374005,3.34151193633952,1.44332662642522,3.02720637027206,3.20902455209025,3.55142667551427,3.17518248175182,3.40477770404778,2.42601194426012,2.81552753815528,2.74187126741871,3.07631055076311,3.59787657597877,3.1579296615793,3.47843397478434,3.11944260119443,3.13700168444694,1.70422535211268,1.83991962491628,1.89880952380952,1.17526455026455,1.26498422712934,3.78042328042328,3.28850033624748,4.39907346128392,1.4254215304799,4.44312169312169,2.85328467153285,5.31547619047619,4.41865079365079,1.2620780939775,2.1283422459893,1.88021178027796,6.21317542561066,1.9119788219722,2.05968169761273,4.55702917771883,1.98808735936466,1.26737260092654,3.24882629107981,1.35076108537392,77.9477561955794,19.3109300746775,7.09271978021978,3.46997929606625,3.03526970954357,6.88353413654619,4.89795918367347,4.53521126760563,2.61616161616162,1.96551724137931,4.48875661375661,4.30270984798414,4.35360211500331,4.33113020489095,4.49239920687376,4.18902842035691,4.2650363516193,7.41408821593153,2.20078999341672,2.45827814569536,3.20728476821192,3.28079470198676,4.01390728476821,2.96622516556291,2.85033112582781,2.94039735099338,3.20860927152318,3.84105960264901,2.99602649006623,2.08609271523179,2.8046357615894,3.40860927152318,3.64105960264901,3.53841059602649,3.71721854304636,3.72715231788079,3.29801324503311,3.66754966887417,3.2205298013245,3.23509933774834,3.60066225165563,3.23377483443709,2.16026490066225,2.4953642384106,2.33973509933775,2.55496688741722,2.92715231788079,3.48609271523179,3.36688741721854,2.82119205298013,3.0887417218543,3.27615894039735,2.43774834437086,3.03443708609272,3.6682119205298,3.16291390728477,2.80198675496689,2.32119205298013,3.12251655629139,3.12450331125828,3.52847682119205,3.17615894039735,2.72582781456954,2.41523178807947,3.56092715231788,3.65298013245033,3.25827814569536,3.20066225165563,3.43509933774834,2.72980132450331,3.44635761589404,3.2887417218543,3.22847682119205,3.07814569536424,2.53841059602649,2.9953642384106,2.77334190366,2.87475149105368,3.10934393638171,3.41153081510934,2.62027833001988,2.63220675944334,2.50695825049702,2.73359840954274,2.98210735586481,2.71239231278993,2.79390324718357,3.08482438701127,3.99536116633532,2.58117958913188,2.8389662027833,36.2805705114175,36.5012673959961,1.89611260053619,36.3898993215146,1,8.25811506603985,4.87852921864741,1.34734077478661,0.00429333228638966,-0.0114471349696546,8.29875246224557],[8.44373966366637,1.04155554503261,1.10623385504687,1.0583147194782,0.994112627053502,1.07738876705097,1.05439574236088,1.11210120174294,1.06039929191799,1.08123091908447,1.03535370898178,1.03675528528398,0.845492798138626,1.04278950283057,0.857524469529322,1.02019578250716,0.906478815859286,1.12004385560528,3.76352357821111,0.726501389920776,0.839771788777198,14.037173494524,1.01141372544537,6.66581562237551,0.715081363554392,0.157598024134546,1.81728297857554,1.68626536741737,1.70611870687156,1.8199475947138,1.86079205419845,1.81621438781556,1.75279023642704,1.81384213023575,1.7011114556196,1.55728736195911,1.82679636620211,1.60675671404461,1.63724918486457,1.60224811461009,1.85773542224226,1.86929164739753,1.88863184450429,1.38427984006721,1.70181950502602,1.43328870543008,1.85148446473753,1.50606057115303,1.63727152172461,1.59945250513421,1.62399028660733,1.49816868508795,1.6630681597502,1.37930093392545,1.34693700296912,1.69438604465865,1.36740503520584,1.64957854290213,1.79188211709725,1.72837942781902,1.44107414296355,1.42432845804203,404.579925618328,0.5444910251006,0.117840004504548,10.5604607288406,0.922613671932531,0.828928333998845,0.91214903518305,0.789368250814537,0.862744469414059,0.978363847011736,1.06988943714098,1.18345125416121,1.01850237770471,1.04809731396096,1.09101706686469,1.7659696128542,1.59680449083159,1.64224465054793,1.54593811598811,1.65997960157529,1.7138175755039,10.8461517703928,1.33377092421088,0.781259859562625,1.05644722908679,1.12476672156915,1.1436774592249,1.10923914635638,1.1927768173125,0.986118290201897,1.11236864741489,1.10068028892196,1.11098186096498,1.09475896833454,1.16484912928092,1.17576454247501,1.12868619356975,1.0708350453663,1.12051471141192,1.19447280464294,1.14649288556266,1.20893067611352,1.22571060954016,1.16265757193826,0.496944421786027,1.13084384187227,1.17667607171645,1.12107791536945,1.16379417525134,1.05149157338751,1.18604668019977,1.12638188866019,1.12457397069069,1.13328966988645,0.994778267499579,1.14674107799577,1.08044587230845,1.02637862192977,0.638656580179871,0.458011005027135,0.366803442804833,0.631993818058453,0.636707953451201,1.6106266224172,0.666440771451918,1.04451182378829,0.951248292057816,1.24653375926622,2.30659694233879,1.66595046629736,1.89263749191598,1.97334891026749,0.439910492690742,2.19527063019605,0.32482122666414,2.19740680119631,1.27047292214703,2.2630217325577,2.84061974078963,1.58632099097346,0.442734929760744,2.54078469266093,0.477366273880226,131.506796338565,46.6133902233613,15.8107467655705,7.25249738370694,5.54261260550297,8.88210791455917,5.06452180012101,15.5064214434994,3.7162277085476,3.51226514024738,1.68219721402265,1.67997836532257,1.51444169355249,1.56961554777717,1.60029812675536,1.50042715958782,1.49042810666533,1.44155770312834,1.00975448430907,1.14977495800765,1.12861446973946,1.18555002330502,0.866391841150473,1.18787710232768,1.11563823182318,1.07893738117248,1.12366202874842,1.10179512077407,1.11379569975624,1.07097620166496,1.04166595350609,1.06105467851349,0.924396640085467,1.04544586086463,0.834261504787502,1.05312396365023,1.15639061636242,1.0536030936629,1.1255110248403,0.923710117468073,0.916746247915507,1.0521452361917,0.932164334908908,1.07857855973597,0.91403745866246,1.21699304291243,1.19252886175884,1.07480574385534,1.05222928195481,1.13084410326436,1.13388341110297,1.10179133672012,1.07678938391715,1.25750477986651,0.913333299056789,1.05448745360001,1.1372930202925,0.912043654530749,0.965383086844047,0.994548886045939,0.948744591548505,0.998720759589848,1.11394936049834,1.03633449113579,0.915189074312366,0.91238499621309,1.13888774265814,1.09162707026515,1.03521165839015,1.06631008175648,1.08032435269052,1.05893547496539,1.01485830220341,0.916955665491243,1.1070208456502,1.21754556243274,0.546737236505285,0.916011432336148,0.851336229501102,0.923262352330851,0.848395068961423,0.866742870698418,0.923168104437962,0.80651629960958,0.914268307193623,0.832519690047944,0.882674344585955,0.966666754556653,0.820399530734512,0.934636165303341,0.980536307562603,0.600641691972816,0.42104260422865,0.711549566393432,0.452080881234252,0,8.07038125060562,2.19522356678765,0.674900455081568,0.997434910741119,0.994530804002142,3.95632094837731],[1994,2,3,2,2,2,2,3,2,2,2,2,2,2,2,3,2,3.44444444444444,0,4,2.88888888888889,71,3.05555555555556,1,2.45454545454545,1,4,3,3,4,4,4,3,4,4,2,4,3,3,2,3,4,4,2,3,2,4,2,3,2,2,3,3,2,2,3,2,3,4,4,2,3,635,2.4,2,1.85,3,4,4,4,4,4,4,4,4,4,4,5,4,2,3,3,3,21,4.5,2.81818181818182,4,4,4,4,3,2,2,2,2,2,3,3,4,2,4,3,2,3,2,4,1,3,3,4,3,4,2,3,3,3,4,3,4,3,3.15384615384615,2,2,2,1,0,4,4,5,1,4,3,5,4,1,1,2,8,1,1,4,1,1,2.5,1,1,2,3,2,2,5,4,3,0,0,5,5,4,4,5,4,4,7,2,2,3,4,4,3,3,3,3,4,3,2,3,4,4,4,4,4,3,4,3,3,4,3,2,2,2,2,3,4,4,3,3,4,2,3,4,3,3,2,3,3,4,3,3,2,4,4,4,3,4,3,4,3,3,3,2,3,2.76923076923077,3,3,3,3,3,2,3,3,3,3,3,4,2,3,36.4,36.5,2,36.45,1,7,5,1,0.00526722817710109,-0.0514865570574791,9],[1992.94023569024,2.47019867549669,2.74751655629139,1.88658940397351,2.63741721854305,2.4205298013245,2.43377483443709,2.9205298013245,2.51986754966887,2.48427152317881,2.34519867549669,2.19288079470199,2.13162251655629,2.33195364238411,1.95943708609272,2.8476821192053,2.05711920529801,3.41035578136253,0.206896551724138,4.05054682474037,2.8731604120677,71.9933333333333,3.09393120640318,3.19391025641026,2.48020770620108,1,3.83429991714996,3.16155758077879,2.94449047224524,3.71748135874068,4.26429163214582,3.91300745650373,3.10936205468103,3.66031483015741,3.5981228668942,2.68516984258492,3.81169389509888,2.89975144987572,3.08367854183927,2.68434134217067,3.08367854183927,3.77050538525269,3.90472245236123,2.1946975973488,3.13173156586578,2.54913793103448,3.98260149130075,2.64180398959237,2.93786246893123,2.70753935376968,2.81110190555095,2.85166240409207,3.01728608470182,2.56847545219638,2.52640692640693,3.1457800511509,2.53275862068966,2.83347141673571,3.91438071487947,3.9791492910759,2.43275862068965,3.09982788296041,642.676784249385,2.32168874172185,2,2.48684821428571,3.28890728476821,4.43672456575682,4.22415219189413,4.24813895781638,4.43589743589744,4.31017369727047,3.97518610421836,3.44334160463193,4.00744416873449,3.93217535153019,3.91315136476427,4.56741108354012,4.50537634408602,2.69230769230769,3.20016542597188,3.14143920595534,3.19602977667494,21.5323129251701,4.48827415359207,2.77671583383504,3.61920529801325,3.26738410596026,3.31705298013245,3.33029801324503,2.86423841059603,1.80711920529801,2.16721854304636,2.15397350993377,2.28394039735099,2.19288079470199,3.16804635761589,2.87251655629139,3.35016556291391,2.32367549668874,3.38493377483444,2.71192052980132,2.24337748344371,2.78145695364238,2.62582781456954,3.40976821192053,1.42917015926236,3.013256006628,3.23860811930406,3.6188898094449,3.17564208782104,3.42502071251036,2.32560066280033,2.8169014084507,2.71416735708368,3.09362054681027,3.65451532725766,3.15492957746479,3.51698425849213,3.11350455675228,3.1364476451469,1.75440067057837,1.92468619246862,1.86776859504132,1,1.04313725490196,3.99090909090909,3.44248530646516,4.62448304383788,1.28200972447326,4.42892561983471,2.66514598540146,5.37685950413223,4.3504132231405,1.20264681555004,1.5456570155902,1.97518610421836,6.52266419981499,1.70719602977667,1.45364238410596,4.57119205298013,1.63606286186931,1.20926385442514,2.94152046783626,1.31348221670802,49.2200836820084,5.25106022052587,3,2,2,5.375,4.07106598984772,2.64035087719298,2.03703703703704,1.23943661971831,4.53801652892562,4.31874483897605,4.3905862923204,4.36498761354253,4.53344343517754,4.19653179190751,4.28984310487201,7.41495480690222,2.1733771569433,2.39155629139073,3.21523178807947,3.33360927152318,4.12748344370861,2.95778145695364,2.8385761589404,2.89735099337748,3.20778145695364,3.97682119205298,2.97102649006623,1.9362582781457,2.81043046357616,3.43956953642384,3.70115894039735,3.58940397350993,3.76158940397351,3.82781456953642,3.35016556291391,3.77814569536424,3.26158940397351,3.25827814569536,3.64900662251656,3.25248344370861,2.0703642384106,2.44701986754967,2.28725165562914,2.49420529801325,2.93129139072848,3.52897350993377,3.37417218543046,2.81622516556291,3.07367549668874,3.29884105960265,2.38990066225166,3.04304635761589,3.73096026490066,3.1614238410596,2.78559602649007,2.25745033112583,3.14569536423841,3.1067880794702,3.56622516556291,3.20612582781457,2.71274834437086,2.36258278145695,3.61009933774834,3.71440397350993,3.28228476821192,3.20115894039735,3.46937086092715,2.72930463576159,3.48841059602649,3.2955298013245,3.24503311258278,3.09685430463576,2.48592715231788,3.00331125827815,2.76371635441114,2.84532671629446,3.09181141439206,3.40860215053763,2.58478081058726,2.59636062861869,2.48469809760132,2.69396195202647,2.95616211745244,2.67907361455749,2.76344086021505,3.07196029776675,4.05789909015715,2.5550041356493,2.8221670802316,36.3327034910218,36.51569967457,1.86013400335008,36.4107879865099,1,7.52808046940486,4.86136177194422,1.18457752255948,-0.0213620185750618,-0.0246813926401506,8.31337161607875],[2.9652,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0,1.4826,0,1.4826,0,1.2355,0,0.658933333333327,0.823666666666674,13.3434,1.15313333333334,1.4826,0.673909090909099,0,2.9652,1.4826,1.4826,2.9652,2.9652,2.9652,1.4826,2.9652,1.4826,1.4826,2.9652,1.4826,1.4826,1.4826,1.4826,2.9652,2.9652,1.4826,1.4826,1.4826,2.9652,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,2.9652,1.4826,1.4826,1.4826,520.3926,0.59304,0,2.74281,1.4826,1.4826,1.4826,0,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,8.8956,1.2355,0.808690909090901,0,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0.684276923076921,0,0,0,0,0,0,0,0,1.4826,2.9652,1.4826,1.4826,1.4826,0,0,0,0,0,0,4.4478,0,0,2.2239,0,0,0,0,0,0,2.9652,2.9652,4.4478,0,0,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0.7413,1.4826,0,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0,1.4826,1.4826,0,1.4826,1.4826,0,1.4826,1.4826,1.4826,1.4826,0,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0.570230769230763,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,1.4826,0.444780000000006,0.340997999999995,0,0.444779999999996,0,7.413,1.4826,0,1.04679213778902,1.13209976687418,4.4478],[1922,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1.07692307692308,1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1.07692307692308,1,1,1,1,1,1,1,1,1,1,1,1,1,1,33.2,33.9,1,35,1,-22,1,1,-2.51112957971274,-2.72739950262502,1],[1998,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6.83333333333333,42,5,5,100,6.44444444444444,40,4.81818181818182,2,8,8,8,8,8,8,8,8,7,8,7,8,8,8,8,8,8,8,8,7,8,7,8,8,8,7,7,7,7,7,7,8,7,7,7,7,1349,4.2,2,240,5,5,5,5,5,5,5,5,5,5,5,8,7,8,8,8,8,91,7,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,2,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3,2,5,8,8,4,4,5,4,8,8,8,8,2,8,2,8,6,8,8,8,2,8,2,444,216,104,60,48,100,45,180,21,20,7,7,7,7,7,7,7,12,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,4.69230769230769,5,5,5,5,5,5,5,5,5,5,5,5,5,5,39.4,39.3,7,39.3,1,27,9,3,3.4067017747215,2.98562534906149,15],[76,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5.83333333333333,42,4,4,100,5.44444444444444,40,3.81818181818182,1,7,7,7,7,7,7,7,7,6,7,6,7,7,7,7,7,7,7,7,6,7,6,7,7,7,6,6,6,6,6,6,7,6,6,6,6,1348,3.2,1,240,4,4,4,4,4,4,4,4,4,4,4,7,6,7,7,7,7,91,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,1,4,4,4,4,4,4,4,4,4,4,4,4,4,3.92307692307692,2,1,4,7,8,3,3,4,4,7,8,7,7,1,7,1,7,5,7,7,7,1,7,1,443,215,103,59,47,100,45,180,21,20,6,6,6,6,6,6,6,12,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3.61538461538461,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6.2,5.4,6,4.3,0,49,8,2,5.91783135443424,5.71302485168651,14],[-2.82503074001594,0.510566392832553,0.283150791907429,0.838768134592769,0.393606092362012,0.461205696748826,0.370603083525102,0.0230451763453676,0.483196441067918,0.44120712802311,0.562300525119495,0.783662085407425,0.684056690886802,0.517948759652881,0.944627426269992,0.109387785828099,0.884030330293259,0.169888048590539,5.79432676276313,-0.895186405807137,-0.139805998168625,-0.754522841735273,0.185342558658852,1.60331123255086,0.328575208265832,6.01800414121251,0.0786731686246811,0.40882990342846,0.52645536000623,0.124511897660818,-0.0878897353987269,0.0743714925388919,0.47710991997615,0.18267471617675,0.201539900420274,0.649065905227072,0.149112083008013,0.573188727756169,0.459485814593065,0.810615258918477,0.543593258529026,0.116419631966812,0.0050095230281914,1.05436836107895,0.523008934910453,0.852672800446448,0.174796070909556,0.80357482364037,0.669330013115077,0.808377864733767,0.679944736233855,0.662863436741876,0.59219953996596,0.840990617167183,0.837700765577489,0.43095877968511,0.875842081251338,0.647086917056105,0.149065220021446,0.0768677359200298,0.8962864466572,0.468093970237114,0.0447406054954526,0.147343184983678,-8.24167052717197,10.0297166607001,-0.154274126695388,-1.41912371951762,-1.09418050936609,-0.980766339178868,-1.33620316125324,-1.21832269521606,-0.758306497508567,-0.255568738115699,-0.871138582381591,-0.786606443070718,-0.745202937603939,0.0457830299268107,-0.328077047712055,0.871883747230403,0.615707090409841,0.580718524759783,0.476003351651642,1.29014463869649,-0.360063191292628,-0.12848316743682,-0.783254241093949,-0.464618489727383,-0.457765073859946,-0.525797912908023,0.00799760239500095,0.990864747276642,0.569323147259125,0.607219766561684,0.514886094351885,0.539759207041537,-0.277341836642197,-0.0130485295921126,-0.554491998861802,0.42380510593841,-0.610039201563602,0.106651924289029,0.605688732786108,0.0926592899446941,0.174383051773457,-0.551959038873033,0.227934395803531,0.0320194570103613,-0.155715401580577,-0.476062780382536,-0.0404509202498274,-0.311597244209447,0.561572465545257,0.0403432129185862,0.32557966155462,-0.144279008172758,-0.485426835255523,-0.046746995309121,-0.362684088283014,-0.0816574214267011,0.00495240526377933,-0.873103572728665,-1.85217426940973,1.38804378252225,5.13682313992967,1.31557467531383,-2.96265081117531,-0.942963089737817,-1.9751283565116,0.981430415485416,0.260493906292955,0.946206007765073,-0.118921969820273,0.263024025294282,1.08096737893249,1.91230898929823,-2.33950320883269,-0.826243883022044,1.47023855293718,1.99351837475358,0.0361098372870505,2.01300735356775,1.05016987603158,0.852879829322429,0.624845760908012,1.48925867771954,2.75286467855295,4.19925753426046,5.3857065014174,5.74478621535202,5.85413167980758,3.33787684421753,10.2888605446507,1.92643856928252,2.91253948722447,-0.172701871292979,-0.211224199768906,-0.235302367819957,-0.214740907437261,-0.258612172340009,-0.0901126629495985,-0.146073388864268,-0.716331199101024,0.0897634632711044,0.48625908991971,-0.235735339332517,-0.38315645703857,-1.08374934456318,0.0651151377142876,0.208119732662306,0.225893757030089,-0.133075625511788,-0.916225982284114,0.091217792549157,0.993058352141705,0.164003739474561,-0.437163851367673,-0.655337074353478,-0.447808479199402,-0.6020754934045,-0.677808615847001,-0.370893083069777,-0.808486813905963,-0.328794322475814,-0.264448567314228,-0.558300338804272,-0.312630325469177,0.653562709162313,0.444228505518019,0.330291853865759,0.340579203957638,-0.0423398070807289,-0.464845377253061,-0.308950717928217,0.183994392088825,-0.0352339422231582,-0.352755284587507,0.468170904449666,-0.0867844232960066,-0.644021424607769,-0.155095625548714,0.225175312159518,0.727549808800226,-0.206598519768505,-0.0123954151389358,-0.693536785573213,-0.289644602374924,0.241120212715485,0.496271918062095,-0.688016630305142,-0.804943378002882,-0.298834575268772,-0.152572462435839,-0.494407350803935,0.261409845737535,-0.447822087600465,-0.2800285567719,-0.281495978246698,-0.149606306660799,0.475616645078931,-0.129848014964958,0.170046131899252,0.239179681603764,0.138012327857517,-0.0380308046038375,0.347369019730063,0.374599080122062,0.40918809052676,0.275977193002301,0.170541144580818,0.261515308287721,0.268506784430976,0.0106304363638775,-0.589122366427363,0.462657883773101,0.207884715890732,-0.78633570458255,-0.207448693340946,2.71986274951577,-0.179002299917716,null,0.630318699333936,-0.0625315665010123,1.68050372193679,0.230584034029652,0.131753558221141,0.00715474049774124],[9.62215638961429,-0.505154109223185,-0.886080350560602,-0.154752309195075,-0.576688270412574,-0.679497604025253,-0.766593050553508,-1.02927143153704,-0.602017481221467,-0.601764889343837,-0.374275210644206,-0.0121784364811295,0.443408763531967,-0.50280886469446,1.13771263719178,-0.633621388682767,0.81285093955686,-0.366483056674655,40.7169766111709,1.32272761799585,-0.340870124577299,1.38485109674731,-0.47853413227582,2.22452559402605,-0.203002531460726,34.2393237994646,-1.06651568879874,-0.755072675908794,-0.682524056972792,-0.990316448404207,-0.881687902490177,-0.983879668568982,-0.745595180815948,-0.933779473614869,-0.939904463160032,-0.468622925697136,-1.12845526023855,-0.521101292312943,-0.56919226345858,-0.0882950075198616,-0.768849663188874,-0.989863621238402,-1.11008098160346,0.639651645416929,-0.57058915227016,0.251395102299152,-0.870923286706418,0.014787470987307,-0.327653826530586,0.0588177984582217,-0.355406664816404,-0.179459130331904,-0.583648575384177,0.378252997177917,0.493301574936144,-0.807609316815052,0.44028152283764,-0.400754341557242,-1.08309397586351,-1.02111881040173,0.323738833498224,-0.240366223562992,-1.21074316526122,0.0696441884185264,65.9693498077329,184.563236796459,-0.373146502137986,2.47879136535488,1.14098620889953,1.34866228028635,1.75282834567972,1.11878238645616,-0.115371134623103,-0.947048181412685,0.315947306524956,0.0924827233163894,-0.0485597552328048,-0.926519868945424,-0.529112658401098,-0.0334326104739837,-0.337276220667606,-0.401668882483817,-0.529829283599663,3.03475073858445,-0.356474268057257,-0.141334705812212,-0.115169750448433,-0.792255999102534,-0.782025012418288,-0.640259232181538,-1.10354665197866,0.431135338171748,-0.699047003316291,-0.593292172352531,-0.675739434664708,-0.643508580675852,-0.969053376437133,-1.07767468933769,-0.648663138629053,-0.777784131171635,-0.572997340044019,-1.12827035728027,-0.573927285878719,-1.10880835480906,-1.15392835685831,-0.705735319242114,-1.94935197449062,-0.856395516781561,-0.881188639921247,-0.623930747883314,-0.985780972426893,-0.653594946446002,-0.587785732853004,-0.827428575570595,-0.788883678990449,-0.81646386760397,-0.258157598865688,-0.941750427523028,-0.683721269185652,-0.625312094557636,-0.136301332027126,-1.17792310976047,1.43150968408435,5.22586611948719,35.7907701125201,2.2390832142517,7.56045526274877,-0.771126471106617,3.65026172378448,0.0112050193411801,-1.13448426255067,0.716453650355074,-0.864724394308017,-0.753441504044289,-0.83205887967294,2.21006232157655,3.47557676100351,-0.678177844591148,1.9939942352263,2.33094793801238,-1.61865163572557,4.06920435710443,-0.897736051495267,-0.677865059895528,-1.61063239942825,0.743414379303125,6.47659209610506,17.4418967340409,29.6016818987181,33.1852900676308,45.1260598963635,18.3953123167222,112.662430867001,5.2869861639865,10.661018683078,-0.931524415190541,-0.849801478670752,-0.511091778146309,-0.590234752913778,-0.719692516680375,-0.766579492766543,-0.663290416630428,3.80028014690236,-0.148208594171675,-0.748411793708138,-0.945691158140525,-0.890031336133393,1.40389058943039,-1.05133361560395,-0.83001990362911,-0.78196954759651,-0.919384020241926,0.0823036471325325,-1.00032540524777,0.36999423778839,-0.704747403436193,-0.588290391995166,0.134350837415567,-0.458955168758029,0.412861306249601,-0.111265606176234,-0.730097275669618,0.283630171366752,-0.629485423201995,-0.29342461572522,0.0150506948845397,-0.568773611347219,0.0931191856070597,-0.591069885877957,-0.267270515309076,-0.987789931362064,-1.0464112596745,-0.616561242189597,-0.783479961118502,-0.930801303882509,-0.979287915945018,-0.749899020590159,-0.707189258902567,-1.13898829470271,0.129213702197114,-0.835728477322286,-0.880736751011259,0.172960516634748,-0.795270569517644,-0.737840867495088,-0.112482787050426,-0.727931666053064,-0.845725781231405,-0.500030458461695,0.27978182411922,0.286626847396442,-0.883577742493784,-0.747145416637418,-0.452700861840107,-0.78109462588165,-0.588974817841326,-0.684215810223392,-0.527638101226352,-0.480203848856472,-0.612945508880524,-1.08753958878968,-0.0047254819426743,-0.30000048773438,-0.133524955879864,-0.382583788694719,-0.0953530269886693,-0.144998949772372,-0.220433405300338,-0.0562223368749288,-0.336121592941784,-0.297628006969397,-0.167488199700474,-0.305656684778375,0.0336660174640584,-0.16534760048648,-0.323905615904795,2.29018250893903,3.16084797089471,14.6577942650984,1.5847229095091,null,0.188110645457811,-0.391176232643533,1.26567539833581,-0.305046284369077,-0.548100221582364,-1.22839767220504],[0.219188560388624,0.0268214198590372,0.0284869710789783,0.0272529905577291,0.0255997025646267,0.0277441722722333,0.0271520717625837,0.0286380629433963,0.027306671029117,0.0278431127208192,0.0266617144555094,0.0266978068815398,0.0217725472585894,0.0268531958889813,0.0220823785599683,0.026271377989915,0.0233430171145828,0.0288521646403192,0.100120626905165,0.018702162647983,0.0216252237722596,0.362438261147436,0.0260538684980851,0.338405516483337,0.0184142819619521,0.00408005818664097,0.0468129416839451,0.043437947330823,0.0439493664290359,0.0468815818029365,0.0479337290593126,0.0467854149434646,0.0451516181516013,0.0467243059378488,0.0444592601045483,0.0401154929199191,0.0479244714587834,0.0413898161384946,0.0421752976926185,0.041273675281571,0.0478549906706294,0.0481526773273899,0.0486508779543635,0.0356588446550693,0.0438386196231417,0.0376659909427208,0.0476939669266182,0.0396744073800595,0.0421758730868407,0.0412016607935092,0.0418337504277031,0.0391418999765403,0.043749805369611,0.0362097331319303,0.0354579904283439,0.0442683722746356,0.0359098154894604,0.0424929001384771,0.0462200004057436,0.0446712585490122,0.0378705876987756,0.0373789281211369,10.3670305550863,0.014021357251037,0.00305076207479685,0.28244200134545,0.0237585107972477,0.0213389165403503,0.0234812484213615,0.020320530174756,0.0222094377443504,0.0251858014995885,0.0275419242776006,0.0304653207114937,0.0262190787099087,0.0269809345289064,0.0280672144018953,0.0454308637844231,0.0410789669229233,0.0422479483659724,0.039770392115123,0.0427041929912948,0.0440892143654888,0.283082256927058,0.0342895496853993,0.0201184649366785,0.0272049002334928,0.0289642166724142,0.0294511929425979,0.0285643612675241,0.030715565739956,0.0253938379170675,0.0286449500198378,0.0283439594753616,0.0286092384518804,0.0281914777125283,0.0299963911842064,0.0302774773745779,0.0290651482114524,0.0275754053526176,0.0288547218401744,0.0307592396356808,0.029523693859373,0.0311315487677571,0.031563654037408,0.0299399557114052,0.0128697170363509,0.0291303706947774,0.0303110021804817,0.028878801867437,0.0299791664261666,0.027086267954115,0.0305523876739047,0.029015431437669,0.0289688597372386,0.0291933748639392,0.0256253415532544,0.0295398811542705,0.0278321264268267,0.0264393620258898,0.0164516993756596,0.0118614311295599,0.00949300040557534,0.0162531272136254,0.0163743616941713,0.0904618035858758,0.017139007264392,0.0270868109267703,0.0244715601373215,0.0448928167683149,0.0593192725358656,0.04500925254559,0.0486733842110811,0.0507490579163863,0.0113170201374363,0.0926843986529375,0.00835626434082145,0.0597836999905693,0.032683847925658,0.0824143906115831,0.103449269411928,0.0408092711985054,0.0113896808530347,0.123101420593971,0.0122805975856396,3.4034415310604,1.21453299357192,0.414354152289941,0.190525621977376,0.145757321414656,0.398016772784036,0.323560429102862,1.30126998092767,0.373494937720443,0.376554348253304,0.0432614442367655,0.0431901015252721,0.0389343647803928,0.0403528142168218,0.0411416241970449,0.0385740689829842,0.0383170060827747,0.0369873438084842,0.0259081798753173,0.0295885969406274,0.0290440476320223,0.0305092414373926,0.0222959447863351,0.030569127072204,0.0287101138732146,0.0277656449841343,0.0289166002743151,0.0283538717839397,0.0286626976912051,0.0275607699953557,0.0268064927231271,0.0273054470319169,0.0237886548200304,0.0269037658064603,0.0214690946574559,0.027101356027929,0.0297588459508296,0.0271136860797607,0.0289641828031625,0.0237709876749293,0.0235917777104898,0.0270761692102101,0.0239885506254555,0.0277564109833548,0.0235220690489406,0.0313184039846203,0.0306888366152887,0.0276593203938915,0.0270783320649425,0.0291014255799711,0.0291796398896401,0.028353774404147,0.0277103678844072,0.0323609431769646,0.0235039480291628,0.0271364444200319,0.0292673836270831,0.0234707599937026,0.0248434103134615,0.0255939703000275,0.0244152311053742,0.0257013303394145,0.0286666520352547,0.0266692915342507,0.0235517050147079,0.0234795441661073,0.0293084226121301,0.0280922046236969,0.0266403962749559,0.0274406908961481,0.0278013376568,0.0272509109166684,0.0261166179056286,0.0235971669148707,0.0284883518976399,0.0313326226604353,0.0140745342881527,0.0235806772466473,0.0219157579780906,0.0237673360568985,0.0218400443407184,0.0223123676935417,0.02376490985449,0.0207619685561683,0.0235358043663149,0.0214313680151705,0.0227224880594495,0.0248846858669986,0.0211193614671528,0.0240601295781366,0.025241726665228,0.0153909533791729,0.0108967287279082,0.0184213199975517,0.01158420379351,0,0.209144622585822,0.0562508131300673,0.0172937736067331,0.0256937762916014,0.0256189669300333,0.101377496905886]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>vars<\/th>\n      <th>n<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n      <th>median<\/th>\n      <th>trimmed<\/th>\n      <th>mad<\/th>\n      <th>min<\/th>\n      <th>max<\/th>\n      <th>range<\/th>\n      <th>skew<\/th>\n      <th>kurtosis<\/th>\n      <th>se<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 ```r
-any(is.na(penguin.data$age))
+#需要注意的是，describe()函数不会帮你处理缺失值
 ```
-
-```
-## [1] TRUE
-```
+---
 
 
 

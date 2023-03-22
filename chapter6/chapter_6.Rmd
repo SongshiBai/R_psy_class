@@ -73,13 +73,14 @@ dim(penguin.data)
 # 描述性统计
 ## 计算
 <font size=5>
-&emsp;&emsp;如果我想知道被试的平均年龄怎么办？
+&emsp;&emsp;如果我想知道被试的平均年龄、中位数和标准差等统计量应该怎么办？
 </font><br>
 ```{r}
-
-mean(penguin.data$age)
-any(is.na(penguin.data$age))
+#使用psych包中的describe()函数
+DT::datatable(psych::describe(penguin.data))
+#需要注意的是，describe()函数不会帮你处理缺失值
 ```
+---
 
 
 
