@@ -27,13 +27,13 @@ class: center, middle
 &lt;span style="font-size: 40px;"&gt;描述性统计与数据可视化基础&lt;/span&gt;&lt;br&gt;
 &lt;span style="font-size: 30px;"&gt;胡传鹏&lt;/span&gt; &lt;br&gt;
 &lt;span style="font-size: 20px;"&gt; &lt;/span&gt; &lt;br&gt;
-&lt;span style="font-size: 30px;"&gt;2023-03-25&lt;/span&gt; &lt;br&gt;
+&lt;span style="font-size: 30px;"&gt;2023-03-26&lt;/span&gt; &lt;br&gt;
 &lt;span style="font-size: 20px;"&gt; Made with Rmarkdown&lt;/span&gt; &lt;br&gt;
 
 ---
 #回顾
-##批量读取数据（正则表达）
-##数据清理dplyr包的函数应用（filter, select, mutate等）
+##函数及用法
+##for loop
 &lt;br&gt;&lt;br&gt;
 #本节课内容
 ##探索性数据分析
@@ -41,6 +41,130 @@ class: center, middle
 ##--数据可视化基础
 ##----ggplot2介绍
 ##----ggplot2可视化基础
+
+---
+#回顾
+##函数及用法
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;我们已经接触和使用了不少函数了，但是我们对R中的函数还是有陌生的感觉，这时我们再重新看看函数的定义。
+&lt;/font&gt;
+
+```r
+df.mt.raw &lt;-  read.csv('./data/match/match_raw.csv',
+                       header = T, sep=",", stringsAsFactors = FALSE) 
+```
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;在R中函数有函数名和语句两个部分，以用的最多的read.csv()为例，read.csv是函数名，它是某一个操作的名字。而这个操作如何达成，需要的是()中的argument。&lt;br&gt;
+&amp;emsp;&amp;emsp;比如，read.csv在执行过程中，需要argument比如“file=…”来指定文件的路径、需要“header=…”来确定是否要使用第一行作为列名、需要“sep=…”来指定所读文件的分割符为什么，这些内容有些是必不可少的，比如没有file那么函数就无法知道你要打开的文件究竟是哪一个。&lt;br&gt;
+&amp;emsp;&amp;emsp;但也会疑惑我们例子中就没有写file=或是省略了很多东西，为什么argument却识别了呢，这和函数的argument有默认顺序和默认值。可以在Console中使用?read.csv来查看帮助文档，其中有顺序和默认值的设定。
+&lt;/font&gt;
+
+---
+#回顾
+##函数及用法
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;有同学反应不理解“TRUE ~ NA_real_”，其实也可以通过查找函数的帮助文档了解这个argument的作用。&lt;br&gt;
+&lt;/font&gt;   
+![p1](./picture/chp6/NA_real_.png)
+&lt;br&gt;
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;首先，查找case_when()，但是我们并未发现对这一语句的描述，这可能是因为该argument已经在最新的语句中有了替代。&lt;br&gt;
+&amp;emsp;&amp;emsp;因此，我们直接查找Na_real_，可以发现它表示这个默认值是一个缺失值（NA），并且是数值类型（real），那再结合case_when()的作用就很好理解了，那些“TRUE”，也即不在给出的任何条件中的值，被赋为NA。&lt;br&gt;
+&amp;emsp;&amp;emsp;同学们也可以尝试使用case_when()文档中提供的语句重新写这一句。
+&lt;/font&gt;
+
+---
+#回顾
+##函数及用法
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;关于函数，也有同学对group_by函数的作用不了解，我们还是可以使用函数的帮助文档了解具体的作用。此外，一个函数有什么作用最直接的是看结果。
+&lt;/font&gt;   
+
+```r
+group &lt;- df.mt.raw %&gt;% 
+  group_by(Shape)
+group#注意看数据框的第二行，有Groups:   Shape [4]的信息
+```
+
+```
+## # A tibble: 25,920 × 16
+## # Groups:   Shape [4]
+##    Date      Prac    Sub   Age Sex   Hand  Block   Bin Trial Shape Label Match
+##    &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 02-May-2… Exp    7302    22 fema… R         1     1     1 immo… immo… mism…
+##  2 02-May-2… Exp    7302    22 fema… R         1     1     2 mora… mora… mism…
+##  3 02-May-2… Exp    7302    22 fema… R         1     1     3 immo… immo… mism…
+##  4 02-May-2… Exp    7302    22 fema… R         1     1     4 mora… mora… mism…
+##  5 02-May-2… Exp    7302    22 fema… R         1     1     5 immo… immo… match
+##  6 02-May-2… Exp    7302    22 fema… R         1     1     6 immo… immo… match
+##  7 02-May-2… Exp    7302    22 fema… R         1     1     7 mora… mora… match
+##  8 02-May-2… Exp    7302    22 fema… R         1     1     8 mora… mora… match
+##  9 02-May-2… Exp    7302    22 fema… R         1     1     9 mora… mora… mism…
+## 10 02-May-2… Exp    7302    22 fema… R         1     1    10 immo… immo… mism…
+## # … with 25,910 more rows, and 4 more variables: CorrResp &lt;chr&gt;, Resp &lt;chr&gt;,
+## #   ACC &lt;int&gt;, RT &lt;dbl&gt;
+```
+---
+#回顾
+##函数及用法
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;当某一列作为group_by分类的对象时，生成的数据框具有此分类列的信息，这个信息是数据框的一个基本信息，你甚至无法删除这一列。
+&lt;/font&gt;   
+
+```r
+group &lt;- group %&gt;% 
+  select(-Shape)
+```
+
+```
+## Adding missing grouping variables: `Shape`
+```
+
+---
+# 回顾
+## 函数及用法
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
+&lt;/font&gt;
+
+```r
+library("tidyverse")
+df.mt.raw &lt;-  read.csv('./data/match/match_raw.csv',
+                       header = T, sep=",", stringsAsFactors = FALSE) 
+group &lt;- df.mt.raw %&gt;% 
+  group_by(.,Shape) %&gt;% 
+  summarise(n())
+DT::datatable(group)
+```
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-53832bca1a28609d7eab" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-53832bca1a28609d7eab">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["immoralOther","immoralSelf","moralOther","moralSelf"],[6480,6480,6480,6480]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Shape<\/th>\n      <th>n()<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+---
+# 回顾
+## 函数及用法
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
+&lt;/font&gt;
+
+```r
+ungroup &lt;- df.mt.raw %&gt;% 
+  summarise(n())
+DT::datatable(ungroup)
+```
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9426c4a98c138f0a0653" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9426c4a98c138f0a0653">{"x":{"filter":"none","vertical":false,"data":[["1"],[25920]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>n()<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+---
+# 回顾
+## 函数及用法
+&lt;font size=5&gt;
+&amp;emsp;&amp;emsp;从对比中可以看出，使用了group_by()后，实际上对数据框进行了分组，summarise针对的是每一个按照Shape列拆分开的数据框。
+&lt;/font&gt;
+
+```r
+remove(group,ungroup)
+```
 
 ---
 # 回顾
@@ -54,52 +178,6 @@ class: center, middle
 &amp;emsp;&amp;emsp;4. df_list[[i]] &lt;- df做的是将读取的结果放进数据框中&lt;br&gt;
 &amp;emsp;&amp;emsp;5.df.mt.out.fl &lt;- dplyr::bind_rows(df_list)的作用在于，因为数据框里每一行都是一个文件的结果，使用bind_rows将这些结果合进一个数据框中。
 &lt;/font&gt;
-
----
-# 回顾
-## group_by()
-&lt;font size=5&gt;
-&amp;emsp;&amp;emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
-&lt;/font&gt;
-
-```r
-df.mt.raw &lt;-  read.csv('./data/match/match_raw.csv',
-                       header = T, sep=",", stringsAsFactors = FALSE) 
-group &lt;- df.mt.raw %&gt;% 
-  group_by(.,Shape) %&gt;% 
-  summarise(n())
-DT::datatable(group)
-```
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-42a3259be50a4a784c43" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-42a3259be50a4a784c43">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["immoralOther","immoralSelf","moralOther","moralSelf"],[6480,6480,6480,6480]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Shape<\/th>\n      <th>n()<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
----
-# 回顾
-## group_by()
-&lt;font size=5&gt;
-&amp;emsp;&amp;emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
-&lt;/font&gt;
-
-```r
-ungroup &lt;- df.mt.raw %&gt;% 
-  summarise(n())
-DT::datatable(ungroup)
-```
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fe890912db8de8edc0a1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fe890912db8de8edc0a1">{"x":{"filter":"none","vertical":false,"data":[["1"],[25920]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>n()<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-
----
-# 回顾
-## group_by()
-&lt;font size=5&gt;
-&amp;emsp;&amp;emsp;从对比中可以看出，使用了group_by()后，实际上对数据框进行了分组，summarise针对的是每一个按照Shape列拆分开的数据框。
-&lt;/font&gt;
-
-```r
-remove(group,ungroup)
-```
-
 
 
 ---
@@ -150,8 +228,8 @@ colnames(df.mt.raw)#查看列名，观察有哪些变量
 DT::datatable(head(df.mt.raw,10))#了解数据内容
 ```
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-24fa7cba7c9e48fd029c" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-24fa7cba7c9e48fd029c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["02-May-2018_14:23:06","02-May-2018_14:23:08","02-May-2018_14:23:10","02-May-2018_14:23:13","02-May-2018_14:23:15","02-May-2018_14:23:17","02-May-2018_14:23:19","02-May-2018_14:23:21","02-May-2018_14:23:24","02-May-2018_14:23:26"],["Exp","Exp","Exp","Exp","Exp","Exp","Exp","Exp","Exp","Exp"],[7302,7302,7302,7302,7302,7302,7302,7302,7302,7302],[22,22,22,22,22,22,22,22,22,22],["female","female","female","female","female","female","female","female","female","female"],["R","R","R","R","R","R","R","R","R","R"],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,2,3,4,5,6,7,8,9,10],["immoralSelf","moralOther","immoralOther","moralSelf","immoralSelf","immoralSelf","moralOther","moralSelf","moralOther","immoralSelf"],["immoralSelf","moralOther","immoralOther","moralSelf","immoralSelf","immoralSelf","moralOther","moralSelf","moralOther","immoralSelf"],["mismatch","mismatch","mismatch","mismatch","match","match","match","match","mismatch","mismatch"],["n","n","n","n","m","m","m","m","n","n"],["m","n","n",null,"m","m","m","m","n","n"],[0,1,1,-1,1,1,1,1,1,1],[0.7561,0.7043,0.9903,1.042,0.8207,0.7547,0.5429,0.9009,0.9551,0.6952]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Date<\/th>\n      <th>Prac<\/th>\n      <th>Sub<\/th>\n      <th>Age<\/th>\n      <th>Sex<\/th>\n      <th>Hand<\/th>\n      <th>Block<\/th>\n      <th>Bin<\/th>\n      <th>Trial<\/th>\n      <th>Shape<\/th>\n      <th>Label<\/th>\n      <th>Match<\/th>\n      <th>CorrResp<\/th>\n      <th>Resp<\/th>\n      <th>ACC<\/th>\n      <th>RT<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,7,8,9,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-28c0e062f5d9809df854" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-28c0e062f5d9809df854">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["02-May-2018_14:23:06","02-May-2018_14:23:08","02-May-2018_14:23:10","02-May-2018_14:23:13","02-May-2018_14:23:15","02-May-2018_14:23:17","02-May-2018_14:23:19","02-May-2018_14:23:21","02-May-2018_14:23:24","02-May-2018_14:23:26"],["Exp","Exp","Exp","Exp","Exp","Exp","Exp","Exp","Exp","Exp"],[7302,7302,7302,7302,7302,7302,7302,7302,7302,7302],[22,22,22,22,22,22,22,22,22,22],["female","female","female","female","female","female","female","female","female","female"],["R","R","R","R","R","R","R","R","R","R"],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,2,3,4,5,6,7,8,9,10],["immoralSelf","moralOther","immoralOther","moralSelf","immoralSelf","immoralSelf","moralOther","moralSelf","moralOther","immoralSelf"],["immoralSelf","moralOther","immoralOther","moralSelf","immoralSelf","immoralSelf","moralOther","moralSelf","moralOther","immoralSelf"],["mismatch","mismatch","mismatch","mismatch","match","match","match","match","mismatch","mismatch"],["n","n","n","n","m","m","m","m","n","n"],["m","n","n",null,"m","m","m","m","n","n"],[0,1,1,-1,1,1,1,1,1,1],[0.7561,0.7043,0.9903,1.042,0.8207,0.7547,0.5429,0.9009,0.9551,0.6952]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Date<\/th>\n      <th>Prac<\/th>\n      <th>Sub<\/th>\n      <th>Age<\/th>\n      <th>Sex<\/th>\n      <th>Hand<\/th>\n      <th>Block<\/th>\n      <th>Bin<\/th>\n      <th>Trial<\/th>\n      <th>Shape<\/th>\n      <th>Label<\/th>\n      <th>Match<\/th>\n      <th>CorrResp<\/th>\n      <th>Resp<\/th>\n      <th>ACC<\/th>\n      <th>RT<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,7,8,9,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 ---
 # 探索性数据分析
@@ -163,8 +241,8 @@ DT::datatable(head(df.mt.raw,10))#了解数据内容
 DT::datatable(summary(df.mt.raw))
 ```
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a8680b4fe8bba8fcfaae" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a8680b4fe8bba8fcfaae">{"x":{"filter":"none","vertical":false,"data":[["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""],["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""],["    Date","    Date","    Date","    Date","    Date","    Date","    Prac","    Prac","    Prac","    Prac","    Prac","    Prac","     Sub","     Sub","     Sub","     Sub","     Sub","     Sub","     Age","     Age","     Age","     Age","     Age","     Age","    Sex","    Sex","    Sex","    Sex","    Sex","    Sex","    Hand","    Hand","    Hand","    Hand","    Hand","    Hand","    Block","    Block","    Block","    Block","    Block","    Block","     Bin","     Bin","     Bin","     Bin","     Bin","     Bin","    Trial","    Trial","    Trial","    Trial","    Trial","    Trial","   Shape","   Shape","   Shape","   Shape","   Shape","   Shape","   Label","   Label","   Label","   Label","   Label","   Label","   Match","   Match","   Match","   Match","   Match","   Match","  CorrResp","  CorrResp","  CorrResp","  CorrResp","  CorrResp","  CorrResp","    Resp","    Resp","    Resp","    Resp","    Resp","    Resp","     ACC","     ACC","     ACC","     ACC","     ACC","     ACC","      RT","      RT","      RT","      RT","      RT","      RT"],["Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Min.   : 7302  ","1st Qu.: 7313  ","Median : 7324  ","Mean   : 8853  ","3rd Qu.: 7336  ","Max.   :73370  ","Min.   :18.00  ","1st Qu.:19.00  ","Median :20.00  ","Mean   :20.83  ","3rd Qu.:22.00  ","Max.   :28.00  ","Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Min.   :1.000  ","1st Qu.:1.000  ","Median :1.000  ","Mean   :1.611  ","3rd Qu.:2.000  ","Max.   :3.000  ","Min.   :1.000  ","1st Qu.:1.000  ","Median :2.000  ","Mean   :2.417  ","3rd Qu.:3.000  ","Max.   :5.000  ","Min.   : 1.00  ","1st Qu.: 6.75  ","Median :12.50  ","Mean   :12.50  ","3rd Qu.:18.25  ","Max.   :24.00  ","Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Min.   :-1.0000  ","1st Qu.: 1.0000  ","Median : 1.0000  ","Mean   : 0.7959  ","3rd Qu.: 1.0000  ","Max.   : 2.0000  ","Min.   :0.1060  ","1st Qu.:0.6104  ","Median :0.7019  ","Mean   :0.7150  ","3rd Qu.:0.8053  ","Max.   :1.1831  "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Var1<\/th>\n      <th>Var2<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2cb4fe017b98ad2535c5" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2cb4fe017b98ad2535c5">{"x":{"filter":"none","vertical":false,"data":[["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""],["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""],["    Date","    Date","    Date","    Date","    Date","    Date","    Prac","    Prac","    Prac","    Prac","    Prac","    Prac","     Sub","     Sub","     Sub","     Sub","     Sub","     Sub","     Age","     Age","     Age","     Age","     Age","     Age","    Sex","    Sex","    Sex","    Sex","    Sex","    Sex","    Hand","    Hand","    Hand","    Hand","    Hand","    Hand","    Block","    Block","    Block","    Block","    Block","    Block","     Bin","     Bin","     Bin","     Bin","     Bin","     Bin","    Trial","    Trial","    Trial","    Trial","    Trial","    Trial","   Shape","   Shape","   Shape","   Shape","   Shape","   Shape","   Label","   Label","   Label","   Label","   Label","   Label","   Match","   Match","   Match","   Match","   Match","   Match","  CorrResp","  CorrResp","  CorrResp","  CorrResp","  CorrResp","  CorrResp","    Resp","    Resp","    Resp","    Resp","    Resp","    Resp","     ACC","     ACC","     ACC","     ACC","     ACC","     ACC","      RT","      RT","      RT","      RT","      RT","      RT"],["Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Min.   : 7302  ","1st Qu.: 7313  ","Median : 7324  ","Mean   : 8853  ","3rd Qu.: 7336  ","Max.   :73370  ","Min.   :18.00  ","1st Qu.:19.00  ","Median :20.00  ","Mean   :20.83  ","3rd Qu.:22.00  ","Max.   :28.00  ","Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Min.   :1.000  ","1st Qu.:1.000  ","Median :1.000  ","Mean   :1.611  ","3rd Qu.:2.000  ","Max.   :3.000  ","Min.   :1.000  ","1st Qu.:1.000  ","Median :2.000  ","Mean   :2.417  ","3rd Qu.:3.000  ","Max.   :5.000  ","Min.   : 1.00  ","1st Qu.: 6.75  ","Median :12.50  ","Mean   :12.50  ","3rd Qu.:18.25  ","Max.   :24.00  ","Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Length:25920      ","Class :character  ","Mode  :character  ",null,null,null,"Min.   :-1.0000  ","1st Qu.: 1.0000  ","Median : 1.0000  ","Mean   : 0.7959  ","3rd Qu.: 1.0000  ","Max.   : 2.0000  ","Min.   :0.1060  ","1st Qu.:0.6104  ","Median :0.7019  ","Mean   :0.7150  ","3rd Qu.:0.8053  ","Max.   :1.1831  "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Var1<\/th>\n      <th>Var2<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 ---
 # 探索性数据分析
@@ -178,8 +256,8 @@ DT::datatable(summary(df.mt.raw))
 DT::datatable(psych::describe(df.mt.raw))
 ```
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d32b79c86c9d826254a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d32b79c86c9d826254a9">{"x":{"filter":"none","vertical":false,"data":[["Date*","Prac*","Sub","Age","Sex*","Hand*","Block","Bin","Trial","Shape*","Label*","Match*","CorrResp*","Resp*","ACC","RT"],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],[25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25262,25920,25920],[12218.637808642,1,8852.59259259259,20.8333333333333,3.26851851851852,1.97685185185185,1.61111111111111,2.41666666666667,12.5,2.5,2.5,1.5,1.5,5.49564563375821,0.795949074074074,0.714950381944444],[6999.30300668651,0,9931.83282454298,2.47585664394733,0.654151598830517,0.150376806082834,0.803172843163903,1.36170415422529,6.92232008612875,1.11805555638763,1.11805555638763,0.500009645340819,0.500009645340819,0.508936839277716,0.463647210061578,0.150839365248012],[12220.5,1,7324,20,3,2,1,2,12.5,2.5,2.5,1.5,1.5,5,1,0.7019],[12219.0297550154,1,7324.23958333333,20.5277777777778,3.32638888888889,2,1.51388888888889,2.27083333333333,12.5,2.5,2.5,1.5,1.5,5.49524987629886,0.900559413580247,0.70775078125],[8920.0629,0,16.3086,1.4826,0,0,0,1.4826,8.8956,1.4826,1.4826,0.7413,0.7413,0,0,0.14336742],[1,1,7302,18,1,1,1,1,1,1,1,1,1,1,-1,0.106],[24362,1,73370,28,4,2,3,5,24,4,4,2,2,9,2,1.1831],[24361,0,66068,10,3,1,2,4,23,3,3,1,1,8,3,1.0771],[0.002205584773789,null,6.34183273983784,1.09360106540319,-0.837474641401227,-6.34184841679648,0.81544775433426,0.670628948712078,0,0,0,0,0,-0.0870917896363481,-2.16997928632925,0.359803276194032],[-1.19185000099972,null,38.2203865539336,0.348239273836282,1.58332877329476,38.2205159030299,-0.968678529764918,-0.815503330725821,-1.2043124771982,-1.36012654076884,-1.36012654076884,-2.00007715900539,-2.00007715900539,-0.333591646515496,4.12510599124587,0.237084145756967],[43.4747703279714,0,61.6895926023385,0.0153782882178076,0.00406313178493113,0.00093403544622367,0.00498874743054518,0.00845795292803221,0.0429966063183225,0.00694457840751138,0.00694457840751138,0.00310570987885453,0.00310570987885453,0.00320206411027399,0.00287985188687726,0.000936908539937427]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>vars<\/th>\n      <th>n<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n      <th>median<\/th>\n      <th>trimmed<\/th>\n      <th>mad<\/th>\n      <th>min<\/th>\n      <th>max<\/th>\n      <th>range<\/th>\n      <th>skew<\/th>\n      <th>kurtosis<\/th>\n      <th>se<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fcb7475d786c67d86fe6" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fcb7475d786c67d86fe6">{"x":{"filter":"none","vertical":false,"data":[["Date*","Prac*","Sub","Age","Sex*","Hand*","Block","Bin","Trial","Shape*","Label*","Match*","CorrResp*","Resp*","ACC","RT"],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],[25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25920,25262,25920,25920],[12218.637808642,1,8852.59259259259,20.8333333333333,3.26851851851852,1.97685185185185,1.61111111111111,2.41666666666667,12.5,2.5,2.5,1.5,1.5,5.49564563375821,0.795949074074074,0.714950381944444],[6999.30300668651,0,9931.83282454298,2.47585664394733,0.654151598830517,0.150376806082834,0.803172843163903,1.36170415422529,6.92232008612875,1.11805555638763,1.11805555638763,0.500009645340819,0.500009645340819,0.508936839277716,0.463647210061578,0.150839365248012],[12220.5,1,7324,20,3,2,1,2,12.5,2.5,2.5,1.5,1.5,5,1,0.7019],[12219.0297550154,1,7324.23958333333,20.5277777777778,3.32638888888889,2,1.51388888888889,2.27083333333333,12.5,2.5,2.5,1.5,1.5,5.49524987629886,0.900559413580247,0.70775078125],[8920.0629,0,16.3086,1.4826,0,0,0,1.4826,8.8956,1.4826,1.4826,0.7413,0.7413,0,0,0.14336742],[1,1,7302,18,1,1,1,1,1,1,1,1,1,1,-1,0.106],[24362,1,73370,28,4,2,3,5,24,4,4,2,2,9,2,1.1831],[24361,0,66068,10,3,1,2,4,23,3,3,1,1,8,3,1.0771],[0.002205584773789,null,6.34183273983784,1.09360106540319,-0.837474641401227,-6.34184841679648,0.81544775433426,0.670628948712078,0,0,0,0,0,-0.0870917896363481,-2.16997928632925,0.359803276194032],[-1.19185000099972,null,38.2203865539336,0.348239273836282,1.58332877329476,38.2205159030299,-0.968678529764918,-0.815503330725821,-1.2043124771982,-1.36012654076884,-1.36012654076884,-2.00007715900539,-2.00007715900539,-0.333591646515496,4.12510599124587,0.237084145756967],[43.4747703279714,0,61.6895926023385,0.0153782882178076,0.00406313178493113,0.00093403544622367,0.00498874743054518,0.00845795292803221,0.0429966063183225,0.00694457840751138,0.00694457840751138,0.00310570987885453,0.00310570987885453,0.00320206411027399,0.00287985188687726,0.000936908539937427]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>vars<\/th>\n      <th>n<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n      <th>median<\/th>\n      <th>trimmed<\/th>\n      <th>mad<\/th>\n      <th>min<\/th>\n      <th>max<\/th>\n      <th>range<\/th>\n      <th>skew<\/th>\n      <th>kurtosis<\/th>\n      <th>se<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 ```r
 #需要注意的是，describe()函数不会帮你处理缺失值，它会跳过缺失值。
@@ -236,7 +314,7 @@ ggplot2::ggplot(data = df.mt.raw,#指定数据
   theme_minimal()#设定绘图风格
 ```
 
-![](chapter_6_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](chapter_6_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 ---
 # 可视化
 ## 直方图
@@ -253,7 +331,7 @@ ggplot2::ggplot(data = df.mt.raw,#指定数据
   theme_minimal()#设定绘图风格
 ```
 
-![](chapter_6_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](chapter_6_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 ---
 # 可视化
 ## 密度图
@@ -269,7 +347,7 @@ ggplot2::ggplot(data = df.mt.raw,#指定数据
   theme_minimal()#设定绘图风格
 ```
 
-![](chapter_6_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](chapter_6_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 ---
 # 可视化
 ## 图层叠加
@@ -288,7 +366,7 @@ ggplot2::ggplot(data = df.mt.raw,#指定数据
   guides(alpha=FALSE)#隐藏透明度alpha设置带来的图例
 ```
 
-![](chapter_6_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](chapter_6_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 ---
 # 可视化
@@ -307,7 +385,7 @@ ggplot2::ggplot(data = df.mt.raw,#指定数据
   theme_minimal()#设定绘图风格
 ```
 
-![](chapter_6_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](chapter_6_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
 # 可视化
@@ -317,9 +395,9 @@ ggplot2::ggplot(data = df.mt.raw,#指定数据
 &lt;/font&gt;
 
 ```r
-ggplot2::ggplot(data = penguin.data,#指定数据
-                aes(x = penguin.data$Temperature_t1,
-                    y = penguin.data$Temperature_t2
+ggplot2::ggplot(data = df.pg.raw,#指定数据
+                aes(x = df.pg.raw$Temperature_t1,
+                    y = df.pg.raw$Temperature_t2
                     ))+#确定映射到xy轴的变量
   geom_point()+#绘制散点图
   scale_x_continuous(name = "Temperature_t1") + 
@@ -327,7 +405,7 @@ ggplot2::ggplot(data = penguin.data,#指定数据
   theme_minimal()#设定绘图风格
 ```
 
-![](chapter_6_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](chapter_6_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ---
 # 可视化
@@ -338,7 +416,7 @@ ggplot2::ggplot(data = penguin.data,#指定数据
 
 ```r
 #利用管道符，可以帮助我们更简洁地合并数据处理和可视化的过程。
-penguin.data %&gt;% 
+df.pg.raw %&gt;% 
   mutate(stress_ave = rowMeans(.[,c("stress1", "stress2", "stress3","stress4", "stress5", "stress6","stress7", "stress8", "stress9","stress10", "stress11", "stress12","stress13", "stress14")])) %&gt;%
   mutate(phone_ave = rowMeans(.[,c("phone1","phone2","phone3","phone4","phone5","phone6","phone7","phone8","phone9")])) %&gt;% 
   ggplot(aes(x=stress_ave, y=phone_ave))+
@@ -347,7 +425,7 @@ penguin.data %&gt;%
   theme_minimal()
 ```
 
-![](chapter_6_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](chapter_6_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ---
 #练习

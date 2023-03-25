@@ -23,8 +23,8 @@ class: center, middle
 
 ---
 #回顾
-##批量读取数据（正则表达）
-##数据清理dplyr包的函数应用（filter, select, mutate等）
+##函数及用法
+##for loop
 <br><br>
 #本节课内容
 ##探索性数据分析
@@ -32,6 +32,96 @@ class: center, middle
 ##--数据可视化基础
 ##----ggplot2介绍
 ##----ggplot2可视化基础
+
+---
+#回顾
+##函数及用法
+<font size=5>
+&emsp;&emsp;我们已经接触和使用了不少函数了，但是我们对R中的函数还是有陌生的感觉，这时我们再重新看看函数的定义。
+</font>
+```{r}
+df.mt.raw <-  read.csv('./data/match/match_raw.csv',
+                       header = T, sep=",", stringsAsFactors = FALSE) 
+```
+<font size=5>
+&emsp;&emsp;在R中函数有函数名和语句两个部分，以用的最多的read.csv()为例，read.csv是函数名，它是某一个操作的名字。而这个操作如何达成，需要的是()中的argument。<br>
+&emsp;&emsp;比如，read.csv在执行过程中，需要argument比如“file=…”来指定文件的路径、需要“header=…”来确定是否要使用第一行作为列名、需要“sep=…”来指定所读文件的分割符为什么，这些内容有些是必不可少的，比如没有file那么函数就无法知道你要打开的文件究竟是哪一个。<br>
+&emsp;&emsp;但也会疑惑我们例子中就没有写file=或是省略了很多东西，为什么argument却识别了呢，这和函数的argument有默认顺序和默认值。可以在Console中使用?read.csv来查看帮助文档，其中有顺序和默认值的设定。
+</font>
+
+---
+#回顾
+##函数及用法
+<font size=5>
+&emsp;&emsp;有同学反应不理解“TRUE ~ NA_real_”，其实也可以通过查找函数的帮助文档了解这个argument的作用。<br>
+</font>   
+![p1](./picture/chp6/NA_real_.png)
+<br>
+<font size=5>
+&emsp;&emsp;首先，查找case_when()，但是我们并未发现对这一语句的描述，这可能是因为该argument已经在最新的语句中有了替代。<br>
+&emsp;&emsp;因此，我们直接查找Na_real_，可以发现它表示这个默认值是一个缺失值（NA），并且是数值类型（real），那再结合case_when()的作用就很好理解了，那些“TRUE”，也即不在给出的任何条件中的值，被赋为NA。<br>
+&emsp;&emsp;同学们也可以尝试使用case_when()文档中提供的语句重新写这一句。
+</font>
+
+---
+#回顾
+##函数及用法
+<font size=5>
+&emsp;&emsp;关于函数，也有同学对group_by函数的作用不了解，我们还是可以使用函数的帮助文档了解具体的作用。此外，一个函数有什么作用最直接的是看结果。
+</font>   
+```{r}
+group <- df.mt.raw %>% 
+  group_by(Shape)
+group#注意看数据框的第二行，有Groups:   Shape [4]的信息
+```
+---
+#回顾
+##函数及用法
+<font size=5>
+&emsp;&emsp;当某一列作为group_by分类的对象时，生成的数据框具有此分类列的信息，这个信息是数据框的一个基本信息，你甚至无法删除这一列。
+</font>   
+```{r}
+group <- group %>% 
+  select(-Shape)
+```
+
+---
+# 回顾
+## 函数及用法
+<font size=5>
+&emsp;&emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
+</font>
+```{r}
+library("tidyverse")
+df.mt.raw <-  read.csv('./data/match/match_raw.csv',
+                       header = T, sep=",", stringsAsFactors = FALSE) 
+group <- df.mt.raw %>% 
+  group_by(.,Shape) %>% 
+  summarise(n())
+DT::datatable(group)
+```
+---
+# 回顾
+## 函数及用法
+<font size=5>
+&emsp;&emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
+</font>
+```{r}
+ungroup <- df.mt.raw %>% 
+  summarise(n())
+DT::datatable(ungroup)
+```
+
+---
+# 回顾
+## 函数及用法
+<font size=5>
+&emsp;&emsp;从对比中可以看出，使用了group_by()后，实际上对数据框进行了分组，summarise针对的是每一个按照Shape列拆分开的数据框。
+</font>
+```{r}
+remove(group,ungroup)
+ 
+```
 
 ---
 # 回顾
@@ -45,44 +135,6 @@ class: center, middle
 &emsp;&emsp;4. df_list[[i]] <- df做的是将读取的结果放进数据框中<br>
 &emsp;&emsp;5.df.mt.out.fl <- dplyr::bind_rows(df_list)的作用在于，因为数据框里每一行都是一个文件的结果，使用bind_rows将这些结果合进一个数据框中。
 </font>
-
----
-# 回顾
-## group_by()
-<font size=5>
-&emsp;&emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
-</font>
-```{r}
-df.mt.raw <-  read.csv('./data/match/match_raw.csv',
-                       header = T, sep=",", stringsAsFactors = FALSE) 
-group <- df.mt.raw %>% 
-  group_by(.,Shape) %>% 
-  summarise(n())
-DT::datatable(group)
-```
----
-# 回顾
-## group_by()
-<font size=5>
-&emsp;&emsp;对于group_by()函数的作用，我们可以对比不使用它的效果。
-</font>
-```{r}
-ungroup <- df.mt.raw %>% 
-  summarise(n())
-DT::datatable(ungroup)
-```
-
----
-# 回顾
-## group_by()
-<font size=5>
-&emsp;&emsp;从对比中可以看出，使用了group_by()后，实际上对数据框进行了分组，summarise针对的是每一个按照Shape列拆分开的数据框。
-</font>
-```{r}
-remove(group,ungroup)
- 
-```
-
 
 
 ---
@@ -250,9 +302,9 @@ ggplot2::ggplot(data = df.mt.raw,#指定数据
 &emsp;&emsp;而对于两个连续变量，我们可以使用散点图。比如，我们可以看看被试在做penguin问卷前后体温的关系。
 </font>
 ```{r fig.height=3.5, fig.width=6, message=FALSE, warning=FALSE}
-ggplot2::ggplot(data = penguin.data,#指定数据
-                aes(x = penguin.data$Temperature_t1,
-                    y = penguin.data$Temperature_t2
+ggplot2::ggplot(data = df.pg.raw,#指定数据
+                aes(x = df.pg.raw$Temperature_t1,
+                    y = df.pg.raw$Temperature_t2
                     ))+#确定映射到xy轴的变量
   geom_point()+#绘制散点图
   scale_x_continuous(name = "Temperature_t1") + 
@@ -268,7 +320,7 @@ ggplot2::ggplot(data = penguin.data,#指定数据
 </font>
 ```{r fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
 #利用管道符，可以帮助我们更简洁地合并数据处理和可视化的过程。
-penguin.data %>% 
+df.pg.raw %>% 
   mutate(stress_ave = rowMeans(.[,c("stress1", "stress2", "stress3","stress4", "stress5", "stress6","stress7", "stress8", "stress9","stress10", "stress11", "stress12","stress13", "stress14")])) %>%
   mutate(phone_ave = rowMeans(.[,c("phone1","phone2","phone3","phone4","phone5","phone6","phone7","phone8","phone9")])) %>% 
   ggplot(aes(x=stress_ave, y=phone_ave))+
