@@ -266,6 +266,13 @@ penguin.data %>%
 ## 4. 对两个数据中自己感兴趣的变量们进行可视化，也可以使用自己的数据。
 
 
+```{r}
+sel <- function(x){
+  if (x %% 2 == 1) return("ji")
+  else return("ou")
+}
+sel(7)
+```
 
 
 

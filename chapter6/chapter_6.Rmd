@@ -87,7 +87,7 @@ df.mt.raw <-  read.csv(file = './data/match/match_raw.csv',
 ```{r}
 library("tidyverse")
 group <- df.mt.raw %>% 
-  group_by(Shape)
+  group_by(Shape)z
 group#注意看数据框的第二行，有Groups:   Shape [4]的信息
 ```
 ---
